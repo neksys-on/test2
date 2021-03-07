@@ -1,0 +1,77 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Philosopher&display=swap');
+
+body {
+ /* font-family: 'Reggae One', cursive; */
+  /* font-family: 'Ubuntu Condensed'; */
+  /* font-family: 'Ruda'; */
+  font-family: 'Philosopher';
+  /* font-family: 'Pattaya'; */
+  /* font-family: 'PT Sans Caption'; */
+  /* font-family: 'Marck Script'; */
+  /* font-family: 'Gabriela'; */
+  /* font-family: 'Fira Sans Extra Condensed'; */
+
+  letter-spacing: 0.3px;
+  word-spacing: 2px;
+  line-height: 26px;
+  padding: 0 0 1rem 0;
+  max-width: 100%;
+  margin: 0 auto;
+
+  color: white;
+  overflow-x: hidden; /* скрывает все что находится за экраном по х */
+/* https://www.robmillsarchitects.com/files/land/city/RMA_Web_land_city_1.mp4 */
+  /* Убирает возможность выбирать текст что бы печатать или выделять его*/
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;
+
+  box-shadow: inset 0px 35px 50px 30px rgba(0,0,0,0.6);
+  border-radius: 11px;
+  min-height: 100vh;
+  height: 100%;
+
+  /* background-image: url("/fon121.png");
+  background-repeat: no-repeat;
+  background-attachment: local;
+  background-position: top;
+  background-size: auto; */
+}
+
+li,
+p {
+  line-height: 1.5rem;
+  color: #ffc168;
+}
+
+li:hover,
+p:hover {
+
+}
+
+a {
+  font-weight: 500;
+  color: #f48924;
+
+}
+
+hr {
+  border: 1px solid #ddd;
+}
+
+h1 {
+  color: #ffd900;
+
+}
+
+iframe {
+
+  border: 1px solid #ccc;
+  height: 100%;
+  width: 100%;
+
+}

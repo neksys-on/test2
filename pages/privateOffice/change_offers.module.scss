@@ -1,0 +1,80 @@
+@import '../control.scss';
+
+.div_main {
+  padding: 10px;
+  padding: 20px 40px 40px 20px;
+  background-image: url("/fon_311.jpg");
+  background-repeat: repeat;
+  background-attachment: local;
+  background-position: top;
+  background-size: auto;
+  border: 2px solid $color5;
+  box-shadow: 0px 0px 6px rgba(255, 66, 82, 0.8), 0px 0px 13px rgba(255, 66, 82, 0.4), 0px 0px 18px rgba(255, 255, 255, 0.7);
+  border-radius: 20px;
+  color: $color1;
+}
+
+.div_main input {
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -khtml-border-radius: 3px;
+  background: #333333 !important;
+  outline: none;
+  height: 26px;
+  width: 170px;
+  color: $color2;
+  font-size: 15px;
+  font-family: Tahoma;
+}
+
+.div_name_content {
+  margin-bottom: 20px;
+  margin-right: 40px;
+  padding: 10px;
+  border-bottom: 2px groove;
+  border-color: #333333;
+  border-radius: 4px;
+  padding: 3px;
+}
+
+.div_name_content:hover {
+  border-bottom: 2px solid;
+  border-color: $color6;
+  padding: 3px;
+}
+
+.div_content_menu {
+  display: flex;
+  flex-direction: row;
+
+}
+
+.div_block_order {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  flex-direction: row;
+  padding: 10px;
+  border-top: 1px solid $color4;
+  border-bottom: 1px solid $color4;
+  margin-bottom: 20px;
+}
+
+.div_block {
+  margin-right: 50px;
+}
+
+
+.div_id {
+
+}
+
+.div_id input{
+  margin-left: 5px;
+}
+
+.div_id button{
+  margin-left: 7px;
+}

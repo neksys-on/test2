@@ -1,0 +1,142 @@
+@import '../control.scss';
+
+.mainDiv {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: auto;
+  width: 100%;
+  min-height: 30vh;
+  flex-direction: column;
+  padding: 20px 40px 40px 20px;
+  background-image: url("/fon_311.jpg");
+  background-repeat: repeat;
+  background-attachment: local;
+  background-position: top;
+  background-size: auto;
+  border: 2px solid $color5;
+  box-shadow: 0px 0px 6px rgba(255, 66, 82, 0.8), 0px 0px 13px rgba(255, 66, 82, 0.4), 0px 0px 18px rgba(255, 255, 255, 0.7);
+  border-radius: 20px;
+  color: $color1;
+}
+
+.mainDiv button{
+  height: 30px;
+}
+
+.list {
+  display: flex;
+  justify-content: space-between;
+
+  flex-wrap: wrap;
+  flex-direction: row;
+  margin-bottom: 30px;
+  border: 1px solid #cccccc;
+  padding: 10px;
+}
+
+.list div{
+  margin-right: 1px;
+  display: flex;
+  flex-wrap: wrap;
+
+  margin: 5px;
+}
+
+.list h3{
+  margin: 0;
+  margin-right: 10px;
+}
+
+.inputN {
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -khtml-border-radius: 3px;
+  background: #333333 !important;
+  outline: none;
+  height: 26px;
+  width: 300px;
+  color: $color2;
+  font-size: 15px;
+  font-family: Tahoma;
+
+}
+
+.inputSize {
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -khtml-border-radius: 3px;
+  background: #333333 !important;
+  outline: none;
+  height: 26px;
+  width: 45px;
+  color: #fff;
+  font-size: 15px;
+  font-family: Tahoma;
+
+}
+
+.addInDataDiv {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: auto;
+  width: 100%;
+  min-height: 10vh;
+  flex-direction: column;
+  padding: 20px 40px 40px 20px;
+  background-image: url("/fon_311.jpg");
+  background-repeat: repeat;
+  background-attachment: local;
+  background-position: top;
+  background-size: auto;
+  border: 2px solid $color5;
+  box-shadow: 0px 0px 6px rgba(255, 66, 82, 0.8), 0px 0px 13px rgba(255, 66, 82, 0.4), 0px 0px 18px rgba(255, 255, 255, 0.7);
+  border-radius: 20px;
+}
+
+.addDataButton {
+  margin-left:  30px;
+
+}
+
+.deleteDiv {
+  margin-left:  20px;
+
+}
+.elem {
+  min-width: 47%;
+    justify-content: flex-end;
+}
+.elem2 {
+  min-width: 38%;
+    justify-content: flex-end;
+}
+
+.catalog_list {
+  border: 2px solid #cccccc;
+}
+
+.chose_list {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.name_list{
+  color: #89ba16;
+}
+.name_list2{
+  color: #ffc20e;
+}
+
+.simvol {
+  color: #fbb034;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

@@ -1,0 +1,52 @@
+.content {
+  min-height: 80vh;
+}
+
+.div_wrapper{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  z-index: -2;
+}
+
+.div_video {
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+}
+
+.div_video video {
+  position: fixed;
+  background: #c4cbde;
+  background-attachment: scroll;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+
+.div_fon {
+  position: fixed;
+  background-image: url("/fon121.png");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center;
+  background-size: auto;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  z-index: -3;
+}

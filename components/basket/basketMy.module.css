@@ -1,0 +1,64 @@
+.mainDiv {
+  width: 80px;
+  height: 75px;
+  border-radius: 10px;
+  background-image: url("/fonShtrih61.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.35s ease;
+}
+
+.mainDiv:hover {
+  transition: all 0.35s ease;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.7);
+  transform: translateX(1px) translateY(-1px) rotateZ(5deg);
+}
+
+
+.mainDiv:active {
+  opacity: 1;
+  transition: all 0.15s ease;
+  border: 5px;
+  box-shadow: 0 0 0 5px rgba(255, 255, 255, 1);
+  transform: translateX(1px) translateY(-1px) rotateZ(8deg);
+}
+
+.cardDiv{
+  transition: all 0.35s ease;
+  margin: 0 15px 0 0;
+  width: 50px;
+  height: 40px;
+  z-index: 2;
+  background-image: url("/basketIcon.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.cloudDiv {
+  position: absolute;
+  margin: 0px 0px 40px 52px;
+  width: 45px;
+  height: 35px;
+  z-index: 2;
+  background-image: url("/cloud.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cloudDiv span {
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  font-size: 16px;
+  margin: 0 0 6px 0;
+}

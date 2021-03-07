@@ -1,0 +1,386 @@
+@import '../../pages/control.scss';
+
+.mainDiv {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px 40px 40px 20px;
+  background-image: url("/fon_311.jpg");
+  background-repeat: repeat;
+  background-attachment: local;
+  background-position: top;
+  background-size: auto;
+  border: 2px solid $color5;
+  box-shadow: 0px 0px 6px rgba(255, 66, 82, 0.8), 0px 0px 13px rgba(255, 66, 82, 0.4), 0px 0px 18px rgba(255, 255, 255, 0.7);
+  border-radius: 20px;
+}
+
+.content {
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.imageDiv {
+  margin: 10px;
+  height: 120px;
+  width: 160px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center 40%;
+}
+
+.description {
+  margin-left:  15px;
+  margin-right:  15px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  min-width: 200px;
+  min-height: 100px;
+}
+
+.imageAndDescription {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.othersItem {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.description h1 {
+  margin: 6px 0 14px 0;
+  font-size: 26px;
+  letter-spacing: 1.2px;
+  color: $color3;
+}
+
+.description h2 {
+  margin: 0 0 10px 0;
+  font-size: 18px;
+  letter-spacing: 1.2px;
+  color: $color1;
+}
+
+.priceForOne h2 {
+  color: $color4;
+}
+
+.value h2 {
+  color: $color4;
+}
+
+.sum h2 {
+  color: $color4;
+}
+
+.priceForOne {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.priceForOne h2 {
+  margin: 6px 20px 14px 10px;
+  font-size: 16px;
+  text-transform: uppercase ;
+}
+
+.priceForOne h3 {
+  margin: 0 0 10px 0;
+  font-size: 22px;
+  letter-spacing: 1.2px;
+  text-align:center;
+  color: $color2;
+}
+
+.value {
+
+}
+
+.value h2 {
+  margin: 6px 20px 14px 10px;
+  font-size: 16px;
+  text-transform: uppercase ;
+}
+
+.value h3 {
+  margin: 0 0 10px 0;
+  font-size: 22px;
+  letter-spacing: 1.2px;
+  text-align:center;
+  color: $color2;
+}
+
+.valueChange {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.buttonDiv {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  outline: none;
+  width: 30px;
+  height: 30px;
+  margin: 5px;
+  border-radius: 50%;
+}
+
+.button h3 {
+  font-size: 21px;
+
+  color: black;
+}
+
+.sum {
+  margin: 0 20px 0 30px;
+}
+
+.sum h2 {
+  margin: 6px 20px 14px 10px;
+  font-size: 16px;
+  text-transform: uppercase ;
+}
+
+.sum h3 {
+  margin: 0 0 10px 0;
+  font-size: 22px;
+  letter-spacing: 1.2px;
+  text-align:center;
+  color: $color2;
+}
+
+.totalPrice {
+  margin: 10px 30px 0 65%;
+  font-size: 24px;
+  letter-spacing: 1.2px;
+  text-align:center;
+  color: $color3;
+}
+
+.Offer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.hr_div {
+  width: 99%;
+  border: 2px solid $color5;
+  box-shadow: 0px 0px 6px rgba(255, 66, 82, 0.8), 0px 0px 13px rgba(255, 66, 82, 0.4), 0px 0px 18px rgba(255, 255, 255, 0.7);
+  border-radius: 20px;
+}
+
+
+
+.cornerButton {
+  outline: none;
+  font-family: 'Lato', sans-serif;
+  letter-spacing: 0.02rem;
+  cursor: pointer;
+  background: transparent;
+  border: 0.2rem solid currentColor;
+  padding: 0.3rem 0.7rem;
+  font-size: 20px;
+  color: $color5;
+  position: relative;
+  transition: color 0.4s;
+}
+ .cornerButton:hover {
+	 color: $color5;
+}
+ .cornerButton:hover::before {
+	 width: 0;
+}
+ .cornerButton:hover::after {
+	 height: 0;
+}
+ .cornerButton:active {
+	 border-width: 0.24rem;
+}
+ .cornerButton span {
+	 position: relative;
+	 z-index: 2;
+}
+ .cornerButton::before, .cornerButton::after {
+	 content: '';
+	 position: absolute;
+	 background-image: url("/fon_311.jpg");
+	 z-index: 1;
+	 transition: all 0.3s;
+}
+ .cornerButton::before {
+	 width: calc(100% - 1rem);
+	 height: calc(101% + 1rem);
+	 top: -0.5rem;
+	 left: 50%;
+	 transform: translateX(-50%);
+}
+ .cornerButton::after {
+	 height: calc(100% - 1rem);
+	 width: calc(101% + 1rem);
+	 left: -0.5rem;
+	 top: 50%;
+	 transform: translateY(-50%);
+}
+
+
+
+
+div.butt {
+  width:115px;
+  z-index: 4;
+  padding: 20px;
+  padding-bottom: 10px;
+  display: flex;
+  height: 80px;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column;
+  transition: all 0.75s ease;
+  cursor: pointer;
+}
+div.butt a {
+  width: 100%;
+  max-width: 240px;
+  height: 54px;
+  padding: 8px;
+  font-size: 0.8rem;
+  font-weight: 900;
+  color: #ff1493;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: 0 0 0 1px inset rgba(236, 232, 225, 0.3);
+  position: relative;
+  margin: 10px 0;
+}
+div.butt a.white:hover > p {
+  color: #ece8e1;
+}
+div.butt a.white > p {
+  background: #ece8e1;
+  color: #0f1923;
+}
+div.butt a.white > p span.base {
+  border: 1px solid transparent;
+}
+div.butt a.transparent:hover > p {
+  color: #ece8e1;
+}
+div.butt a.transparent:hover > p span.text {
+  box-shadow: 0 0 0 1px #ece8e1;
+}
+div.butt a.transparent > p {
+  background: #0f1923;
+  color: #ece8e1;
+}
+div.butt a.transparent > p span.base {
+  border: 1px solid #ece8e1;
+}
+div.butt a:after, div.butt a:before {
+  content: "";
+  width: 1px;
+  position: absolute;
+  height: 8px;
+  background: #0f1923;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+div.butt a:before {
+  right: 0;
+  left: initial;
+}
+div.butt a p {
+  margin: 0;
+  height: 54px;
+  line-height: 54px;
+  box-sizing: border-box;
+  z-index: 1;
+  left: 0;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+div.butt a p span.base {
+  box-sizing: border-box;
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  border: 1px solid $color5;
+}
+div.butt a p span.base:before {
+  content: "";
+  width: 2px;
+  height: 2px;
+  left: -1px;
+  top: -1px;
+  background: #0f1923;
+  position: absolute;
+  transition: 0.3s ease-out all;
+}
+div.butt a p span.bg {
+  left: -5%;
+  position: absolute;
+  background: $color5;
+  width: 0;
+  height: 100%;
+  z-index: 3;
+  transition: 0.3s ease-out all;
+  transform: skewX(-10deg);
+}
+div.butt a p span.text {
+  font-size: 12px;
+  z-index: 4;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #fff;
+  font-weight: lighter;
+}
+div.butt a p span.text:after {
+  content: "";
+  width: 4px;
+  height: 4px;
+  right: 0;
+  bottom: 0;
+  background: #0f1923;
+  position: absolute;
+  transition: 0.3s ease-out all;
+  z-index: 5;
+}
+div.butt a:hover {
+  color: #ece8e1;
+}
+div.butt a:hover span.bg {
+  width: 110%;
+}
+div.butt a:hover span.text:after {
+  background: #ece8e1;
+}

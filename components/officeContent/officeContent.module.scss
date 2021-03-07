@@ -1,0 +1,25 @@
+@import '../../pages/control.scss';
+
+.div_main {
+  padding: 10px;
+}
+
+.div_name_content {
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+.div_block_order {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  flex-direction: row;
+  padding: 10px;
+  border-top: 1px solid $color4;
+  border-bottom: 1px solid $color4;
+  margin-bottom: 20px;
+}
+
+.div_block {
+  margin-right: 50px;
+}

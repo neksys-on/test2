@@ -1,0 +1,249 @@
+@import url('https://fonts.googleapis.com/css2?family=Tinos:ital,wght@1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+.mainDiv {
+  height: 90%;
+  width: 70%;
+  min-width: 350px;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:center;
+  font-family: 'Bitter', serif;
+  color: black;
+}
+
+.elementDiv {
+  box-shadow: 0px 0px 8px 1px rgba(244, 164, 96);
+  border-radius: 30px;
+  min-height: 380px;
+  width: 280px;
+  margin-right: 20px;
+  margin-bottom: 15px;
+  position: relative;
+  display: inline-block;
+  background-color: white;
+}
+.elementDiv:hover {
+  box-shadow: 0px 0px 14px 2px rgba(244, 164, 96);
+  transition-duration: .3s;
+}
+
+.imageSrc {
+  border-radius: 20px;
+  margin: 10px;
+  height: 220px;
+  width: 260px;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center 40%;
+}
+
+.titleItem, .descriptionItem {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:center;
+  line-height: 1.6rem;
+}
+.descriptionItem {
+  font-family: 'Tinos', serif;
+  margin-bottom: 10px;
+}
+
+.VolumeAndType {
+  width: 90%;
+  color: black;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:center;
+  font-family: 'Tinos', serif;
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-stretch: expanded;
+}
+
+.divAddToCartButton{
+    min-height: 48px;
+}
+
+.addToCartButton {
+  margin-top: 10px;
+  padding: 12px;
+  border-width: 3px;
+  border-color: #FF69B4;
+  border-radius: 20px;
+  width: 90%;
+  color: black;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:center;
+  font-family: 'Bitter', serif;
+  outline: none;
+}
+
+.addToCartButton:hover {
+  border-color: #FF1493;
+  border-left-width: 5px;
+  border-right-width: 5px;
+  transition-duration: .07s;
+}
+
+.addToCartButton:active {
+  background-color: #FFC0CB;
+  border-left-width: 8px;
+  border-right-width: 8px;
+    transition-duration: .1s;
+}
+
+.price {
+  margin-top: 20px;
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:center;
+  line-height: 1.6rem;
+
+  font-size: 30px;
+}
+
+
+
+
+ div.butt {
+	 display: flex;
+	 height: 80px;
+	 align-items: center;
+	 justify-content: center;
+	 flex-flow: column;
+}
+ div.butt a {
+	 width: 100%;
+	 max-width: 240px;
+	 height: 54px;
+	 padding: 8px;
+	 font-size: 0.8rem;
+	 font-weight: 900;
+	 color: #ff1493;
+	 text-align: center;
+	 text-transform: uppercase;
+	 text-decoration: none;
+	 box-shadow: 0 0 0 1px inset rgba(236, 232, 225, 0.3);
+	 position: relative;
+	 margin: 10px 0;
+}
+ div.butt a.white:hover > p {
+	 color: #ece8e1;
+}
+ div.butt a.white > p {
+	 background: #ece8e1;
+	 color: #0f1923;
+}
+ div.butt a.white > p span.base {
+	 border: 1px solid transparent;
+}
+ div.butt a.transparent:hover > p {
+	 color: #ece8e1;
+}
+ div.butt a.transparent:hover > p span.text {
+	 box-shadow: 0 0 0 1px #ece8e1;
+}
+ div.butt a.transparent > p {
+	 background: #0f1923;
+	 color: #ece8e1;
+}
+ div.butt a.transparent > p span.base {
+	 border: 1px solid #ece8e1;
+}
+ div.butt a:after, div.butt a:before {
+	 content: "";
+	 width: 1px;
+	 position: absolute;
+	 height: 8px;
+	 background: #0f1923;
+	 left: 0;
+	 top: 50%;
+	 transform: translateY(-50%);
+}
+ div.butt a:before {
+	 right: 0;
+	 left: initial;
+}
+ div.butt a p {
+	 margin: 0;
+	 height: 54px;
+	 line-height: 54px;
+	 box-sizing: border-box;
+	 z-index: 1;
+	 left: 0;
+	 width: 100%;
+	 position: relative;
+	 overflow: hidden;
+}
+ div.butt a p span.base {
+	 box-sizing: border-box;
+	 position: absolute;
+	 z-index: 2;
+	 width: 100%;
+	 height: 100%;
+	 left: 0;
+	 border: 1px solid #ff1493;
+}
+ div.butt a p span.base:before {
+	 content: "";
+	 width: 2px;
+	 height: 2px;
+	 left: -1px;
+	 top: -1px;
+	 background: #0f1923;
+	 position: absolute;
+	 transition: 0.3s ease-out all;
+}
+ div.butt a p span.bg {
+	 left: -5%;
+	 position: absolute;
+	 background: #ff1493;
+	 width: 0;
+	 height: 100%;
+	 z-index: 3;
+	 transition: 0.3s ease-out all;
+	 transform: skewX(-10deg);
+}
+ div.butt a p span.text {
+	 z-index: 4;
+	 width: 100%;
+	 height: 100%;
+	 position: absolute;
+	 left: 0;
+	 top: 0;
+   color: black;
+}
+ div.butt a p span.text:after {
+	 content: "";
+	 width: 4px;
+	 height: 4px;
+	 right: 0;
+	 bottom: 0;
+	 background: #0f1923;
+	 position: absolute;
+	 transition: 0.3s ease-out all;
+	 z-index: 5;
+}
+ div.butt a:hover {
+	 color: #ece8e1;
+}
+ div.butt a:hover span.bg {
+	 width: 110%;
+}
+ div.butt a:hover span.text:after {
+	 background: #ece8e1;
+}
