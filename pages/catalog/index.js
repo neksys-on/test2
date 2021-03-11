@@ -7,7 +7,7 @@ import Head from 'next/head'
 
 
 export async function getServerSideProps(context) {
-  const hostname = process.env.NEXTAUTH_URL || 'http://localhost:3000'
+  // const hostname = process.env.NEXTAUTH_URL || 'http://localhost:3000'
   const res_category = await JSON.parse(fs.readFileSync('./data/category.json'))
   const data_category = await res_category.category
   const data_category_version = await res_category.version
