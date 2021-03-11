@@ -7,6 +7,18 @@ import Link from 'next/link'
 import Router from "next/router"
 import Head from 'next/head'
 
+export async function getServerSideProps(context) {
+  const email_1 = process.env.ADMIN_EMAIL_1
+  const email_2 = process.env.ADMIN_EMAIL_2
+  const email_3 = process.env.ADMIN_EMAIL_3
+  return {
+    props: {
+      email_1: email_1,
+      email_2: email_2,
+      email_3: email_3
+    }, // will be passed to the page component as props
+  }
+}
 
 
 async function pushInData(infoPush) {
@@ -56,7 +68,7 @@ async function deleteData(id) {
   return data.id
 }
 
-export default function Page () {
+export default function Page ({email_1, email_2, email_3}) {
   const [dataProducts, setDataProducts] = useState([{id: 's'}])
   const [dataCategory, setDataCategory] = useState([])
   const [ session, loading ] = useSession()
@@ -272,7 +284,7 @@ export default function Page () {
   </Head><AccessDenied/></Layout> }
 
   // If session exists, display content
-  if (((session.user.email === process.env.ADMIN_EMAIL_1)||(session.user.email === process.env.ADMIN_EMAIL_2)||(session.user.email === process.env.ADMIN_EMAIL_3))&(listCategory !== undefined)&(listNoChose !== undefined)) {
+  if (((session.user.email === email_1)||(session.user.email === email_2)||(session.user.email === email_3))&(listCategory !== undefined)&(listNoChose !== undefined)) {
     return (
       <Layout propsBasket={sumItem}>
         <div style={{
@@ -493,7 +505,7 @@ export default function Page () {
     )
   }
   else {
-    if (((session.user.email === process.env.ADMIN_EMAIL_1)||(session.user.email === process.env.ADMIN_EMAIL_2)||(session.user.email === process.env.ADMIN_EMAIL_3))&((listCategory === undefined)||(listNoChose !== undefined))) {
+    if (((session.user.email === email_1)||(session.user.email === email_2)||(session.user.email === email_3))&((listCategory === undefined)||(listNoChose !== undefined))) {
       return (
         <Layout propsBasket={sumItem}>
           <div style={{

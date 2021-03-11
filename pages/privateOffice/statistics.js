@@ -6,7 +6,21 @@ import AccessDenied from '../../components/access-denied'
 import Head from 'next/head'
 
 
-export default function Page () {
+export async function getServerSideProps(context) {
+  const email_1 = process.env.ADMIN_EMAIL_1
+  const email_2 = process.env.ADMIN_EMAIL_2
+  const email_3 = process.env.ADMIN_EMAIL_3
+  return {
+    props: {
+      email_1: email_1,
+      email_2: email_2,
+      email_3: email_3
+    }, // will be passed to the page component as props
+  }
+}
+
+
+export default function Page ({email_1, email_2, email_3}) {
   const [ session, loading ] = useSession()
   const [ content , setContent ] = useState()
   const [sumItem, setSumItem] = useState('0')
@@ -69,7 +83,7 @@ export default function Page () {
     <meta name = "robots" content = "noindex, nofollow" />
   </Head><AccessDenied/></Layout> }
 
-  if ((session.user.email === process.env.ADMIN_EMAIL_1)||(session.user.email === process.env.ADMIN_EMAIL_2)||(session.user.email === process.env.ADMIN_EMAIL_3)) {
+  if ((session.user.email === email_1)||(session.user.email === email_2)||(session.user.email === email_3)) {
     let i = 2021
     // console.log(dataStatistics[2021])
     let dataYear = []
@@ -324,116 +338,15 @@ export default function Page () {
   )
 
   }
+  else {
+    return (
+      <Layout>
+        <Head>
+          <meta name = "robots" content = "noindex, nofollow" />
+        </Head>
+        <AccessDenied/>
+      </Layout>
+    )
+  }
 
 }
-
-
-
-
-
-
-
-
-//
-// <div className={styles.div_zagolovok}>Состояние на начало месяца:</div>
-// <div className={styles.div_table}>
-//   {data.initial_state!==undefined && <>
-//     {data.initial_state.map((com)=>(
-//       <div className={styles.div_item}>
-//         <div>id товара: {com.id}</div>
-//         <div>Название: {com.title}</div>
-//         <div>
-//           <div className={styles.div_state_of_price}>
-//             <div>Количество: {com.value}</div>
-//             {com.sale === 'true' && <>
-//               <div>по цене: {com.priceDiscount} ₽</div>
-//             </>}
-//             {com.sale !== 'true' && <>
-//               <div>по цене: {com.price} ₽</div>
-//             </>}
-//           </div>
-//         </div>
-//       </div>
-//     ))}
-//   </>}
-// </div>
-//
-// <div className={styles.div_zagolovok}>Приход:</div>
-// <div className={styles.div_table}>
-//   {data.coming!==undefined && <>
-//     {data.coming.map((com)=>(
-//       <div className={styles.div_item}>
-//         <div>id товара: {com.id}</div>
-//         <div>Название: {com.title}</div>
-//         <div>
-//           {com.state_of_prices.map((pr)=>(
-//             <div className={styles.div_state_of_price}>
-//               <div>Количество: {pr.value}</div>
-//               <div>по цене: {pr.price} ₽</div>
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     ))}
-//   </>}
-// </div>
-//
-// <div className={styles.div_zagolovok}>Списание:</div>
-// <div className={styles.div_table}>
-//   {data.write_off!==undefined && <>
-//     {data.write_off.map((com)=>(
-//       <div className={styles.div_item}>
-//         <div>id товара: {com.id}</div>
-//         <div>Название: {com.title}</div>
-//         <div>
-//           {com.state_of_prices.map((pr)=>(
-//             <div className={styles.div_state_of_price}>
-//               <div>Количество: {pr.value}</div>
-//               <div>по цене: {pr.price} ₽</div>
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     ))}
-//   </>}
-// </div>
-//
-// <div className={styles.div_zagolovok}>Расход:</div>
-// <div className={styles.div_table}>
-//   {data.expense!==undefined && <>
-//     {data.expense.map((com)=>(
-//       <div className={styles.div_item}>
-//         <div>id товара: {com.id}</div>
-//         <div>Название: {com.title}</div>
-//         <div>
-//           {com.state_of_prices.map((pr)=>(
-//             <div className={styles.div_state_of_price}>
-//               <div>Количество: {pr.value}</div>
-//               <div>по цене: {pr.price} ₽</div>
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     ))}
-//   </>}
-// </div>
-//
-// <div className={styles.div_zagolovok}>Состояние на конец месяца:</div>
-// <div className={styles.div_table}>
-//   {data.final_state!==undefined && <>
-//     {data.final_state.map((com)=>(
-//       <div className={styles.div_item}>
-//         <div>id товара: {com.id}</div>
-//         <div>Название: {com.title}</div>
-//         <div>
-//           {com.state_of_prices.map((pr)=>(
-//             <div className={styles.div_state_of_price}>
-//               <div>Количество: {pr.value}</div>
-//               <div>по цене: {pr.price} ₽</div>
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     ))}
-//   </>}
-// </div>

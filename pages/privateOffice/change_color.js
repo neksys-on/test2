@@ -19,10 +19,16 @@ export async function getServerSideProps(context) {
      colorObj[res[i]+res[i+1]+res[i+2]+res[i+3]+res[i+4]+res[i+5]+res[i+6]] = res[i+9]+res[i+10]+res[i+11]+res[i+12]+res[i+13]+res[i+14]+res[i+15]
    }
   }
+  const email_1 = process.env.ADMIN_EMAIL_1
+  const email_2 = process.env.ADMIN_EMAIL_2
+  const email_3 = process.env.ADMIN_EMAIL_3
 
   return {
     props: {
-      colorObj: colorObj
+      colorObj: colorObj,
+      email_1: email_1,
+      email_2: email_2,
+      email_3: email_3
     }, // will be passed to the page component as props
   }
 }
@@ -43,7 +49,7 @@ async function pushInData(infoPush) {
 }
 
 
-export default function Page ({colorObj}) {
+export default function Page ({colorObj, email_1, email_2, email_3}) {
   const [color1, setColor1] = useState(colorObj.$color1)
   const [color2, setColor2] = useState(colorObj.$color2)
   const [color3, setColor3] = useState(colorObj.$color3)
@@ -126,7 +132,7 @@ export default function Page ({colorObj}) {
   </Head><AccessDenied/></Layout> }
 
   // If session exists, display content
-  if ((session.user.email === process.env.ADMIN_EMAIL_1)||(session.user.email === process.env.ADMIN_EMAIL_2)||(session.user.email === process.env.ADMIN_EMAIL_3)) {
+  if ((session.user.email === email_1)||(session.user.email === email_2)||(session.user.email === email_3)) {
     return (
       <Layout propsBasket={sumItem}>
         <div style={{

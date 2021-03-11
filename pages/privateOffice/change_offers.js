@@ -8,6 +8,19 @@ import Router from "next/router"
 import Head from 'next/head'
 
 
+export async function getServerSideProps(context) {
+  const email_1 = process.env.ADMIN_EMAIL_1
+  const email_2 = process.env.ADMIN_EMAIL_2
+  const email_3 = process.env.ADMIN_EMAIL_3
+  return {
+    props: {
+      email_1: email_1,
+      email_2: email_2,
+      email_3: email_3
+    }, // will be passed to the page component as props
+  }
+}
+
 
 async function changeInData(id, whatChange, newInfo) {
   const response = await fetch('/api/data/changeData', {
@@ -27,7 +40,7 @@ async function changeInData(id, whatChange, newInfo) {
 }
 
 
-export default function Page () {
+export default function Page ({email_1, email_2, email_3}) {
   const [ session, loading ] = useSession()
   const [ content , setContent ] = useState()
   const [sumItem, setSumItem] = useState('0')
@@ -130,7 +143,7 @@ export default function Page () {
     <meta name = "robots" content = "noindex, nofollow" />
   </Head><AccessDenied/></Layout> }
 
-  if ((session.user.email === process.env.ADMIN_EMAIL_1)||(session.user.email === process.env.ADMIN_EMAIL_2)||(session.user.email === process.env.ADMIN_EMAIL_3)) {
+  if ((session.user.email === email_1)||(session.user.email === email_2)||(session.user.email === email_3)) {
     return (
       <Layout propsBasket={sumItem}>
         <div style={{
