@@ -69,7 +69,7 @@ export default function Page () {
     <meta name = "robots" content = "noindex, nofollow" />
   </Head><AccessDenied/></Layout> }
 
-  if ((session.user.email === 'neksyz@gmail.com')||(session.user.email === 'neksyz@gmail.com')) {
+  if ((session.user.email === process.env.ADMIN_EMAIL_1)||(session.user.email === process.env.ADMIN_EMAIL_2)||(session.user.email === process.env.ADMIN_EMAIL_3)) {
     let i = 2021
     // console.log(dataStatistics[2021])
     let dataYear = []

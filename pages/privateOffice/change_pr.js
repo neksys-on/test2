@@ -272,7 +272,7 @@ export default function Page () {
   </Head><AccessDenied/></Layout> }
 
   // If session exists, display content
-  if (((session.user.email === 'neksyz@gmail.com')||(session.user.email === 'neksyz@gmail.com'))&(listCategory !== undefined)&(listNoChose !== undefined)) {
+  if (((session.user.email === process.env.ADMIN_EMAIL_1)||(session.user.email === process.env.ADMIN_EMAIL_2)||(session.user.email === process.env.ADMIN_EMAIL_3))&(listCategory !== undefined)&(listNoChose !== undefined)) {
     return (
       <Layout propsBasket={sumItem}>
         <div style={{
@@ -493,7 +493,7 @@ export default function Page () {
     )
   }
   else {
-    if (((session.user.email === 'neksyz@gmail.com')||(session.user.email === 'neksyz@gmail.com'))&((listCategory === undefined)||(listNoChose !== undefined))) {
+    if (((session.user.email === process.env.ADMIN_EMAIL_1)||(session.user.email === process.env.ADMIN_EMAIL_2)||(session.user.email === process.env.ADMIN_EMAIL_3))&((listCategory === undefined)||(listNoChose !== undefined))) {
       return (
         <Layout propsBasket={sumItem}>
           <div style={{

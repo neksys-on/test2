@@ -130,7 +130,7 @@ export default function Page () {
     <meta name = "robots" content = "noindex, nofollow" />
   </Head><AccessDenied/></Layout> }
 
-  if ((session.user.email === 'neksyz@gmail.com')||(session.user.email === 'neksyz@gmail.com')) {
+  if ((session.user.email === process.env.ADMIN_EMAIL_1)||(session.user.email === process.env.ADMIN_EMAIL_2)||(session.user.email === process.env.ADMIN_EMAIL_3)) {
     return (
       <Layout propsBasket={sumItem}>
         <div style={{

@@ -131,7 +131,7 @@ export default function Page () {
   </Head><AccessDenied/></Layout> }
 
   // If session exists, display content
-  if ((session.user.email === 'neksyz@gmail.com')||(session.user.email === 'neksyz@gmail.com')) {
+  if ((session.user.email === process.env.ADMIN_EMAIL_1)||(session.user.email === process.env.ADMIN_EMAIL_2)||(session.user.email === process.env.ADMIN_EMAIL_3)) {
     return (
       <Layout propsBasket={sumItem}>
         <div style={{

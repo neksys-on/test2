@@ -17,7 +17,7 @@ export async function getServerSideProps(context) {
   // const res_products = await JSON.parse(fs.readFileSync('./data/products.json'))
   const data_products = await products.products
   const data_products_version = await products.version
-
+  
   return {
     props: {
       data_category: data_category,
