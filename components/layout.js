@@ -77,7 +77,7 @@ export default function Layout ({children, propsBasket}) {
 
   function  _onMouseMove(e) {
 
-    let newitem = {x: e.clientX+3, y: e.clientY+46, time: + new Date(), radius: state.length/3+100, rand: getRandomInt(10000000)}
+    let newitem = {x: e.clientX+5, y: e.clientY+50, time: + new Date(), radius: state.length/3+100, rand: getRandomInt(10000000)}
     state.push(newitem)
     if (state.length > 200) {
       state.shift()
@@ -109,8 +109,7 @@ if (show === '1') {
                 clip-path: url(#myClip);
               }
             `}</style>
-            <div className={styles.div_fon}>
-            </div>
+            <div className={styles.div_fon}></div>
           </div>
           <OpenVision/>
         </div>
@@ -140,8 +139,7 @@ if (show === '2') {
                 clip-path: url(#myClip);
               }
             `}</style>
-            <div className={styles.div_fon}>
-            </div>
+            <div className={styles.div_fon}></div>
           </div>
           <OpenVision/>
         </div>

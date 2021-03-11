@@ -2,6 +2,7 @@ import Layout from '../../components/layout.js'
 import path from 'path'
 import { useState, useEffect, useCallback } from 'react'
 import styles from './index.module.scss'
+import Head from 'next/head'
 
 
 export default function Page () {
@@ -26,6 +27,12 @@ export default function Page () {
         margin: 'auto',
         padding: '30px'
       }}>
+      <Head>
+        <title>Услови и сроки доставки товаров из Японии</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta name="description" content = "Лучшие товары из Японии по низким ценам для красоты и здоровья. Условия и сроки доставки лучшей Японской продукции."/>
+        <meta charset = "UTF-8"/>
+      </Head>
         <h1>Доставка и оплата</h1>
         <div className={styles.div_main}>
           <div className={styles.div_text}><h4>Отправка товаров осуществляется только после полной оплаты стоимости товаров и доставки.</h4>

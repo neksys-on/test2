@@ -3,6 +3,7 @@ const fs = require('fs');
 import path from 'path'
 import { useState, useEffect, useCallback } from 'react'
 import styles from './index.module.scss'
+import Head from 'next/head'
 
 
 export async function getServerSideProps(context) {
@@ -125,6 +126,12 @@ export default function Page ({data_category, data_category_version, data_produc
 if ( show === 'Каталог' ) {
   return (
     <Layout propsBasket={sumItem}>
+    <Head>
+      <title>Каталог товаров из Японии, доступных для покупки.</title>
+      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      <meta name="description" content = "Каталог товаров из Японии для красоты и здоровья. Здесь, среди лучшей Японской продукции, вы можете выбрать то, что вам необходимо."/>
+      <meta charset = "UTF-8"/>
+    </Head>
       <h1 style={{
         width: '90%',
         margin: 'auto',
@@ -325,8 +332,10 @@ if ( show !== 'Каталог' ) {
                           volume:`${product.volume}`,
                           typeVolume:`${product.typeVolume}`,
                           price:`${product.price}`,
+                          priceDiscount: `${product.priceDiscount}`,
                           typePrice:`${product.typePrice}`,
-                          url:`${product.url}`
+                          url:`${product.url}`,
+                          sale: `${product.sale}`
                         })
                         localStorStr = JSON.stringify(localStorJson)
                       }
@@ -339,8 +348,10 @@ if ( show !== 'Каталог' ) {
                           volume:`${product.volume}`,
                           typeVolume:`${product.typeVolume}`,
                           price:`${product.price}`,
+                          priceDiscount: `${product.priceDiscount}`,
                           typePrice:`${product.typePrice}`,
-                          url:`${product.url}`
+                          url:`${product.url}`,
+                          sale: `${product.sale}`
                         })
                         localStorStr = JSON.stringify(localStorJson)
                       }

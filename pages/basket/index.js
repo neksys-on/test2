@@ -1,6 +1,7 @@
 import Layout from '../../components/layout'
 import ProductInBasket from '../../components/product/productInBasket.js'
 import { useState, useEffect } from 'react'
+import Head from 'next/head'
 
 
 export default function Page () {
@@ -23,6 +24,9 @@ export default function Page () {
 
   return (
     <Layout propsBasket={sumItem}>
+    <Head>
+      <meta name = "robots" content = "noindex, nofollow" />
+    </Head>
       <h1 style={{
         width: '90%',
         margin: 'auto',

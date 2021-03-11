@@ -2,6 +2,7 @@ import Layout from '../components/layout'
 import { useState, useEffect, useCallback } from 'react'
 import path from 'path'
 import styles from './index.module.scss'
+import Head from 'next/head'
 
 
 
@@ -38,19 +39,23 @@ export default function Page () {
       setSumItem('0')
     }
 
-
-
   })
 
 
-
-
-return (<Layout propsBasket={sumItem}>
+return (
+  <Layout propsBasket={sumItem}>
+  <Head>
+    <title>Товары из Японии по низким ценам</title>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+    <meta name="description" content = "Лучшие товары из Японии по низким ценам для красоты и здоровья. Прямые поставки из Японии, кратчайшие сроки. Только лучшая Японская продукция."/>
+    <meta charset = "UTF-8"/>
+  </Head>
   <div style={{
     width: '90%',
     margin: 'auto',
     marginTop: '51px'
   }}>
+
     <div className={styles.div_presentations}>
       <div className={styles.div_main_text}>
         <div className={styles.div_zagolovok}>Маленькая япония</div>

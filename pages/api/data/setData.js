@@ -13,6 +13,11 @@ export default async function (req, res) {
     const  {db} = await connect()
     let needData
     let version_total
+    let allDataStatistics
+    let needData_Statistics
+    let version_total_Statistics
+    let needData4
+
 
     const allData = await db.collection(`${typeData}`).findOne()
     let dataDB_version = allData.version
@@ -40,12 +45,18 @@ export default async function (req, res) {
 
       if (!duplicate) {
         let id
-        if (needData.length > 0) {
-         id = String(Number(needData[needData.length-1].id) + 1)
+        if (typeData === 'products') {
+          id = String(Number(allData.next_id))
         }
-        else (
-         id = 1
-        )
+        else {
+          if (needData.length > 0) {
+           id = String(Number(needData[needData.length-1].id) + 1)
+          }
+          else {
+           id = '1'
+          }
+        }
+
         pushData.id = id
         if (typeData === 'orders') {
           pushData.state = {
@@ -72,26 +83,125 @@ export default async function (req, res) {
 
         needData.push(pushData)
 
-        const writeData = async () => {
-          const jsonfordata = {
-            version: version_total,
-            [typeData]: needData
+        if (typeData === 'products') {
+          let year= new Date().getFullYear()
+          let mounth= new Date().getMonth()+1
+          let price
+
+          allDataStatistics = await db.collection('statistics').findOne()
+          let dataDB_version_Statistics = allDataStatistics.version
+          let resStatistics = await JSON.parse(fs.readFileSync(`./data/statistics.json`))
+          let data_version_Statistics = resStatistics.version
+          if (dataDB_version_Statistics > data_version_Statistics) {
+            needData_Statistics = await allDataStatistics.statistics
+            version_total_Statistics = Number(dataDB_version_Statistics) + 1
           }
-          fs.writeFile(`./data/${typeData}.json`, JSON.stringify(jsonfordata), function (err) {
-              if (err) {
-                  console.error(err);
-              }
-          });
+          else {
+            needData_Statistics = await resStatistics.statistics
+            version_total_Statistics = Number(data_version_Statistics) + 1
+          }
+
+          if (needData_Statistics[year][mounth] === undefined) {
+            needData_Statistics[year][mounth] = {
+              coming: [],
+              write_off: [],
+              expense: [],
+              initial_state: [],
+              final_state: []
+            }
+
+            const allDataProd = await db.collection('products').findOne()
+            let dataDB_version2 = allDataProd.version
+            let res2 = await JSON.parse(fs.readFileSync(`./data/products.json`))
+            let data_version2 = res2.version
+            if (dataDB_version2 > data_version2) {
+              needData4 = await allDataProd.products
+            }
+            else {
+              needData4 = await res2.products
+            }
+
+            needData_Statistics[year][mounth].initial_state = needData4
+          } // needData_Statistics[year][mounth] === undefined
+
+          pushData.sale ? price = pushData.priceDiscount : price = pushData.price
+          needData_Statistics[year][mounth].coming.push({
+            id: pushData.id,
+            title: pushData.title,
+            state_of_prices: [
+              {value: pushData.value, price: price}
+            ]
+          })
+
+
+        }
+
+        const writeData = async () => {
+          if (typeData === 'products') {
+            const jsonfordata = {
+              version: version_total,
+              next_id: String(Number(allData.next_id)+1),
+              [typeData]: needData
+            }
+            fs.writeFile(`./data/${typeData}.json`, JSON.stringify(jsonfordata), function (err) {
+                if (err) {
+                    console.error(err);
+                }
+            });
+
+            const jsonfordata3 = {
+              version: version_total_Statistics,
+              statistics: needData_Statistics
+            }
+            fs.writeFile(`./data/statistics.json`, JSON.stringify(jsonfordata3), function (err) {
+                if (err) {
+                    console.error(err);
+                }
+            });
+          } else {
+            const jsonfordata = {
+              version: version_total,
+              [typeData]: needData
+            }
+            fs.writeFile(`./data/${typeData}.json`, JSON.stringify(jsonfordata), function (err) {
+                if (err) {
+                    console.error(err);
+                }
+            });
+          }
+
         }
         writeData()
 
-        const result = await db.collection(`${typeData}`).updateOne(
-          { _id: allData._id },
-          {$set:{
-            "version": version_total,
-            [typeData]: needData
-          }}
-        )
+
+        if (typeData === 'products') {
+          const result = await db.collection(`${typeData}`).updateOne(
+            { _id: allData._id },
+            {$set:{
+              "version": version_total,
+              "next_id": String(Number(allData.next_id)+1),
+              [typeData]: needData
+            }}
+          )
+
+          await db.collection(`statistics`).updateOne(
+            { _id: allDataStatistics._id },
+            {$set:{
+              "version": version_total_Statistics,
+              statistics: needData_Statistics
+            }}
+          )
+        } else {
+          const result = await db.collection(`${typeData}`).updateOne(
+            { _id: allData._id },
+            {$set:{
+              "version": version_total,
+              [typeData]: needData
+            }}
+          )
+        }
+
+
       }
 
       if (typeData === 'orders') {

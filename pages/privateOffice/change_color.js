@@ -6,6 +6,8 @@ import styles from './change_color.module.scss'
 import Link from 'next/link'
 import Router from "next/router"
 const fs = require('fs');
+import Head from 'next/head'
+
 
 export async function getServerSideProps(context) {
   const hostname = process.env.NEXTAUTH_URL || 'http://localhost:3000'
@@ -17,25 +19,6 @@ export async function getServerSideProps(context) {
      colorObj[res[i]+res[i+1]+res[i+2]+res[i+3]+res[i+4]+res[i+5]+res[i+6]] = res[i+9]+res[i+10]+res[i+11]+res[i+12]+res[i+13]+res[i+14]+res[i+15]
    }
   }
-
-  // const obj2 = {
-  //   [res[0]+res[1]+res[2]+res[3]+res[4]+res[5]+res[6]] : res[9]+res[10]+res[11]+res[12]+res[13]+res[14]+res[15],
-  //   [res[19]+res[20]+res[21]+res[22]+res[23]+res[24]+res[25]] : res[28]+res[29]+res[30]+res[31]+res[32]+res[33]+res[34],
-  //   [res[38]+res[39]+res[40]+res[41]+res[42]+res[43]+res[44]] : res[47]+res[48]+res[49]+res[50]+res[51]+res[52]+res[53],
-  //   [res[57]+res[58]+res[59]+res[60]+res[61]+res[62]+res[63]] : res[66]+res[67]+res[68]+res[69]+res[70]+res[71]+res[72],
-  //   [res[76]+res[77]+res[78]+res[79]+res[80]+res[81]+res[82]] : res[85]+res[86]+res[87]+res[88]+res[89]+res[90]+res[91],
-  //   [res[95]+res[96]+res[97]+res[98]+res[99]+res[100]+res[101]] : res[104]+res[105]+res[106]+res[107]+res[108]+res[109]+res[110]
-  // }
-  // console.log(obj)
-  // console.log(obj2)
-  // const text_color = '$color1: '+obj.$color1+';'+'\n'+'$color2: '+obj.$color2+';'+'\n'+'$color3: '+obj.$color3+';'+'\n'+'$color4: '+obj.$color4+';'+'\n'+'$color5: '+obj.$color5+';'+'\n'+'$color6: '+obj.$color6+';'
-  // console.log(text_color)
-  // fs.writeFile(`./pages/control2.scss`, (text_color), function (err) {
-  //     if (err) {
-  //         console.error(err);
-  //     }
-  // })
-
 
   return {
     props: {
@@ -138,7 +121,9 @@ export default function Page ({colorObj}) {
   if (typeof window !== 'undefined' && loading) return null
 
   // If no session exists, display access denied message
-  if (!session) { return  <Layout><AccessDenied/></Layout> }
+  if (!session) { return  <Layout><Head>
+    <meta name = "robots" content = "noindex, nofollow" />
+  </Head><AccessDenied/></Layout> }
 
   // If session exists, display content
   if ((session.user.email === 'neksyz@gmail.com')||(session.user.email === 'neksyz@gmail.com')) {
@@ -149,6 +134,9 @@ export default function Page ({colorObj}) {
           margin: 'auto',
           padding: '30px'
         }}>
+        <Head>
+          <meta name = "robots" content = "noindex, nofollow" />
+        </Head>
           <h1>Protected Page</h1>
           <h2>Редактирование цветовой гаммы сайта</h2>
           <div className={styles.mainDiv}>
@@ -236,6 +224,9 @@ export default function Page ({colorObj}) {
           margin: 'auto',
           padding: '30px'
         }}>
+        <Head>
+          <meta name = "robots" content = "noindex, nofollow" />
+        </Head>
         <h1>Protected Page</h1>
         <h2>У вас нет прав на внесение измениний</h2>
 

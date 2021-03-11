@@ -2,6 +2,7 @@
 import { getSession } from 'next-auth/client'
 import Layout from '../components/layout'
 import AccessDenied from '../components/access-denied'
+import Head from 'next/head'
 
 export default function Page ({ content, session }) {
   // If no session exists, display access denied message
@@ -10,6 +11,9 @@ export default function Page ({ content, session }) {
   // If session exists, display content
   return (
     <Layout>
+    <Head>
+      <meta name = "robots" content = "noindex, nofollow" />
+    </Head>
       <h1>Protected Page</h1>
       <p><strong>{content}</strong></p>
     </Layout>

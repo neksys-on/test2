@@ -5,6 +5,8 @@ import AccessDenied from '../../components/access-denied'
 import styles from './change_k.module.scss'
 import Link from 'next/link'
 import Router from "next/router"
+import Head from 'next/head'
+
 
 
 async function pushInData(infoPush) {
@@ -117,14 +119,16 @@ export default function Page () {
   }, []);
 
   const onClickDeletData = React.useCallback((e) => {
-    deleteData(e.target.id).then(setTimeout(Router.reload, 700))
+    deleteData(e.target.id)
   }, []);
 
   // When rendering client side don't display anything until loading is complete
   if (typeof window !== 'undefined' && loading) return null
 
   // If no session exists, display access denied message
-  if (!session) { return  <Layout><AccessDenied/></Layout> }
+  if (!session) { return  <Layout><Head>
+    <meta name = "robots" content = "noindex, nofollow" />
+  </Head><AccessDenied/></Layout> }
 
   // If session exists, display content
   if ((session.user.email === 'neksyz@gmail.com')||(session.user.email === 'neksyz@gmail.com')) {
@@ -135,6 +139,9 @@ export default function Page () {
           margin: 'auto',
           padding: '30px'
         }}>
+        <Head>
+          <meta name = "robots" content = "noindex, nofollow" />
+        </Head>
           <h1>Protected Page</h1>
           <h2>Список категорий каталога товаров</h2>
           <div className={styles.mainDiv}>
@@ -189,6 +196,9 @@ export default function Page () {
           margin: 'auto',
           padding: '30px'
         }}>
+        <Head>
+          <meta name = "robots" content = "noindex, nofollow" />
+        </Head>
         <h1>Protected Page</h1>
         <h2>У вас нет прав на внесение измениний</h2>
 

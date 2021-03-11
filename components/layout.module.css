@@ -22,31 +22,34 @@
 
 .div_video video {
   position: fixed;
-  background: #c4cbde;
-  background-attachment: scroll;
   top: 50%;
-  left: 50%;
+  left: 49.99%;
   min-width: 100%;
-  min-height: 100%;
+  min-height: 110.5vh;
+  max-height: 110.5vh;
   width: auto;
-  height: auto;
   transform: translate(-50%, -50%);
   z-index: -1;
-}
-
-.div_fon {
-  position: fixed;
   background-image: url("/fon121.png");
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center;
-  background-size: auto;
+  background-size: contain;
+}
+
+.div_fon {
+  position: fixed;
   top: 50%;
-  left: 50%;
+  left: 49.99%;
   min-width: 100%;
-  min-height: 100%;
+  min-height: 111vh;
   width: auto;
-  height: auto;
+  max-height: 111vh;
   transform: translate(-50%, -50%);
   z-index: -3;
+  background-image: url("/fon121.png");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center;
+  background-size: contain;
 }

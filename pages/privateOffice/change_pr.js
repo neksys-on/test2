@@ -5,6 +5,8 @@ import AccessDenied from '../../components/access-denied'
 import styles from './change_pr.module.scss'
 import Link from 'next/link'
 import Router from "next/router"
+import Head from 'next/head'
+
 
 
 async function pushInData(infoPush) {
@@ -265,7 +267,9 @@ export default function Page () {
   if (typeof window !== 'undefined' && loading) return null
 
   // If no session exists, display access denied message
-  if (!session) { return  <Layout><AccessDenied/></Layout> }
+  if (!session) { return  <Layout><Head>
+    <meta name = "robots" content = "noindex, nofollow" />
+  </Head><AccessDenied/></Layout> }
 
   // If session exists, display content
   if (((session.user.email === 'neksyz@gmail.com')||(session.user.email === 'neksyz@gmail.com'))&(listCategory !== undefined)&(listNoChose !== undefined)) {
@@ -276,6 +280,9 @@ export default function Page () {
           margin: 'auto',
           padding: '30px'
         }}>
+        <Head>
+          <meta name = "robots" content = "noindex, nofollow" />
+        </Head>
           <h1>Protected Page</h1>
           <h2>Список товаров</h2>
           <div className={styles.mainDiv}>
@@ -494,6 +501,9 @@ export default function Page () {
             margin: 'auto',
             padding: '30px'
           }}>
+          <Head>
+            <meta name = "robots" content = "noindex, nofollow" />
+          </Head>
           <h1>Protected Page</h1>
           <h2>Загрузка ...</h2>
 
@@ -510,6 +520,9 @@ export default function Page () {
             margin: 'auto',
             padding: '30px'
           }}>
+          <Head>
+            <meta name = "robots" content = "noindex, nofollow" />
+          </Head>
           <h1>Protected Page</h1>
           <h2>У вас нет прав на внесение измениний</h2>
 

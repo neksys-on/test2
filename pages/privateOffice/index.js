@@ -6,6 +6,8 @@ import Link from 'next/link'
 import Router from "next/router"
 import styles from './index.module.scss'
 import OfficeContent from '../../components/officeContent/officeContent.js'
+import Head from 'next/head'
+
 
 
 
@@ -57,6 +59,9 @@ if ((session.user.email === 'neksyz@gmail.com')||(session.user.email === 'neksyz
         paddingRight: '30px',
         paddingTop: '30px'
       }}>
+      <Head>
+        <meta name = "robots" content = "noindex, nofollow" />
+      </Head>
         <h1>Личный кабинет</h1>
         <p>
          Администратор
@@ -70,6 +75,7 @@ if ((session.user.email === 'neksyz@gmail.com')||(session.user.email === 'neksyz
           <li onClick={() => {Router.push('/privateOffice/change_pr')}}>Управление Товарами</li>
           <li onClick={() => {Router.push('/privateOffice/change_offers')}}>Управление Заказами</li>
           <li onClick={() => {Router.push('/privateOffice/change_color')}}>Управление Цветовой гаммой</li>
+          <li onClick={() => {Router.push('/privateOffice/statistics')}}>Статистика Товаров</li>
         </div>
         <div className={styles.otstup}></div>
         <div className={styles.div_main}>

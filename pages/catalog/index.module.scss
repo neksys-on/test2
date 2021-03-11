@@ -2,7 +2,7 @@
 
 .div_main {
   margin: 0 auto;
-  font-family: 'Poppins', sans-serif;
+
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -240,7 +240,7 @@
   flex-wrap: wrap;
   justify-content:center;
   line-height: 2.6rem;
-  font-family: 'Pacifico', cursive;
+
   font-size: 30px;
   transition: all 0.75s ease;
 }
@@ -257,7 +257,6 @@
   flex-wrap: wrap;
   justify-content:center;
   line-height: 2.6rem;
-  font-family: 'Pacifico', cursive;
   font-size: 27px;
   transition: all 0.75s ease;
   text-decoration: line-through;

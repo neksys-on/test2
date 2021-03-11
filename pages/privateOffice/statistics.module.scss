@@ -1,0 +1,130 @@
+@import '../control.scss';
+
+
+.main_div {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: auto;
+  width: 100%;
+  min-height: 30vh;
+  flex-direction: column;
+  padding: 20px 40px 40px 20px;
+  background-image: url("/fon_311.jpg");
+  background-repeat: repeat;
+  background-attachment: local;
+  background-position: top;
+  background-size: auto;
+  border: 2px solid $color5;
+  box-shadow: 0px 0px 6px rgba(255, 66, 82, 0.8), 0px 0px 13px rgba(255, 66, 82, 0.4), 0px 0px 18px rgba(255, 255, 255, 0.7);
+  border-radius: 20px;
+  color: $color1;
+}
+
+.div_year {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: auto;
+  flex-direction: column;
+  border-bottom: 5px solid $color5;
+}
+
+.div_mounth {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  border-bottom: 5px solid $color5;
+}
+
+.div_zagolovok {
+  font-size: 25px;
+  color: $color4;
+  margin-right: 15px;
+  margin-top: 10px;
+  margin-bottom:  10px;
+}
+.div_year_mounth {
+  font-size: 20px;
+  color: $color3;
+  margin-top: 20px;
+}
+.div_table {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+// .div_item {
+//   margin: 10px 20px 10px 10px;
+//   display: flex;
+//   justify-content: flex-start;
+//   flex-direction: row;
+//   div{
+//     margin-right: 30px;
+//   }
+//   border: 1px solid $color5;
+//   padding: 5px;
+// }
+.div_state_of_price {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  border-bottom: 1px solid $color5;
+}
+
+
+/////////////////////////////
+
+.div_table {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  flex-direction: row;
+
+  padding: 5px;
+}
+
+.div_data {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.div_item {
+
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  div{
+    margin-right: 1px;
+  }
+  border: 1px solid $color5;
+  padding: 5px;
+}
+
+.div_id {
+  width: 80px;
+}
+.div_title {
+width: 280px;
+}
+.div_initial_state {
+  width: 160px;
+}
+.div_coming {
+  width: 160px;
+}
+.div_write_off {
+  width: 160px;
+}
+.div_expense {
+  width: 160px;
+}
+.div_final_state {
+  width: 160px;
+}
+.div_price {
+    border-bottom: 1px solid $color5;
+}

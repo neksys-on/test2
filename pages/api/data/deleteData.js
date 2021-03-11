@@ -37,15 +37,29 @@ export default async function (req, res) {
       })
 
       const writeData = async () => {
-        const jsonfordata = {
-          version: version_total,
-          [typeData]: needData2
+        if (typeData === 'products') {
+          const jsonfordata = {
+            version: version_total,
+            next_id: allData.next_id,
+            [typeData]: needData2
+          }
+          fs.writeFile(`./data/${typeData}.json`, JSON.stringify(jsonfordata), function (err) {
+              if (err) {
+                  console.error(err);
+              }
+          });
+        } else {
+          const jsonfordata = {
+            version: version_total,
+            [typeData]: needData2
+          }
+          fs.writeFile(`./data/${typeData}.json`, JSON.stringify(jsonfordata), function (err) {
+              if (err) {
+                  console.error(err);
+              }
+          });
         }
-        fs.writeFile(`./data/${typeData}.json`, JSON.stringify(jsonfordata), function (err) {
-            if (err) {
-                console.error(err);
-            }
-        });
+
       }
       writeData()
 
@@ -59,7 +73,7 @@ export default async function (req, res) {
 
       res.status(201)
       res.json({})
-    
+
 
 
   } catch(e) {

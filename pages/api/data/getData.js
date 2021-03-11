@@ -9,21 +9,11 @@ export default async function (req, res) {
     const typeData = req.body.type
     const  {db} = await connect()
 
-    if (typeData === 'category') {
-      const data = await db.collection('category').findOne()
+
+      const data = await db.collection(`${typeData}`).findOne()
       res.status(201)
       res.json(data)
-    }
-    if (typeData === 'products') {
-      const data = await db.collection('products').findOne()
-      res.status(201)
-      res.json(data)
-    }
-    if (typeData === 'orders') {
-      const data = await db.collection('orders').findOne()
-      res.status(201)
-      res.json(data)
-    }
+    
 
   }
   catch(e) {

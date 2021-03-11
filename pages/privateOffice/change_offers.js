@@ -5,6 +5,8 @@ import AccessDenied from '../../components/access-denied'
 import styles from './change_offers.module.scss'
 import Link from 'next/link'
 import Router from "next/router"
+import Head from 'next/head'
+
 
 
 async function changeInData(id, whatChange, newInfo) {
@@ -124,7 +126,9 @@ export default function Page () {
   if (typeof window !== 'undefined' && loading) return null
 
   // If no session exists, display access denied message
-  if (!session) { return  <Layout><AccessDenied/></Layout> }
+  if (!session) { return  <Layout><Head>
+    <meta name = "robots" content = "noindex, nofollow" />
+  </Head><AccessDenied/></Layout> }
 
   if ((session.user.email === 'neksyz@gmail.com')||(session.user.email === 'neksyz@gmail.com')) {
     return (
@@ -136,6 +140,9 @@ export default function Page () {
           paddingRight: '30px',
           paddingTop: '30px'
         }}>
+        <Head>
+          <meta name = "robots" content = "noindex, nofollow" />
+        </Head>
             <div className={styles.div_main}>
               <div className={styles.div_content_menu}>
                 <div id={'id_filter1'} onClick={(e)=>{
@@ -291,6 +298,9 @@ export default function Page () {
           margin: 'auto',
           padding: '30px'
         }}>
+        <Head>
+          <meta name = "robots" content = "noindex, nofollow" />
+        </Head>
           <h1>Личный кабинет</h1>
           <p>
             У вас нет права на внесение изменений.
