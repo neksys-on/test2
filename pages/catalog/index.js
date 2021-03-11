@@ -1,20 +1,23 @@
 import Layout from '../../components/layout.js'
-const fs = require('fs');
+// const fs = require('fs');
 import path from 'path'
 import { useState, useEffect, useCallback } from 'react'
 import styles from './index.module.scss'
 import Head from 'next/head'
+import category from '../../data/category.json'
+import products from '../../data/products.json'
 
 
 export async function getServerSideProps(context) {
-  // const hostname = process.env.NEXTAUTH_URL || 'http://localhost:3000'
-  const res_category = await JSON.parse(fs.readFileSync('./data/category.json'))
-  const data_category = await res_category.category
-  const data_category_version = await res_category.version
+  // const hostname = process.env.NEXTAUTH_URL || 'http://localhost:80'
+  // const res_category = await JSON.parse(fs.readFileSync('./data/category.json'))
+  const data_category = await category.category
+  const data_category_version = await category.version
 
-  const res_products = await JSON.parse(fs.readFileSync('./data/products.json'))
-  const data_products = await res_products.products
-  const data_products_version = await res_products.version
+  // const res_products = await JSON.parse(fs.readFileSync('./data/products.json'))
+  const data_products = await products.products
+  const data_products_version = await products.version
+
   return {
     props: {
       data_category: data_category,
