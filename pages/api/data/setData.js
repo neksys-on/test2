@@ -7,7 +7,7 @@ const fs = require('fs');
 
 
 export default async function (req, res) {
-  try {
+try {
     let pushData = req.body.doPush
     const typeData = req.body.type
     const  {db} = await connect()
@@ -21,14 +21,14 @@ export default async function (req, res) {
 
     const allData = await db.collection(`${typeData}`).findOne()
     let dataDB_version = allData.version
-    let res = await JSON.parse(fs.readFileSync(`./data/${typeData}.json`))
-    let data_version = res.version
+    let resWeb = await JSON.parse(fs.readFileSync(`./data/${typeData}.json`))
+    let data_version = resWeb.version
     if (dataDB_version > data_version) {
       needData = await allData[typeData]
       version_total = Number(dataDB_version) + 1
     }
     else {
-      needData = await res[typeData]
+      needData = await resWeb[typeData]
       version_total = Number(data_version) + 1
     }
 
@@ -207,7 +207,7 @@ export default async function (req, res) {
       if (typeData === 'orders') {
         async function msgsend(doing, text) {
           const hostname = process.env.NEXTAUTH_URL || 'http://localhost:3000'
-          const response = await fetch(hostname+'/api/sendWhatsapp', {
+          const responseWA = await fetch(hostname+'/api/sendWhatsapp', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -217,7 +217,7 @@ export default async function (req, res) {
               text: text,
              }),
           })
-          const data = await response.json()
+          const data = await responseWA.json()
           return data.doPush
         }
 
@@ -231,13 +231,12 @@ export default async function (req, res) {
       }
 
       res.status(201)
-      res.json({})
+      res.json({status: 'Complete'})
+
+    } catch(e) {
+      res.status(501)
+      res.json({error: 'Failure to work with the Database'})
+    }
 
 
-
-
-  } catch(e) {
-    res.status(500)
-    res.json({error: 'Failure to work with the Database'})
-  }
 };

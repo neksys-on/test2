@@ -184,7 +184,8 @@ export default function Popup({title, content, typePopup}) {
     //
     // let id_pure
     // const text_offer = ' ФИО: '+addData.surname+' '+addData.name+' '+addData.patronymic+', тел.: '+addData.telephone+', Населенный пункт: '+addData.city+', адрес: '+addData.address+', индекс: '+addData.index+', Содержание: '+list_products
-    pushInData(addData).then(Router.push("/privateOffice"))
+    pushInData(addData).then(setTimeout(Router.push, 700, "/privateOffice"))
+
 
   }, []);
 

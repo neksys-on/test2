@@ -35,14 +35,14 @@ export default async function (req, res) {
 
     const allData = await db.collection(`${typeData}`).findOne()
     let dataDB_version = allData.version
-    let res = await JSON.parse(fs.readFileSync(`./data/${typeData}.json`))
-    let data_version = res.version
+    let resWeb = await JSON.parse(fs.readFileSync(`./data/${typeData}.json`))
+    let data_version = resWeb.version
     if (dataDB_version > data_version) {
       needData = await allData[typeData]
       version_total = Number(dataDB_version) + 1
     }
     else {
-      needData = await res[typeData]
+      needData = await resWeb[typeData]
       version_total = Number(data_version) + 1
     }
 
@@ -194,13 +194,13 @@ export default async function (req, res) {
 
         const allDataProd = await db.collection('products').findOne()
         let dataDB_version2 = allDataProd.version
-        let res2 = await JSON.parse(fs.readFileSync(`./data/products.json`))
-        let data_version2 = res2.version
+        let res3 = await JSON.parse(fs.readFileSync(`./data/products.json`))
+        let data_version2 = res3.version
         if (dataDB_version2 > data_version2) {
           needData4 = await allDataProd.products
         }
         else {
-          needData4 = await res2.products
+          needData4 = await res3.products
         }
 
         needData_Statistics[year][mounth].initial_state = needData4

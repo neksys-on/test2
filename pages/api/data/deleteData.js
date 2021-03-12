@@ -16,14 +16,14 @@ export default async function (req, res) {
 
       const allData = await db.collection(`${typeData}`).findOne()
       let dataDB_version = allData.version
-      let res = await JSON.parse(fs.readFileSync(`./data/${typeData}.json`))
-      let data_version = res.version
+      let resWeb = await JSON.parse(fs.readFileSync(`./data/${typeData}.json`))
+      let data_version = resWeb.version
       if (dataDB_version > data_version) {
         needData = await allData[typeData]
         version_total = Number(dataDB_version) + 1
       }
       else {
-        needData = await res[typeData]
+        needData = await resWeb[typeData]
         version_total = Number(data_version) + 1
       }
 
