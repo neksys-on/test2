@@ -33,6 +33,7 @@
     "react-iframe": "^1.8.0",
     "react-whatsapp": "^0.2.1",
     "sass": "^1.32.7",
+    "sqlite": "^4.0.19",
     "sqlite3": "^4.2.0",
     "styled-components": "^5.2.1",
     "swr": "^0.4.2",

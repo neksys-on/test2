@@ -13,11 +13,26 @@ export async function getServerSideProps(context) {
   const postsDirectory = path.join(process.cwd(), 'pages/api/dataBase')
 
   const filePath = path.join(postsDirectory, 'dan.json')
-  let resWeb = await JSON.parse(fs2.readFileSync(filePath))
+  const filePath2 = path.join(postsDirectory, 'dan2.json')
+  let resWeb
+  let namberFile
+  try {
+    resWeb = await JSON.parse(fs2.readFileSync(filePath2))
+    namberFile = 2
+  } catch(e) {
+    resWeb = await JSON.parse(fs2.readFileSync(filePath))
+    namberFile = 1
+  }
+
+
+  // let resWeb = await JSON.parse(fs2.readFileSync(filePath))
+  // let resWeb2 = await JSON.parse(fs2.readFileSync(filePath2))
+  console.log(resWeb)
 
   return {
     props: {
-      data_version: resWeb.version
+      data_version: resWeb.version,
+      namberFile
     }, // will be passed to the page component as props
   }
 }
@@ -37,7 +52,7 @@ async function deal(infoPush) {
   return data.doPush
 }
 
-export default function Page ({data_version}) {
+export default function Page ({data_version, namberFile}) {
 
 
   const onClickDeal = React.useCallback((e) => {
@@ -52,7 +67,7 @@ export default function Page ({data_version}) {
     </Head>
 
         <div className={styles.div_test}>
-          {data_version}
+          {data_version} || Фаил # {namberFile}
         </div>
         <div onClick={onClickDeal}>Изменить</div>
 
