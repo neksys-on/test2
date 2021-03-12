@@ -9,7 +9,7 @@ const fs = require('fs');
 
 export async function getServerSideProps(context) {
   let typeData = 'products'
-  let resWeb = await JSON.parse(fs.readFileSync(`pages/api/data/dataBase/dan.json`))
+  let resWeb = await JSON.parse(fs.readFileSync(`dataBase/dan.json`))
   let data_version = resWeb.version
   return {
     props: {

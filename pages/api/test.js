@@ -9,7 +9,7 @@ export default async function (req, res) {
     version: pushData,
   }
 
-  fs.writeFile(`pages/api/data/dataBase/dan.json`, JSON.stringify(jsonfordata), function (err) {
+  fs.writeFile(`dataBase/dan.json`, JSON.stringify(jsonfordata), function (err) {
       if (err) {
           console.error(err);
       }

@@ -4,8 +4,8 @@ import path from 'path'
 import { useState, useEffect, useCallback } from 'react'
 import styles from './index.module.scss'
 import Head from 'next/head'
-import category from '../api/data/dataBase/category.json'
-import products from '../api/data/dataBase/products.json'
+import category from '../../public/dataBase/category.json'
+import products from '../../public/dataBase/products.json'
 
 
 export async function getServerSideProps(context) {
