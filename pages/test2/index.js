@@ -4,16 +4,20 @@ import { useState, useEffect, useCallback } from 'react'
 import styles from './index.module.scss'
 import Head from 'next/head'
 
-const fs = require('fs');
+const fs2 = require('fs');
+
 
 
 export async function getServerSideProps(context) {
-  let typeData = 'products'
-  let resWeb = await JSON.parse(fs.readFileSync(`dataBase/dan.json`))
-  let data_version = resWeb.version
+
+  const postsDirectory = path.join(process.cwd(), 'public/dataBase')
+
+  const filePath = path.join(postsDirectory, 'dan.json')
+  let resWeb = await JSON.parse(fs2.readFileSync(filePath))
+
   return {
     props: {
-      data_version: data_version
+      data_version: resWeb.version
     }, // will be passed to the page component as props
   }
 }

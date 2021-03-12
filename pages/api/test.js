@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 const fs = require('fs');
+import path from 'path'
 
 export default async function (req, res) {
   let pushData = req.body.doPush
@@ -9,7 +10,9 @@ export default async function (req, res) {
     version: pushData,
   }
 
-  fs.writeFile(`dataBase/dan.json`, JSON.stringify(jsonfordata), function (err) {
+  const postsDirectory = path.join(process.cwd(), 'public/dataBase')
+  const filePath = path.join(postsDirectory, 'dan.json')
+  fs.writeFile(filePath, JSON.stringify(jsonfordata), function (err) {
       if (err) {
           console.error(err);
       }
