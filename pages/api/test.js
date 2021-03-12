@@ -10,7 +10,7 @@ export default async function (req, res) {
     version: pushData,
   }
 
-  const postsDirectory = path.join(process.cwd(), 'public/dataBase')
+  const postsDirectory = path.join(process.cwd(), 'pages/api/dataBase')
   const filePath = path.join(postsDirectory, 'dan.json')
   fs.writeFile(filePath, JSON.stringify(jsonfordata), function (err) {
       if (err) {

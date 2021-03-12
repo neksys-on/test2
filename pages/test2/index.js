@@ -10,7 +10,7 @@ const fs2 = require('fs');
 
 export async function getServerSideProps(context) {
 
-  const postsDirectory = path.join(process.cwd(), 'public/dataBase')
+  const postsDirectory = path.join(process.cwd(), 'pages/api/dataBase')
 
   const filePath = path.join(postsDirectory, 'dan.json')
   let resWeb = await JSON.parse(fs2.readFileSync(filePath))
