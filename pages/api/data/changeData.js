@@ -35,7 +35,7 @@ export default async function (req, res) {
 
     const allData = await db.collection(`${typeData}`).findOne()
     let dataDB_version = allData.version
-    let resWeb = await JSON.parse(fs.readFileSync(`./data/${typeData}.json`))
+    let resWeb = await JSON.parse(fs.readFileSync(`api/data/dataBase/${typeData}.json`))
     let data_version = resWeb.version
     if (dataDB_version > data_version) {
       needData = await allData[typeData]
@@ -49,7 +49,7 @@ export default async function (req, res) {
     if (whatChange === 'payment') {
       allData2 = await db.collection('products').findOne()
       let dataDB_version2 = allData2.version
-      let res2 = await JSON.parse(fs.readFileSync(`./data/products.json`))
+      let res2 = await JSON.parse(fs.readFileSync(`api/data/dataBase/products.json`))
       let data_version2 = res2.version
       if (dataDB_version2 > data_version2) {
         needData3 = await allData2.products
@@ -172,7 +172,7 @@ export default async function (req, res) {
 
       allDataStatistics = await db.collection('statistics').findOne()
       let dataDB_version_Statistics = allDataStatistics.version
-      let resStatistics = await JSON.parse(fs.readFileSync(`./data/statistics.json`))
+      let resStatistics = await JSON.parse(fs.readFileSync(`api/data/dataBase/statistics.json`))
       let data_version_Statistics = resStatistics.version
       if (dataDB_version_Statistics > data_version_Statistics) {
         needData_Statistics = await allDataStatistics.statistics
@@ -194,7 +194,7 @@ export default async function (req, res) {
 
         const allDataProd = await db.collection('products').findOne()
         let dataDB_version2 = allDataProd.version
-        let res3 = await JSON.parse(fs.readFileSync(`./data/products.json`))
+        let res3 = await JSON.parse(fs.readFileSync(`api/data/dataBase/products.json`))
         let data_version2 = res3.version
         if (dataDB_version2 > data_version2) {
           needData4 = await allDataProd.products
@@ -305,7 +305,7 @@ export default async function (req, res) {
           next_id: allData.next_id,
           [typeData]: needData2
         }
-        fs.writeFile(`./data/${typeData}.json`, JSON.stringify(jsonfordata), function (err) {
+        fs.writeFile(`api/data/dataBase/${typeData}.json`, JSON.stringify(jsonfordata), function (err) {
             if (err) {
                 console.error(err);
             }
@@ -315,7 +315,7 @@ export default async function (req, res) {
           version: version_total,
           [typeData]: needData2
         }
-        fs.writeFile(`./data/${typeData}.json`, JSON.stringify(jsonfordata), function (err) {
+        fs.writeFile(`api/data/dataBase/${typeData}.json`, JSON.stringify(jsonfordata), function (err) {
             if (err) {
                 console.error(err);
             }
@@ -328,7 +328,7 @@ export default async function (req, res) {
           next_id: allData2.next_id,
           products: needData3
         }
-        fs.writeFile(`./data/products.json`, JSON.stringify(jsonfordata2), function (err) {
+        fs.writeFile(`api/data/dataBase/products.json`, JSON.stringify(jsonfordata2), function (err) {
             if (err) {
                 console.error(err);
             }
@@ -339,7 +339,7 @@ export default async function (req, res) {
           version: version_total_Statistics,
           statistics: needData_Statistics
         }
-        fs.writeFile(`./data/statistics.json`, JSON.stringify(jsonfordata3), function (err) {
+        fs.writeFile(`api/data/dataBase/statistics.json`, JSON.stringify(jsonfordata3), function (err) {
             if (err) {
                 console.error(err);
             }

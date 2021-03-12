@@ -4,8 +4,8 @@ import path from 'path'
 import { useState, useEffect, useCallback } from 'react'
 import styles from './index.module.scss'
 import Head from 'next/head'
-import category from '../../data/category.json'
-import products from '../../data/products.json'
+import category from '../api/data/dataBase/category.json'
+import products from '../api/data/dataBase/products.json'
 
 
 export async function getServerSideProps(context) {
@@ -17,7 +17,7 @@ export async function getServerSideProps(context) {
   // const res_products = await JSON.parse(fs.readFileSync('./data/products.json'))
   const data_products = await products.products
   const data_products_version = await products.version
-  
+
   return {
     props: {
       data_category: data_category,
