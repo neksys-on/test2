@@ -14,4 +14,7 @@ export default async function (req, res) {
           console.error(err);
       }
   });
+
+  res.status(201)
+  res.json({})
 }
