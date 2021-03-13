@@ -22,7 +22,7 @@ export async function getServerSideProps(context) {
   }
 }
 
-
+// sda
 
 export default function Page ({email_1, email_2, email_3}) {
   const [ session, loading ] = useSession()
