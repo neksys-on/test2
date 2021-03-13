@@ -10,31 +10,21 @@ import Head from 'next/head'
 
 export async function getServerSideProps(context) {
 
-  // const postsDirectory = path.join(process.cwd(), 'pages/api/dataBase')
-  //
-  // const filePath = path.join(postsDirectory, 'dan.json')
-  // const filePath2 = path.join(postsDirectory, 'dan2.json')
-  // let resWeb
+  let data
   let namberFile = 0
-
-  // try {
-  //   resWeb = await JSON.parse(fs2.readFileSync(filePath2))
-  //   namberFile = 2
-  // } catch(e) {
-  //   resWeb = await JSON.parse(fs2.readFileSync(filePath))
-  //   namberFile = 1
-  // }
-
-
-  // let resWeb = await JSON.parse(fs2.readFileSync(filePath))
-  // let resWeb2 = await JSON.parse(fs2.readFileSync(filePath2))
   const directory = path.join(process.cwd(), 'db')
   const filePath = path.join(directory, 'testing.db')
   var sqlite3 = require('sqlite3').verbose();
   var db = new sqlite3.Database(filePath);
 
   db.serialize(function() {
-    
+    db.run("CREATE TABLE lorem (info TEXT)");
+
+    var stmt = db.prepare("INSERT INTO lorem VALUES (?)");
+    for (var i = 0; i < 2; i++) {
+        stmt.run("Ipsum " + i);
+    }
+    stmt.finalize();
 
     db.each("SELECT rowid AS id, info FROM lorem", function(err, row) {
         console.log(row.id + ": " + row.info);
@@ -43,8 +33,6 @@ export async function getServerSideProps(context) {
   });
 
   db.close();
-
-
 
   return {
     props: {
@@ -69,7 +57,7 @@ async function deal(infoPush) {
   return data.doPush
 }
 
-export default function Page ({data_version, namberFile}) {
+export default function Page () {
 
 
   const onClickDeal = React.useCallback((e) => {
@@ -84,7 +72,7 @@ export default function Page ({data_version, namberFile}) {
     </Head>
 
         <div className={styles.div_test}>
-          {data_version} || Фаил # {namberFile}
+        sss
         </div>
         <div onClick={onClickDeal}>Изменить</div>
 
