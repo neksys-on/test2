@@ -3,7 +3,6 @@ import path from 'path'
 import { useState, useEffect, useCallback } from 'react'
 import styles from './index.module.scss'
 import Head from 'next/head'
-import fs from 'fs'
 
 
 
