@@ -174,7 +174,7 @@ export default function Popup({title, content, typePopup}) {
       totalPrice: totalPrice,
     }
 
-
+    localStorage.setItem('_basket', [])
     //   pushInData(addData).then(Router.reload()
     // msgsend('connect', 'msg')
     // let list_products = ''
