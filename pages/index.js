@@ -48,7 +48,7 @@ return (
     <title>Товары из Японии по низким ценам</title>
     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     <meta name="description" content = "Лучшие товары из Японии по низким ценам для красоты и здоровья. Прямые поставки из Японии, кратчайшие сроки. Только лучшая Японская продукция."/>
-    <meta charset = "UTF-8"/>
+    <meta charSet = "UTF-8"/>
   </Head>
   <div style={{
     width: '90%',

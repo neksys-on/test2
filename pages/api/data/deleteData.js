@@ -16,16 +16,9 @@ export default async function (req, res) {
 
       const allData = await db.collection(`${typeData}`).findOne()
       let dataDB_version = allData.version
-      let resWeb = await JSON.parse(fs.readFileSync(`./data/${typeData}.json`))
-      let data_version = resWeb.version
-      if (dataDB_version > data_version) {
-        needData = await allData[typeData]
-        version_total = Number(dataDB_version) + 1
-      }
-      else {
-        needData = await resWeb[typeData]
-        version_total = Number(data_version) + 1
-      }
+      needData = await allData[typeData]
+      version_total = Number(dataDB_version) + 1
+
 
       let needData2 = []
       needData.map((data)=>{
@@ -36,32 +29,7 @@ export default async function (req, res) {
         }
       })
 
-      const writeData = async () => {
-        if (typeData === 'products') {
-          const jsonfordata = {
-            version: version_total,
-            next_id: allData.next_id,
-            [typeData]: needData2
-          }
-          fs.writeFile(`./data/${typeData}.json`, JSON.stringify(jsonfordata), function (err) {
-              if (err) {
-                  console.error(err);
-              }
-          });
-        } else {
-          const jsonfordata = {
-            version: version_total,
-            [typeData]: needData2
-          }
-          fs.writeFile(`./data/${typeData}.json`, JSON.stringify(jsonfordata), function (err) {
-              if (err) {
-                  console.error(err);
-              }
-          });
-        }
-
-      }
-      writeData()
+      
 
       const result = await db.collection(`${typeData}`).updateOne(
         { _id: allData._id },

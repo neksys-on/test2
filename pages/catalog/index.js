@@ -12,24 +12,22 @@ export async function getServerSideProps(context) {
   // const hostname = process.env.NEXTAUTH_URL || 'http://localhost:80'
   // const res_category = await JSON.parse(fs.readFileSync('./data/category.json'))
   const data_category = await category.category
-  const data_category_version = await category.version
+
 
   // const res_products = await JSON.parse(fs.readFileSync('./data/products.json'))
   const data_products = await products.products
-  const data_products_version = await products.version
+
 
   return {
     props: {
       data_category: data_category,
-      data_category_version: data_category_version,
       data_products: data_products,
-      data_products_version: data_products_version,
     }, // will be passed to the page component as props
   }
 }
 
 
-export default function Page ({data_category, data_category_version, data_products, data_products_version}) {
+export default function Page ({data_category, data_products}) {
 
   let localStorStr
   let localStorJson
@@ -60,7 +58,7 @@ export default function Page ({data_category, data_category_version, data_produc
 
     const fetchData = async () => {
 
-      if (dataProductsDB === 'Заблочил') {
+      if (dataProductsDB === '1') {
         const responseProd = await fetch('/api/data/getData', {
           method: 'POST',
           headers: {
@@ -71,10 +69,8 @@ export default function Page ({data_category, data_category_version, data_produc
            }),
         })
         const jsonProd = await responseProd.json();
-        if (jsonProd.version > data_products_version) {
-          setDataProducts(jsonProd.products)
-        }
-        await setDataProductsDB(jsonProd.products)
+        setDataProducts(jsonProd.products)
+        setDataProductsDB(jsonProd.products)
 
         const responseCateg = await fetch('/api/data/getData', {
           method: 'POST',
@@ -86,10 +82,8 @@ export default function Page ({data_category, data_category_version, data_produc
            }),
         })
         const jsonCateg = await responseCateg.json();
-        if (jsonCateg.version > data_category_version) {
-          setDataCategory(jsonCateg.category)
-        }
-        await setDataCategoryDB(jsonCateg.category)
+        setDataCategory(jsonCateg.category)
+        setDataCategoryDB(jsonCateg.category)
       }
     }
     fetchData()
@@ -133,7 +127,7 @@ if ( show === 'Каталог' ) {
       <title>Каталог товаров из Японии, доступных для покупки.</title>
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       <meta name="description" content = "Каталог товаров из Японии для красоты и здоровья. Здесь, среди лучшей Японской продукции, вы можете выбрать то, что вам необходимо."/>
-      <meta charset = "UTF-8"/>
+      <meta charSet = "UTF-8"/>
     </Head>
       <h1 style={{
         width: '90%',

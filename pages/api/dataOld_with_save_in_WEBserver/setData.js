@@ -21,9 +21,16 @@ try {
 
     const allData = await db.collection(`${typeData}`).findOne()
     let dataDB_version = allData.version
-    needData = await allData[typeData]
-    version_total = Number(dataDB_version) + 1
-
+    let resWeb = await JSON.parse(fs.readFileSync(`./data/${typeData}.json`))
+    let data_version = resWeb.version
+    if (dataDB_version > data_version) {
+      needData = await allData[typeData]
+      version_total = Number(dataDB_version) + 1
+    }
+    else {
+      needData = await resWeb[typeData]
+      version_total = Number(data_version) + 1
+    }
 
 
       let duplicate = false
@@ -83,8 +90,16 @@ try {
 
           allDataStatistics = await db.collection('statistics').findOne()
           let dataDB_version_Statistics = allDataStatistics.version
-          needData_Statistics = await allDataStatistics.statistics
-          version_total_Statistics = Number(dataDB_version_Statistics) + 1
+          let resStatistics = await JSON.parse(fs.readFileSync(`./data/statistics.json`))
+          let data_version_Statistics = resStatistics.version
+          if (dataDB_version_Statistics > data_version_Statistics) {
+            needData_Statistics = await allDataStatistics.statistics
+            version_total_Statistics = Number(dataDB_version_Statistics) + 1
+          }
+          else {
+            needData_Statistics = await resStatistics.statistics
+            version_total_Statistics = Number(data_version_Statistics) + 1
+          }
 
           if (needData_Statistics[year][mounth] === undefined) {
             needData_Statistics[year][mounth] = {
@@ -97,7 +112,14 @@ try {
 
             const allDataProd = await db.collection('products').findOne()
             let dataDB_version2 = allDataProd.version
-            needData4 = await allDataProd.products
+            let res2 = await JSON.parse(fs.readFileSync(`./data/products.json`))
+            let data_version2 = res2.version
+            if (dataDB_version2 > data_version2) {
+              needData4 = await allDataProd.products
+            }
+            else {
+              needData4 = await res2.products
+            }
 
             needData_Statistics[year][mounth].initial_state = needData4
           } // needData_Statistics[year][mounth] === undefined
@@ -114,7 +136,43 @@ try {
 
         }
 
-        
+        const writeData = async () => {
+          if (typeData === 'products') {
+            const jsonfordata = {
+              version: version_total,
+              next_id: String(Number(allData.next_id)+1),
+              [typeData]: needData
+            }
+            fs.writeFile(`./data/${typeData}.json`, JSON.stringify(jsonfordata), function (err) {
+                if (err) {
+                    console.error(err);
+                }
+            });
+
+            const jsonfordata3 = {
+              version: version_total_Statistics,
+              statistics: needData_Statistics
+            }
+            fs.writeFile(`./data/statistics.json`, JSON.stringify(jsonfordata3), function (err) {
+                if (err) {
+                    console.error(err);
+                }
+            });
+          } else {
+            const jsonfordata = {
+              version: version_total,
+              [typeData]: needData
+            }
+            fs.writeFile(`./data/${typeData}.json`, JSON.stringify(jsonfordata), function (err) {
+                if (err) {
+                    console.error(err);
+                }
+            });
+          }
+
+        }
+        writeData()
+
 
         if (typeData === 'products') {
           const result = await db.collection(`${typeData}`).updateOne(

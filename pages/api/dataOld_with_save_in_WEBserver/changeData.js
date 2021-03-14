@@ -35,15 +35,30 @@ export default async function (req, res) {
 
     const allData = await db.collection(`${typeData}`).findOne()
     let dataDB_version = allData.version
-    needData = await allData[typeData]
-    version_total = Number(dataDB_version) + 1
-
+    let resWeb = await JSON.parse(fs.readFileSync(`api/data/dataBase/${typeData}.json`))
+    let data_version = resWeb.version
+    if (dataDB_version > data_version) {
+      needData = await allData[typeData]
+      version_total = Number(dataDB_version) + 1
+    }
+    else {
+      needData = await resWeb[typeData]
+      version_total = Number(data_version) + 1
+    }
 
     if (whatChange === 'payment') {
       allData2 = await db.collection('products').findOne()
       let dataDB_version2 = allData2.version
-      needData3 = await allData2.products
-      version_total2 = Number(dataDB_version2) + 1
+      let res2 = await JSON.parse(fs.readFileSync(`api/data/dataBase/products.json`))
+      let data_version2 = res2.version
+      if (dataDB_version2 > data_version2) {
+        needData3 = await allData2.products
+        version_total2 = Number(dataDB_version2) + 1
+      }
+      else {
+        needData3 = await res2.products
+        version_total2 = Number(data_version2) + 1
+      }
     }
 
 
@@ -157,8 +172,16 @@ export default async function (req, res) {
 
       allDataStatistics = await db.collection('statistics').findOne()
       let dataDB_version_Statistics = allDataStatistics.version
-      needData_Statistics = await allDataStatistics.statistics
-      version_total_Statistics = Number(dataDB_version_Statistics) + 1
+      let resStatistics = await JSON.parse(fs.readFileSync(`api/data/dataBase/statistics.json`))
+      let data_version_Statistics = resStatistics.version
+      if (dataDB_version_Statistics > data_version_Statistics) {
+        needData_Statistics = await allDataStatistics.statistics
+        version_total_Statistics = Number(dataDB_version_Statistics) + 1
+      }
+      else {
+        needData_Statistics = await resStatistics.statistics
+        version_total_Statistics = Number(data_version_Statistics) + 1
+      }
 
       if (needData_Statistics[year][mounth] === undefined) {
         needData_Statistics[year][mounth] = {
@@ -171,7 +194,14 @@ export default async function (req, res) {
 
         const allDataProd = await db.collection('products').findOne()
         let dataDB_version2 = allDataProd.version
-        needData4 = await allDataProd.products
+        let res3 = await JSON.parse(fs.readFileSync(`api/data/dataBase/products.json`))
+        let data_version2 = res3.version
+        if (dataDB_version2 > data_version2) {
+          needData4 = await allDataProd.products
+        }
+        else {
+          needData4 = await res3.products
+        }
 
         needData_Statistics[year][mounth].initial_state = needData4
       } // needData_Statistics[year][mounth] === undefined
@@ -268,7 +298,55 @@ export default async function (req, res) {
 
 
 
+    const writeData = async () => {
+      if (typeData === 'products') {
+        const jsonfordata = {
+          version: version_total,
+          next_id: allData.next_id,
+          [typeData]: needData2
+        }
+        fs.writeFile(`api/data/dataBase/${typeData}.json`, JSON.stringify(jsonfordata), function (err) {
+            if (err) {
+                console.error(err);
+            }
+        });
+      } else {
+        const jsonfordata = {
+          version: version_total,
+          [typeData]: needData2
+        }
+        fs.writeFile(`api/data/dataBase/${typeData}.json`, JSON.stringify(jsonfordata), function (err) {
+            if (err) {
+                console.error(err);
+            }
+        });
+      }
 
+      if (whatChange === 'payment') {
+        const jsonfordata2 = {
+          version: version_total2,
+          next_id: allData2.next_id,
+          products: needData3
+        }
+        fs.writeFile(`api/data/dataBase/products.json`, JSON.stringify(jsonfordata2), function (err) {
+            if (err) {
+                console.error(err);
+            }
+        });
+      }
+      if (change_value) {
+        const jsonfordata3 = {
+          version: version_total_Statistics,
+          statistics: needData_Statistics
+        }
+        fs.writeFile(`api/data/dataBase/statistics.json`, JSON.stringify(jsonfordata3), function (err) {
+            if (err) {
+                console.error(err);
+            }
+        });
+      }
+    }
+    writeData()
 
     await db.collection(`${typeData}`).updateOne(
       { _id: allData._id },

@@ -31,7 +31,7 @@ export default function Page () {
         <title>Услови и сроки доставки товаров из Японии</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta name="description" content = "Лучшие товары из Японии по низким ценам для красоты и здоровья. Условия и сроки доставки лучшей Японской продукции."/>
-        <meta charset = "UTF-8"/>
+        <meta charSet = "UTF-8"/>
       </Head>
         <h1>Доставка и оплата</h1>
         <div className={styles.div_main}>

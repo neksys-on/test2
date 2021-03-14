@@ -15,7 +15,7 @@ export async function getServerSideProps(context) {
   // const filePath = path.join(postsDirectory, 'dan.json')
   // const filePath2 = path.join(postsDirectory, 'dan2.json')
   // let resWeb
-  let namberFile = 0
+
 
   // try {
   //   resWeb = await JSON.parse(fs2.readFileSync(filePath2))
@@ -28,24 +28,32 @@ export async function getServerSideProps(context) {
 
   // let resWeb = await JSON.parse(fs2.readFileSync(filePath))
   // let resWeb2 = await JSON.parse(fs2.readFileSync(filePath2))
-  const directory = path.join(process.cwd(), 'db')
-  const filePath = path.join(directory, 'testing.db')
-  var sqlite3 = require('sqlite3').verbose();
-  var db = new sqlite3.Database(filePath);
+  // let data
+  // let namberFile = 0
+  // const directory = path.join(process.cwd(), 'db')
+  // const filePath = path.join(directory, 'testing.db')
+  // var sqlite3 = require('sqlite3').verbose();
+  // var db = new sqlite3.Database(filePath);
+  //
+  // db.serialize(function() {
+  //   db.run("CREATE TABLE lorem (info TEXT)");
+  //
+  //   var stmt = db.prepare("INSERT INTO lorem VALUES (?)");
+  //   for (var i = 0; i < 2; i++) {
+  //       stmt.run("Ipsum " + i);
+  //   }
+  //   stmt.finalize();
+  //
+  //   db.each("SELECT rowid AS id, info FROM lorem", function(err, row) {
+  //       console.log(row.id + ": " + row.info);
+  //   });
+  //
+  // });
+  //
+  // db.close();
 
-  db.serialize(function() {
-    
 
-    db.each("SELECT rowid AS id, info FROM lorem", function(err, row) {
-        console.log(row.id + ": " + row.info);
-    });
-
-  });
-
-  db.close();
-
-
-
+  let namberFile = 0
   return {
     props: {
       data_version: '1',
