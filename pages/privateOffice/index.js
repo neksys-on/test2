@@ -60,7 +60,7 @@ export default function Page ({email_1, email_2, email_3}) {
   if (typeof window !== 'undefined' && loading) return null
 
   // If no session exists, display access denied message
-  if (!session) { return  <Layout><AccessDenied/></Layout> }
+  if (!session) { return  <Layout propsBasket={sumItem}><AccessDenied/></Layout> }
 
 if ((session.user.email === email_1)||(session.user.email === email_2)||(session.user.email === email_3)) {
   return (
@@ -87,7 +87,6 @@ if ((session.user.email === email_1)||(session.user.email === email_2)||(session
           <li onClick={() => {Router.push('/privateOffice/change_k')}}>Управление Категориями</li>
           <li onClick={() => {Router.push('/privateOffice/change_pr')}}>Управление Товарами</li>
           <li onClick={() => {Router.push('/privateOffice/change_offers')}}>Управление Заказами</li>
-          <li onClick={() => {Router.push('/privateOffice/change_color')}}>Управление Цветовой гаммой</li>
           <li onClick={() => {Router.push('/privateOffice/statistics')}}>Статистика Товаров</li>
         </div>
         <div className={styles.otstup}></div>

@@ -130,7 +130,7 @@ export default function Page ({email_1, email_2, email_3}) {
   }, []);
 
   const onClickDeletData = React.useCallback((e) => {
-    deleteData(e.target.id)
+    deleteData(e.target.id).then(setTimeout(Router.reload, 700))
   }, []);
 
   // When rendering client side don't display anything until loading is complete
