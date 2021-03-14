@@ -25,8 +25,8 @@
   top: 50%;
   left: 49.99%;
   min-width: 100%;
-  min-height: 110.5vh;
-  max-height: 110.5vh;
+  min-height: 115vh;
+  max-height: 115vh;
   width: auto;
   transform: translate(-50%, -50%);
   z-index: -1;
@@ -42,9 +42,9 @@
   top: 50%;
   left: 49.99%;
   min-width: 100%;
-  min-height: 111vh;
+  min-height: 115vh;
   width: auto;
-  max-height: 111vh;
+  max-height: 115vh;
   transform: translate(-50%, -50%);
   z-index: -3;
   background-image: url("/fon121.png");
