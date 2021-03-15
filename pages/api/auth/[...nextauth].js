@@ -37,6 +37,10 @@ const options = {
       clientSecret: process.env.GOOGLE_SECRET
 
     }),
+    // Providers.VK({
+    // clientId: process.env.VK_CLIENT_ID,
+    // clientSecret: process.env.VK_CLIENT_SECRET
+    // }),
     // Providers.Twitter({
     //   clientId: process.env.TWITTER_ID,
     //   clientSecret: process.env.TWITTER_SECRET
