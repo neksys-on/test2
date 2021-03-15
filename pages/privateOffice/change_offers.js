@@ -42,7 +42,7 @@ async function changeInData(id, whatChange, newInfo) {
 
 export default function Page ({email_1, email_2, email_3}) {
   const [ session, loading ] = useSession()
-  const [ content , setContent ] = useState()
+
   const [sumItem, setSumItem] = useState('0')
   const [filter_orders, setFilter_orders] = useState('1')
   const [recoveryItem, setRecoveryItem] = useState('')
@@ -60,9 +60,6 @@ export default function Page ({email_1, email_2, email_3}) {
 
   useEffect(()=>{
     const fetchData = async () => {
-      const resPr = await fetch('/api/examples/protected')
-      const jsonPr = await resPr.json()
-      if (jsonPr.content) { setContent(jsonPr.content) }
 
       if (ordersData[0].name === '') {
         const res = await fetch('/api/data/getData', {

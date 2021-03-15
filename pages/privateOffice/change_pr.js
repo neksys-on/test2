@@ -72,7 +72,7 @@ export default function Page ({email_1, email_2, email_3}) {
   const [dataProducts, setDataProducts] = useState([{id: 's'}])
   const [dataCategory, setDataCategory] = useState([])
   const [ session, loading ] = useSession()
-  const [ content , setContent ] = useState()
+
   const [input1, setInput1] = useState([])
   const [input2, setInput2] = useState([])
   const [input3, setInput3] = useState([])
@@ -103,9 +103,7 @@ export default function Page ({email_1, email_2, email_3}) {
 
     const fetchData = async () => {
       if (dataProducts[0].id === 's') {
-        const res = await fetch('/api/examples/protected')
-        const json = await res.json()
-        if (json.content) { setContent(json.content) }
+
 
         const response = await fetch('/api/data/getData', {
           method: 'POST',
@@ -499,7 +497,7 @@ export default function Page ({email_1, email_2, email_3}) {
               <button className={styles.addDataButton} onClick={onClickButtonAddData}>Добавить товар в базу</button>
             </div>
           </div>
-          <p><strong>{content}</strong></p>
+
         </div>
       </Layout>
     )

@@ -70,7 +70,7 @@ async function deleteData(id) {
 export default function Page ({email_1, email_2, email_3}) {
   const [dataCategory, setDataCategory] = useState([])
   const [ session, loading ] = useSession()
-  const [ content , setContent ] = useState()
+
   const [input1, setInput1] = useState([])
   const [input2, setInput2] = useState([])
   const [input3, setInput3] = useState([])
@@ -81,9 +81,7 @@ export default function Page ({email_1, email_2, email_3}) {
   // Fetch content from protected route
   useEffect(()=>{
     const fetchData = async () => {
-      const res = await fetch('/api/examples/protected')
-      const json = await res.json()
-      if (json.content) { setContent(json.content) }
+      
 
       const response = await fetch('/api/data/getData', {
         method: 'POST',
@@ -194,7 +192,7 @@ export default function Page ({email_1, email_2, email_3}) {
               <button className={styles.addDataButton} onClick={onClickButtonAddData}>Добавить</button>
             </div>
           </div>
-          <p><strong>{content}</strong></p>
+
         </div>
       </Layout>
     )

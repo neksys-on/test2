@@ -22,16 +22,14 @@ export async function getServerSideProps(context) {
 
 export default function Page ({email_1, email_2, email_3}) {
   const [ session, loading ] = useSession()
-  const [ content , setContent ] = useState()
+
   const [sumItem, setSumItem] = useState('0')
   const [dataStatistics, setDataStatistics] = useState()
   const [yearOpen, setYearOpen] = useState('0')
   const [mounthOpen, setMounthOpen] = useState('0')
   useEffect(()=>{
     const fetchData = async () => {
-      const res = await fetch('/api/examples/protected')
-      const json = await res.json()
-      if (json.content) { setContent(json.content) }
+
 
       const responseStatistics = await fetch('/api/data/getData', {
         method: 'POST',

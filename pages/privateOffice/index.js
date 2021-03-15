@@ -26,16 +26,13 @@ export async function getServerSideProps(context) {
 
 export default function Page ({email_1, email_2, email_3}) {
   const [ session, loading ] = useSession()
-  const [ content , setContent ] = useState()
+
   const [sumItem, setSumItem] = useState('0')
   const [tabSelect, setTabSelect] = useState('Order history')
 
 
   useEffect(()=>{
     const fetchData = async () => {
-      const res = await fetch('/api/examples/protected')
-      const json = await res.json()
-      if (json.content) { setContent(json.content) }
 
       // const res2 = await fetch('/api/getdataCategory')
       // const json2 = await res2.json();
