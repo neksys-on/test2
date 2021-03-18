@@ -114,7 +114,7 @@ try {
 
         }
 
-        
+
 
         if (typeData === 'products') {
           const result = await db.collection(`${typeData}`).updateOne(
@@ -148,8 +148,8 @@ try {
 
       if (typeData === 'orders') {
         async function msgsend(doing, text) {
-          const hostname = process.env.NEXTAUTH_URL || 'http://localhost:3000'
-          const responseWA = await fetch(hostname+'/api/sendWhatsapp', {
+          const hostname = process.env.NEXTAUTH_URL || 'http://localhost:3000/'
+          const responseWA = await fetch(hostname+'api/sendWhatsapp', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
