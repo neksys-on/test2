@@ -53,3 +53,15 @@
   background-position: center;
   background-size: cover;
 }
+
+@media screen and (max-width:768px) {
+  .div_fon {
+
+    z-index: -3;
+    background-image: url("/fon121.png");
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: center;
+    background-size: cover;
+  }
+}

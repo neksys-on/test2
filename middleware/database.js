@@ -4,6 +4,10 @@ import nextConnect from 'next-connect';
 const client = new MongoClient(process.env.DATABASE_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  maxIdleTimeMS:6000,
+  connectTimeoutMS:6000,
+  socketTimeoutMS:6000,
+  maxTimeMS: 6000,
 });
 
 async function database(req, res, next) {
@@ -14,6 +18,5 @@ async function database(req, res, next) {
 }
 
 const middleware = nextConnect();
-
-
+middleware.use(database);
 export default middleware;

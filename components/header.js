@@ -41,6 +41,7 @@ export default function Header ({propsBasket}) {
                   const burger = document.querySelector(`#burgerId`)
                   const nav = document.querySelector(`#navItemId`)
                   const navLinks = document.querySelectorAll(`#navItemId li`)
+              
                   nav.classList.toggle(`${styles.navActive}`)
                   navLinks.forEach((link, index) => {
                     if (link.style.animation) {
@@ -59,8 +60,9 @@ export default function Header ({propsBasket}) {
               </div>
             </div>
           </nav>
+          <BasketMy propsBasket={propsBasket}/>
           <div className={styles.group1}>
-            <BasketMy propsBasket={propsBasket}/>
+
 
             <div className={styles.signedInStatus}>
               <p className={`nojs-show ${(!session && loading) ? styles.loading : styles.loaded}`}>

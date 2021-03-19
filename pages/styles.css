@@ -30,8 +30,8 @@ body {
   -ms-user-select: none;       /* Internet Explorer/Edge */
   user-select: none;
 
-  box-shadow: inset 0px 35px 50px 30px rgba(0,0,0,0.6);
-  border-radius: 11px;
+
+
   min-height: 100vh;
   height: 100%;
 

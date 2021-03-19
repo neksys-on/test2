@@ -142,14 +142,14 @@
 
 
 .container {
-  min-width: 200px;
-  max-width: 250px;
+  min-width: 300px;
+  max-width: 230px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  padding: 10px 70px 10px 70px;
-  margin: 20px 10px 20px 10px;
+  padding: 10px 50px 10px 50px;
+  margin: 10px 5px 10px 5px;
   perspective: 900px;
 }
 .container transform{
@@ -173,7 +173,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 10px;
+  padding-top: 3px;
   transition: all 0.75s ease;
 }
 .imageSrc {
@@ -181,14 +181,14 @@
   border-radius: 20px;
   margin: 10px;
   height: 220px;
-  width: 260px;
+  width: 280px;
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center 40%;
+  background-position: center 50%;
   z-index: 4;
 }
 
@@ -208,11 +208,11 @@
 }
 
 .info {
-  padding: 13px;
+  padding: 1px;
   transition: all 0.75s ease;
 }
 .infoIn {
-  min-height: 19vh;
+  min-height: 15vh;
 }
 .info h1{
   font-size: 25px;
@@ -250,7 +250,7 @@
   top: 10px;
   left: -80px;
   margin-top: 120px;
-  width: 90%;
+  width: 67%;
   color: #6a737b;
   margin: auto;
   display: flex;

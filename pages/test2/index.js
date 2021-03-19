@@ -3,6 +3,7 @@ import path from 'path'
 import { useState, useEffect, useCallback } from 'react'
 import styles from './index.module.scss'
 import Head from 'next/head'
+import fetch from 'isomorphic-unfetch'
 
 
 
@@ -52,14 +53,14 @@ export async function getServerSideProps(context) {
   //
   // db.close();
 
-
-  let namberFile = 0
   return {
     props: {
-      data_version: '1',
-      namberFile
-    }, // will be passed to the page component as props
-  }
+      data: '1',
+    },
+  };
+
+
+
 }
 
 async function deal(infoPush) {
@@ -77,7 +78,7 @@ async function deal(infoPush) {
   return data.doPush
 }
 
-export default function Page ({data_version, namberFile}) {
+export default function Page () {
 
 
   const onClickDeal = React.useCallback((e) => {
@@ -92,7 +93,7 @@ export default function Page ({data_version, namberFile}) {
     </Head>
 
         <div className={styles.div_test}>
-          {data_version} || Фаил # {namberFile}
+
         </div>
         <div onClick={onClickDeal}>Изменить</div>
 

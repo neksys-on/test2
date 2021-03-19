@@ -1,6 +1,6 @@
 .mainDiv {
-  width: 80px;
-  height: 75px;
+  min-width: 80px;
+  min-height: 75px;
   border-radius: 10px;
   background-image: url("/fonShtrih61.png");
   background-size: cover;
