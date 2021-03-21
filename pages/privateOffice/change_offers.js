@@ -144,11 +144,6 @@ export default function Page ({email_1, email_2, email_3}) {
     return (
       <Layout propsBasket={sumItem}>
         <div style={{
-          width: '90%',
-          margin: 'auto',
-          paddingLeft: '30px',
-          paddingRight: '30px',
-          paddingTop: '30px'
         }}>
         <Head>
           <meta name = "robots" content = "noindex, nofollow" />

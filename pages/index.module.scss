@@ -1,4 +1,5 @@
 @import './control.scss';
+$font_size: 10px;
 
 .div_presentations {
   display:flex;
@@ -24,15 +25,12 @@
 
 .div_zagolovok {
   width: 600px;
-
   position: relative;
   top: 135px;
   left: 150px;
   font-size: 48px;
   font-weight: 800;
   color: black;
-
-
 }
 
 .div_text {
@@ -44,14 +42,12 @@
   font-weight: 700;
   word-spacing: 5px;
   line-height: 35px;
-
   color: black;
 }
 
 .div_card_image {
   position: relative;
   margin-top: 10px;
-
   width: 364px;
   height: 365px;
   margin-left: 6%;
@@ -66,7 +62,6 @@
   background-position: center;
   background-size: cover;
   border: 3px solid #caccd1;
-
   opacity: 0.95;
 
   .div_dot_1 {
@@ -118,8 +113,7 @@
   background-size: cover;
   border: 3px solid #FF4252;
   border-radius: 50%;
-
- z-index: 2;
+  z-index: 2;
 }
 .div_line_1_1 {
   position: absolute;
@@ -241,4 +235,100 @@
   border: 3px solid #FF4252;
   border-radius: 50%;
   z-index: 2;
+}
+
+@media screen and (max-width:768px) {
+  .div_presentations {
+    display:flex;
+    flex-direction: row;
+    flex: 0 0 auto;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .div_main_text {
+    position: relative;
+    top: -50px;
+    left: -30px;
+    min-width: 100%;
+    max-width: 700px;
+    min-height: 550px;
+    background-image: url("/mazok4.png");
+    background-repeat: no-repeat;
+    background-attachment: local;
+    background-position: top;
+    background-size: contain;
+    z-index: 1;
+    margin-left:  4%;
+  }
+
+  .div_zagolovok {
+    width: 70%;
+    position: relative;
+    font-weight: 800;
+    color: black;
+  }
+
+  .div_text {
+    width: 60%;
+    position: relative;
+    font-weight: 700;
+    word-spacing: 5px;
+    color: black;
+  }
+  .div_conteiner1 {
+    width: 90%;
+    height: 200px;
+    background-image: url("/map_japan4.png");
+    background-repeat: no-repeat;
+    background-attachment: local;
+    background-position: center;
+    background-size: cover;
+    border: 3px solid #caccd1;
+    opacity: 0.95;
+  }
+
+  .div_image_content1 {
+    position: relative;
+    background-color: #caccd1;
+    background-image: url("/cosmetic3.jpg");
+    background-repeat: no-repeat;
+    background-attachment: local;
+    background-position: center;
+    background-size: cover;
+    border: 3px solid #FF4252;
+    border-radius: 50%;
+    z-index: 2;
+  }
+  .div_dot_1 {
+    position: relative;
+    width: 6px;
+    height: 6px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 3px solid #FF4252;
+    border-radius: 50%;
+    z-index: 4;
+  }
+  .div_dot_2 {
+    position: relative;
+    width: 6px;
+    height: 6px;
+    top: -35%;
+    left: 55%;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 3px solid #FF4252;
+    border-radius: 50%;
+    z-index: 4;
+  }
+  .div_dot_3 {
+    position: relative;
+    width: 6px;
+    height: 6px;
+    top: 225px;
+    left: 17px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 3px solid #FF4252;
+    border-radius: 50%;
+    z-index: 4;
+  }
 }

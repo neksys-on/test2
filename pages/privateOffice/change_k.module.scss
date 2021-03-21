@@ -5,11 +5,10 @@
   justify-content: center;
   flex-wrap: wrap;
   margin: auto;
-  width: 100%;
+  width: 90%;
   min-height: 30vh;
-  max-height: 500vh;
   flex-direction: column;
-  padding: 20px 40px 40px 20px;
+  padding: 20px 0px 20px 20px;
   background-image: url("/fon_311.jpg");
   background-repeat: repeat;
   background-attachment: local;
@@ -26,13 +25,15 @@
   justify-content: flex-start;
   flex-wrap: wrap;
   flex-direction: row;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid $color5;
 }
 
 .list div{
   margin-right: 10px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   flex-wrap: wrap;
   flex-direction: row;
 }
@@ -77,10 +78,10 @@
   justify-content: center;
   flex-wrap: wrap;
   margin: auto;
-  width: 100%;
+  width: 90%;
   min-height: 10vh;
   flex-direction: column;
-  padding: 20px 40px 40px 20px;
+  padding: 20px 0px 20px 20px;
   background-image: url("/fon_311.jpg");
   background-repeat: repeat;
   background-attachment: local;
@@ -98,4 +99,9 @@
 
 .deleteDiv {
   margin-left:  20px;
+}
+
+
+@media screen and (max-width:768px) {
+
 }

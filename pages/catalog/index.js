@@ -130,9 +130,9 @@ if ( show === 'Каталог' ) {
       <meta charSet = "UTF-8"/>
     </Head>
       <h1 style={{
-        width: '90%',
+
         margin: 'auto',
-        padding: '51px 30px 30px 30px'
+        padding: '51px 0px 30px 30px'
       }}>Каталог</h1>
       <div className={styles.div_main}>
         <div className={styles.div_show}>
@@ -193,9 +193,9 @@ if ( show !== 'Каталог' ) {
   return (
     <Layout propsBasket={sumItem}>
       <h1 style={{
-        width: '90%',
+
         margin: 'auto',
-        padding: '51px 30px 30px 30px'
+        padding: '51px 0px 30px 30px'
       }}>{show}</h1>
       <div className={styles.div_main}>
         <div className={styles.div_menu} style={{ height: height_for_div_menu}}>

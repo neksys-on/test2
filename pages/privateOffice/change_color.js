@@ -136,15 +136,18 @@ export default function Page ({colorObj, email_1, email_2, email_3}) {
     return (
       <Layout propsBasket={sumItem}>
         <div style={{
-          width: '90%',
-          margin: 'auto',
-          padding: '30px'
+
         }}>
         <Head>
           <meta name = "robots" content = "noindex, nofollow" />
         </Head>
-          <h1>Protected Page</h1>
+        <div style={{
+          width: '90%',
+          margin: 'auto',
+          padding: '30px 0px 30px 30px'
+        }}>
           <h2>Редактирование цветовой гаммы сайта</h2>
+        </div>
           <div className={styles.mainDiv}>
             <div className={styles.color_div}>
               <div className={styles.list}>
@@ -204,20 +207,7 @@ export default function Page ({colorObj, email_1, email_2, email_3}) {
               <button className={styles.addDataButtonSave} onClick={onClickButtonAddData}>Сохранить</button>
             </div>
           </div>
-          <hr/>
-          <div className={styles.addInDataDiv}>
-            <h2>Добавить новую категорию каталога товаров</h2>
-            <div key={'addDiv'} className={styles.list}>
-              <div><h3>Название:</h3> <input id={`idTitleInput`} type='text' placeholder={'Название категории'} value={input4} className={styles.inputN} onChange={(e) => {
-                setInput4(e.target.value)
-              }}></input> </div>
-              <div><h3>Url адрес фона:</h3> <input id={`idUrlInput`} placeholder={'Url фона для категории'} value={input5} className={styles.inputN} onChange={(e) => {
-                setInput5(e.target.value)
-              }}></input></div>
-              <button className={styles.addDataButton} onClick={onClickButtonAddData}>Добавить</button>
-            </div>
-          </div>
-          <p><strong>{content}</strong></p>
+
         </div>
       </Layout>
     )

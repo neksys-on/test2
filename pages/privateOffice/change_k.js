@@ -81,7 +81,7 @@ export default function Page ({email_1, email_2, email_3}) {
   // Fetch content from protected route
   useEffect(()=>{
     const fetchData = async () => {
-      
+
 
       const response = await fetch('/api/data/getData', {
         method: 'POST',
@@ -143,16 +143,31 @@ export default function Page ({email_1, email_2, email_3}) {
   if ((session.user.email === email_1)||(session.user.email === email_2)||(session.user.email === email_3)) {
     return (
       <Layout propsBasket={sumItem}>
-        <div style={{
-          width: '90%',
-          margin: 'auto',
-          padding: '30px'
-        }}>
+        <div>
         <Head>
           <meta name = "robots" content = "noindex, nofollow" />
         </Head>
+        <div style={{
+          width: '90%',
+          margin: 'auto',
+          padding: '30px 0px 30px 30px'
+        }}>
           <h1>Protected Page</h1>
           <h2>Список категорий каталога товаров</h2>
+        </div>
+          <div className={styles.addInDataDiv}>
+            <h2>Добавить новую категорию каталога товаров</h2>
+            <div key={'addDiv'} className={styles.list}>
+              <div><h3>Название:</h3> <input id={`idTitleInput`} type='text' placeholder={'Название категории'} value={input4} className={styles.inputN} onChange={(e) => {
+                setInput4(e.target.value)
+              }}></input> </div>
+              <div><h3>Url адрес фона:</h3> <input id={`idUrlInput`} placeholder={'Url фона для категории'} value={input5} className={styles.inputN} onChange={(e) => {
+                setInput5(e.target.value)
+              }}></input></div>
+              <button className={styles.addDataButton} onClick={onClickButtonAddData}>Добавить</button>
+            </div>
+          </div>
+          <hr/>
           <div className={styles.mainDiv}>
             {dataCategory.map((image) => (
               <div key={image.id} className={styles.list}>
@@ -179,20 +194,6 @@ export default function Page ({email_1, email_2, email_3}) {
               </div>
             ))}
           </div>
-          <hr/>
-          <div className={styles.addInDataDiv}>
-            <h2>Добавить новую категорию каталога товаров</h2>
-            <div key={'addDiv'} className={styles.list}>
-              <div><h3>Название:</h3> <input id={`idTitleInput`} type='text' placeholder={'Название категории'} value={input4} className={styles.inputN} onChange={(e) => {
-                setInput4(e.target.value)
-              }}></input> </div>
-              <div><h3>Url адрес фона:</h3> <input id={`idUrlInput`} placeholder={'Url фона для категории'} value={input5} className={styles.inputN} onChange={(e) => {
-                setInput5(e.target.value)
-              }}></input></div>
-              <button className={styles.addDataButton} onClick={onClickButtonAddData}>Добавить</button>
-            </div>
-          </div>
-
         </div>
       </Layout>
     )
@@ -203,7 +204,7 @@ export default function Page ({email_1, email_2, email_3}) {
         <div style={{
           width: '90%',
           margin: 'auto',
-          padding: '30px'
+          padding: '30px 0px 30px 30px'
         }}>
         <Head>
           <meta name = "robots" content = "noindex, nofollow" />

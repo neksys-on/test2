@@ -5,11 +5,12 @@ import { useState, useEffect } from 'react'
 import path from 'path'
 
 
-export default function Layout ({children, propsBasket}) {
 
+export default function Layout ({children, propsBasket}) {
 
   const [state, setState] = useState([])
   const [show, setShow] = useState('2')
+  const [wid, setWid] = useState(0)
 
     useEffect(()=>{
       function deletVision() {
@@ -29,6 +30,10 @@ export default function Layout ({children, propsBasket}) {
         }
       }
       setInterval(deletVision, 100)
+
+      if ((typeof window !== 'undefined')&(wid === 0)) {
+        setWid(document.documentElement.clientWidth)
+      }
 
     })
 
@@ -101,14 +106,16 @@ if (show === '1') {
 
         <div className={styles.div_wrapper}>
           <div className={styles.div_video}>
-            <video id={'idVideoFon'} autoPlay src={'./Fon_video2.mp4'} loop muted>
+            {wid>767 && <>
+              <video id={'idVideoFon'} autoPlay src={'./Fon_video2.mp4'} loop muted>
 
-            </video>
-            <style jsx>{`
-              video {
-                clip-path: url(#myClip);
-              }
-            `}</style>
+              </video>
+              <style jsx>{`
+                video {
+                  clip-path: url(#myClip);
+                }
+              `}</style>
+            </>}
             <div className={styles.div_fon}></div>
           </div>
           <OpenVision/>
@@ -131,14 +138,16 @@ if (show === '2') {
 
         <div className={styles.div_wrapper}>
           <div className={styles.div_video}>
-            <video id={'idVideoFon'} autoPlay src={'./Fon_video2.mp4'} loop muted>
+            {wid>767 && <>
+              <video id={'idVideoFon'} autoPlay src={'./Fon_video2.mp4'} loop muted>
 
-            </video>
-            <style jsx>{`
-              video {
-                clip-path: url(#myClip);
-              }
-            `}</style>
+              </video>
+              <style jsx>{`
+                video {
+                  clip-path: url(#myClip);
+                }
+              `}</style>
+            </>}
             <div className={styles.div_fon}></div>
           </div>
           <OpenVision/>

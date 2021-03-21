@@ -30,7 +30,7 @@ export default function Page () {
       <h1 style={{
         width: '90%',
         margin: 'auto',
-        padding: '51px 30px 30px 30px'
+        padding: '51px 0px 30px 0px'
       }}>Товары в корзине</h1>
         <ProductInBasket/>
     </Layout>

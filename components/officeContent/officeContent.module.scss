@@ -27,10 +27,33 @@
 .div_content2 {
   display: flex;
   justify-content: flex-start;
+  flex-wrap: wrap;
+  flex-direction: column;
+  width: 100%
 }
 .container {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  flex-direction: row;
   margin-left: 10px;
-  margin-right: 50px;
+}
+.div_userData {
+  width: 350px;
+}
+
+
+@media screen and (max-width:768px) {
+  .div_userData {
+    width: 100%;
+  }
+  .container {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin-left: 10px;
+  }
 }
 
 

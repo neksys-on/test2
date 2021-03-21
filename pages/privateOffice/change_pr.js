@@ -286,15 +286,114 @@ export default function Page ({email_1, email_2, email_3}) {
     return (
       <Layout propsBasket={sumItem}>
         <div style={{
-          width: '90%',
-          margin: 'auto',
-          padding: '30px'
+
         }}>
         <Head>
           <meta name = "robots" content = "noindex, nofollow" />
         </Head>
+        <div style={{
+          width: '90%',
+          margin: 'auto',
+          padding: '30px 0px 30px 30px'
+        }}>
           <h1>Protected Page</h1>
           <h2>Список товаров</h2>
+        </div>
+          <div className={styles.addInDataDiv}>
+            <h2>Добавить новую категорию каталога товаров</h2>
+            <div key={'addDiv'} className={styles.list}>
+              <div><h3>Название:</h3> <input id={`idTitleInput`} type='text' placeholder={'Название товара'} value={input9[0]} className={styles.inputN} onChange={(e) => {
+                let n = input9
+                n[0] = e.target.value
+                setInput9(n)
+                setInput9([])
+              }}></input> </div>
+              <div><h3>Описание:</h3> <input id={`idDescriptionInput`} type='text' placeholder={'Описание товара'} value={input9[1]} className={styles.inputN} onChange={(e) => {
+                let n = input9
+                n[1] = e.target.value
+                setInput9(n)
+                setInput9([])
+              }}></input> </div>
+              <div><h3>Url адрес фото:</h3> <input id={`idUrlInput`} placeholder={'Url картинки товара'} value={input9[2]} className={styles.inputN} onChange={(e) => {
+                let n = input9
+                n[2] = e.target.value
+                setInput9(n)
+                setInput9([])
+              }}></input></div>
+              <div><h3>Обьем/вес:</h3> <input id={`idVolumeInput`} type='number' placeholder={'Обьем/вес товара'} value={input9[3]} className={styles.inputN} onChange={(e) => {
+                let n = input9
+                n[3] = e.target.value
+                setInput9(n)
+                setInput9([])
+              }}></input> </div>
+              <div><h3>Ед.изм:</h3> <input id={`idTypeVolumeInput`} type='text' placeholder={'Ед.изм. веса/обьема'} value={input9[4]} className={styles.inputN} onChange={(e) => {
+                let n = input9
+                n[4] = e.target.value
+                setInput9(n)
+                setInput9([])
+              }}></input> </div>
+              <div><h3>Цена:</h3> <input id={`idPriceInput`} type='number' placeholder={'Цена товара в рублях'} value={input9[5]} className={styles.inputN} onChange={(e) => {
+                let n = input9
+                n[5] = e.target.value
+                setInput9(n)
+                setInput9([])
+              }}></input> </div>
+              <div><h3>Цена со скидкой:</h3> <input id={`idPriceDiscountInput`} type='number' placeholder={'Цена товара со скидкой'} value={input9[6]} className={styles.inputN} onChange={(e) => {
+                let n = input9
+                n[6] = e.target.value
+                setInput9(n)
+                setInput9([])
+              }}></input> </div>
+              <div><h3>Количество товара:</h3> <input id={`idValueInput`} type='number' placeholder={'Количество'} value={input9[7]} className={styles.inputN} onChange={(e) => {
+                let n = input9
+                n[7] = e.target.value
+                setInput9(n)
+                setInput9([])
+              }}></input> </div>
+              <div className={styles.catalog_list}>
+                  <div className={styles.chose_list}>
+                  <div className={styles.name_list}>Выбранные:</div>
+                    {listCategory[0].map((item)=>(
+                      <div style={{display: item.display}} key={'listCategoryAdd'+'0'+item.category} id={'idListCatAdd'+'0'+item.category[0]+item.category[1]+item.category[2]+item.category.length} onClick={()=>{
+                        const itemDiv = document.querySelector(`#idListCatAdd`+'0'+item.category[0]+item.category[1]+item.category[2]+item.category.length)
+                        const itemDiv2 = document.querySelector(`#idListNoChoseAdd`+'0'+item.category[0]+item.category[1]+item.category[2]+item.category.length)
+                        itemDiv.style.display = 'none'
+                        itemDiv2.style.display = 'flex'
+                        item.display = 'none'
+                        listNoChose[0].map((target)=>{
+                          if (target.category === item.category) {
+                            target.display = 'flex'
+                          }
+                        })
+
+                      }}><div>{item.category}</div><div> ❯</div></div>
+                    ))}
+                  </div>
+                <div  className={styles.simvol}>⇄</div>
+                  <div className={styles.chose_list}>
+                  <div className={styles.name_list2}>Можно добавить:</div>
+                    {listNoChose[0].map((item)=>(
+                      <div style={{display: item.display}} key={'listNoChoseAdd'+'0'+item.category} id={'idListNoChoseAdd'+'0'+item.category[0]+item.category[1]+item.category[2]+item.category.length} onClick={()=>{
+                        const itemDiv = document.querySelector(`#idListCatAdd`+'0'+item.category[0]+item.category[1]+item.category[2]+item.category.length)
+                        const itemDiv2 = document.querySelector(`#idListNoChoseAdd`+'0'+item.category[0]+item.category[1]+item.category[2]+item.category.length)
+                        itemDiv.style.display = 'flex'
+                        itemDiv2.style.display = 'none'
+                        item.display = 'none'
+                        listCategory[0].map((target)=>{
+                          if (target.category === item.category) {
+                            target.display = 'flex'
+                          }
+                        })
+
+                      }}><div>❮ </div><div>{item.category}</div>
+                      </div>
+                    ))}
+                  </div>
+              </div>
+              <button className={styles.addDataButton} onClick={onClickButtonAddData}>Добавить товар в базу</button>
+            </div>
+          </div>
+          <hr/>
           <div className={styles.mainDiv}>
             {dataProducts.map((product) => (
               <div key={product.id} className={styles.list}>
@@ -402,102 +501,6 @@ export default function Page ({email_1, email_2, email_3}) {
               </div>
             ))}
           </div>
-          <hr/>
-          <div className={styles.addInDataDiv}>
-            <h2>Добавить новую категорию каталога товаров</h2>
-            <div key={'addDiv'} className={styles.list}>
-              <div><h3>Название:</h3> <input id={`idTitleInput`} type='text' placeholder={'Название товара'} value={input9[0]} className={styles.inputN} onChange={(e) => {
-                let n = input9
-                n[0] = e.target.value
-                setInput9(n)
-                setInput9([])
-              }}></input> </div>
-              <div><h3>Описание:</h3> <input id={`idDescriptionInput`} type='text' placeholder={'Описание товара'} value={input9[1]} className={styles.inputN} onChange={(e) => {
-                let n = input9
-                n[1] = e.target.value
-                setInput9(n)
-                setInput9([])
-              }}></input> </div>
-              <div><h3>Url адрес фото:</h3> <input id={`idUrlInput`} placeholder={'Url картинки товара'} value={input9[2]} className={styles.inputN} onChange={(e) => {
-                let n = input9
-                n[2] = e.target.value
-                setInput9(n)
-                setInput9([])
-              }}></input></div>
-              <div><h3>Обьем/вес:</h3> <input id={`idVolumeInput`} type='number' placeholder={'Обьем/вес товара'} value={input9[3]} className={styles.inputN} onChange={(e) => {
-                let n = input9
-                n[3] = e.target.value
-                setInput9(n)
-                setInput9([])
-              }}></input> </div>
-              <div><h3>Ед.изм:</h3> <input id={`idTypeVolumeInput`} type='text' placeholder={'Ед.изм. веса/обьема'} value={input9[4]} className={styles.inputN} onChange={(e) => {
-                let n = input9
-                n[4] = e.target.value
-                setInput9(n)
-                setInput9([])
-              }}></input> </div>
-              <div><h3>Цена:</h3> <input id={`idPriceInput`} type='number' placeholder={'Цена товара в рублях'} value={input9[5]} className={styles.inputN} onChange={(e) => {
-                let n = input9
-                n[5] = e.target.value
-                setInput9(n)
-                setInput9([])
-              }}></input> </div>
-              <div><h3>Цена со скидкой:</h3> <input id={`idPriceDiscountInput`} type='number' placeholder={'Цена товара со скидкой'} value={input9[6]} className={styles.inputN} onChange={(e) => {
-                let n = input9
-                n[6] = e.target.value
-                setInput9(n)
-                setInput9([])
-              }}></input> </div>
-              <div><h3>Количество товара:</h3> <input id={`idValueInput`} type='number' placeholder={'Количество'} value={input9[7]} className={styles.inputN} onChange={(e) => {
-                let n = input9
-                n[7] = e.target.value
-                setInput9(n)
-                setInput9([])
-              }}></input> </div>
-              <div className={styles.catalog_list}>
-                  <div className={styles.chose_list}>
-                  <div className={styles.name_list}>Выбранные:</div>
-                    {listCategory[0].map((item)=>(
-                      <div style={{display: item.display}} key={'listCategoryAdd'+'0'+item.category} id={'idListCatAdd'+'0'+item.category[0]+item.category[1]+item.category[2]+item.category.length} onClick={()=>{
-                        const itemDiv = document.querySelector(`#idListCatAdd`+'0'+item.category[0]+item.category[1]+item.category[2]+item.category.length)
-                        const itemDiv2 = document.querySelector(`#idListNoChoseAdd`+'0'+item.category[0]+item.category[1]+item.category[2]+item.category.length)
-                        itemDiv.style.display = 'none'
-                        itemDiv2.style.display = 'flex'
-                        item.display = 'none'
-                        listNoChose[0].map((target)=>{
-                          if (target.category === item.category) {
-                            target.display = 'flex'
-                          }
-                        })
-
-                      }}><div>{item.category}</div><div> ❯</div></div>
-                    ))}
-                  </div>
-                <div  className={styles.simvol}>⇄</div>
-                  <div className={styles.chose_list}>
-                  <div className={styles.name_list2}>Можно добавить:</div>
-                    {listNoChose[0].map((item)=>(
-                      <div style={{display: item.display}} key={'listNoChoseAdd'+'0'+item.category} id={'idListNoChoseAdd'+'0'+item.category[0]+item.category[1]+item.category[2]+item.category.length} onClick={()=>{
-                        const itemDiv = document.querySelector(`#idListCatAdd`+'0'+item.category[0]+item.category[1]+item.category[2]+item.category.length)
-                        const itemDiv2 = document.querySelector(`#idListNoChoseAdd`+'0'+item.category[0]+item.category[1]+item.category[2]+item.category.length)
-                        itemDiv.style.display = 'flex'
-                        itemDiv2.style.display = 'none'
-                        item.display = 'none'
-                        listCategory[0].map((target)=>{
-                          if (target.category === item.category) {
-                            target.display = 'flex'
-                          }
-                        })
-
-                      }}><div>❮ </div><div>{item.category}</div>
-                      </div>
-                    ))}
-                  </div>
-              </div>
-              <button className={styles.addDataButton} onClick={onClickButtonAddData}>Добавить товар в базу</button>
-            </div>
-          </div>
-
         </div>
       </Layout>
     )
@@ -509,7 +512,7 @@ export default function Page ({email_1, email_2, email_3}) {
           <div style={{
             width: '90%',
             margin: 'auto',
-            padding: '30px'
+            padding: '30px 0px 30px 30px'
           }}>
           <Head>
             <meta name = "robots" content = "noindex, nofollow" />
@@ -528,7 +531,7 @@ export default function Page ({email_1, email_2, email_3}) {
           <div style={{
             width: '90%',
             margin: 'auto',
-            padding: '30px'
+            padding: '30px 0px 30px 30p'
           }}>
           <Head>
             <meta name = "robots" content = "noindex, nofollow" />

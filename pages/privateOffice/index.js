@@ -65,26 +65,22 @@ if ((session.user.email === email_1)||(session.user.email === email_2)||(session
       <div style={{
         width: '90%',
         margin: 'auto',
-        paddingLeft: '30px',
-        paddingRight: '30px',
-        paddingTop: '30px'
+
       }}>
       <Head>
         <meta name = "robots" content = "noindex, nofollow" />
       </Head>
         <h1>Личный кабинет</h1>
-        <p>
+        <h2>
          Администратор
-        </p>
-        <p>
-          Здесь вы можете взаимодействовать с вашей информацией.
-        </p>
+        </h2>
         <div className={styles.div_fon}>
         <div className={styles.div_button}>
           <li onClick={() => {Router.push('/privateOffice/change_k')}}>Управление Категориями</li>
           <li onClick={() => {Router.push('/privateOffice/change_pr')}}>Управление Товарами</li>
           <li onClick={() => {Router.push('/privateOffice/change_offers')}}>Управление Заказами</li>
           <li onClick={() => {Router.push('/privateOffice/statistics')}}>Статистика Товаров</li>
+          <li onClick={() => {Router.push('/privateOffice/change_color')}}>Управление цветовой гаммой</li>
         </div>
         <div className={styles.otstup}></div>
         <div className={styles.div_main}>
@@ -121,9 +117,6 @@ if ((session.user.email === email_1)||(session.user.email === email_2)||(session
         padding: '30px'
       }}>
         <h1>Личный кабинет</h1>
-        <p>
-          Здесь вы можете взаимодействовать с вашей информацией.
-        </p>
         <div className={styles.div_fon}>
         <div className={styles.otstup}></div>
         <div className={styles.div_main}>

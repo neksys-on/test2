@@ -2,7 +2,7 @@
 
 .div_main {
   width: 100%;
-  height: 65vh;
+  min-height: 65vh;
   background-image: url("/fon_311.jpg");
   background-repeat: repeat;
   background-attachment: local;
@@ -50,4 +50,28 @@
   margin-bottom: 20px;
   display: flex;
   justify-content: flex-end;
+}
+
+
+@media screen and (max-width:768px) {
+  .div_companys{
+    width: 83%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-left: 30px;
+  }
+  .div_companys_info {
+    margin-left: 50px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    transition: all .65s ease;
+    visibility: hidden;
+    opacity: 0;
+    height: 0px;
+  }
+  .div_pusto {
+    height: 20px;
+  }
 }

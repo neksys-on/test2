@@ -21,6 +21,7 @@
   border-color: $color6;
   padding: 3px;
   transform:  translateZ(90px) ;
+  cursor: pointer;
 }
 
 .div_fon {
@@ -41,6 +42,7 @@
 .div_main {
   display: flex;
   justify-content: flex-start;
+  flex-wrap: wrap;
   width: 100%;
   min-height: 400px;
   flex-direction: row;
@@ -50,13 +52,15 @@
  display: flex;
  justify-content: flex-start;
  width: 18%;
- min-height: 300px;
+ min-width: 180px;
+ min-height: 160px;
  flex-direction: column;
 }
 
 .div_content_clock {
-  width: 82%;
+  width: 78%;
   padding: 7px;
+  min-width: 250px;
 }
 
 .div_content {
@@ -96,4 +100,11 @@
 .div_menu_block:hover {
   padding: 5px;
   height: 54px;
+}
+
+@media screen and (max-width:768px) {
+  .div_content_clock {
+    width: 100%;
+
+  }
 }

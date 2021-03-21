@@ -126,16 +126,21 @@ export default function PrivateOfficeContent({selected_tab, users_email}) {
       <div className={styles.div_content2}>
         <div className={styles.container}>
           <div className={styles.div_userData}>Фамилия: {userData.surname}</div>
-          <div className={styles.div_userData}>Отчество: {userData.patronymic}</div>
-          <div className={styles.div_userData}>Номер телефона: {userData.telephone}</div>
-          <div className={styles.div_userData}>Адрес доставки: {userData.address}</div>
+          <div className={styles.div_userData}>Имя: {userData.name}</div>
         </div>
         <div className={styles.container}>
-          <div className={styles.div_userData}>Имя: {userData.name}</div>
+          <div className={styles.div_userData}>Отчество: {userData.patronymic}</div>
           <div className={styles.div_userData}>Email: {userData.email}</div>
+        </div>
+        <div className={styles.container}>
+          <div className={styles.div_userData}>Номер телефона: {userData.telephone}</div>
           <div className={styles.div_userData}>Населенный пункт: {userData.city}</div>
+        </div>
+        <div className={styles.container}>
+          <div className={styles.div_userData}>Адрес доставки: {userData.address}</div>
           <div className={styles.div_userData}>Индекс: {userData.index}</div>
         </div>
+
       </div>
       <div className={styles.butt} id={'offer'} >
           <a onClick={()=>{
