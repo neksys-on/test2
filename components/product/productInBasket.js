@@ -97,7 +97,7 @@ prData.map((product) => {
 if (haveItemIn) {
   let totalPrice = 0
   productsWeHave.map((prod) => {
-    totalPrice += prod.price*prod.value
+    prod.sale === 'true' ? totalPrice += prod.priceDiscount*prod.value : totalPrice += prod.price*prod.value
   })
   return (
 
@@ -226,7 +226,12 @@ if (haveItemIn) {
             </div>
             <div className={styles.sum}>
               <h2>Сумма</h2>
-              <h3>{product.price*product.value} ₽</h3>
+              {product.sale === 'true' && <>
+                <h3>{product.priceDiscount*product.value} ₽</h3>
+              </>}
+              {product.sale === 'false' && <>
+                <h3>{product.price*product.value} ₽</h3>
+              </>}
             </div>
 
             <div>

@@ -28,7 +28,20 @@
   border: 2px solid $color5;
   box-shadow: 0px 0px 6px rgba(255, 66, 82, 0.8), 0px 0px 13px rgba(255, 66, 82, 0.4), 0px 0px 18px rgba(255, 255, 255, 0.7);
 }
+
+.div_spisok_menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  transition: all .45s ease;
+  visibility: hidden;
+  opacity: 0;
+}
+
 .div_heading_menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   color: $color3;
   margin-left: 4px;
   margin-top: 10px;
@@ -66,8 +79,6 @@
   justify-content: center;
   flex-wrap: wrap;
   margin: auto;
-  max-width: 84%;
-  min-width: 30%;
   min-height: 60vh;
   max-height: 500vh;
   cursor: pointer;

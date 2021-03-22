@@ -32,7 +32,6 @@ export default function Header ({propsBasket}) {
                 }}><Link href="/catalog"><a>Акции</a></Link></li>
                 <li className={styles.navItem}><Link href="/catalog"><a>Каталог</a></Link></li>
                 <li className={styles.navItem}><Link href="/ShippingAndPayment"><a>Доставка и оплата</a></Link></li>
-                <li className={styles.navItem}><Link href="/basket"><a>Корзина</a></Link></li>
                 <li className={styles.navItem}><Link href="/privateOffice"><a>Кабинет</a></Link></li>
 
               </ul>
@@ -41,7 +40,7 @@ export default function Header ({propsBasket}) {
                   const burger = document.querySelector(`#burgerId`)
                   const nav = document.querySelector(`#navItemId`)
                   const navLinks = document.querySelectorAll(`#navItemId li`)
-              
+
                   nav.classList.toggle(`${styles.navActive}`)
                   navLinks.forEach((link, index) => {
                     if (link.style.animation) {

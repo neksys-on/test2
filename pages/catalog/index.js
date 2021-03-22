@@ -42,6 +42,9 @@ export default function Page ({data_category, data_products}) {
   const [recoveryItem, setRecoveryItem] = useState('')
   const [recoveryColor, setRecoveryColor] = useState('')
 
+  const [open1, setOpen1] = useState('▼')
+  const [wid, setWid] = useState(0)
+
   if ((data_category !== undefined)&(dataCategory !== data_category)&(dataCategoryDB === '1')) {
     setDataCategory(data_category)
   }
@@ -54,6 +57,11 @@ export default function Page ({data_category, data_products}) {
     if (localStor) {
     const  localStorJson = JSON.parse(localStor)
       setSumItem(localStorJson.length)
+    }
+
+    if ((typeof window !== 'undefined')&(wid === 0)) {
+      document.documentElement.clientWidth>=650 ? setWid(`${document.documentElement.clientWidth - 233}px`) : setWid(`100%`)
+
     }
 
     const fetchData = async () => {
@@ -198,36 +206,60 @@ if ( show !== 'Каталог' ) {
         padding: '51px 0px 30px 30px'
       }}>{show}</h1>
       <div className={styles.div_main}>
-        <div className={styles.div_menu} style={{ height: height_for_div_menu}}>
-        <div className={styles.div_heading_menu}>Фильтр</div>
-        <div id={`id_filter0`} className={styles.div_all} onClick={(e)=>{
-          localStorage.setItem('_filter', 'Все товары')
-          localStorage.setItem('_filterId', '0')
-          setShow('Все товары')
-          setShowId('0')
-          }}>Все товары</div>
-          {dataCategory.map((image) => (
-            <div key={image.id} id={`id_filter`+image.id} className={styles.div_punkt_menu} onClick={(e)=>{
-              localStorage.setItem('_filter', image.title)
-              localStorage.setItem('_filterId', image.id)
-              setShow(image.title)
-              setShowId(image.id)
-            }}>{image.title}</div>
-          ))}
-          <div id={`id_filter_1`} className={styles.div_sale_filter} onClick={(e)=>{
-            localStorage.setItem('_filter', 'Товары со скидкой')
-            localStorage.setItem('_filterId', '_1')
-            setShow('Товары со скидкой')
-            setShowId('_1')
-          }}>Товары со скидкой</div>
-          <div className={styles.div_sbros} onClick={(e)=>{
-            localStorage.setItem('_filter', 'Каталог')
-            localStorage.setItem('_filterId', 'Каталог')
-            setShow('Каталог')
-            setShowId('Каталог')
-          }}>Сброс</div>
+        <div className={styles.div_menu} id={'id_div_menu'} style={{ height: `50px`}}>
+          <div className={styles.div_heading_menu} onClick={(e)=>{
+            const comp = document.querySelector(`#id_spisok_menu`)
+            const div = document.querySelector(`#id_div_menu`)
+            if (open1 === '▼') {
+              setOpen1('▲')
+              comp.style.transition = `all 1.95s ease`
+              comp.style.visibility = 'visible'
+              comp.style.opacity = '1'
+              div.style.transition = `all .65s ease`
+              div.style.height = `${height_for_div_menu}px`
+              // comp.style.marginTop = '10px'
+              // comp.style.marginBottom = '10px'
+            } else {
+              setOpen1('▼')
+              comp.style.transition = `all .25s ease`
+              comp.style.visibility = 'hidden'
+              comp.style.opacity = '0'
+              div.style.transition = `all 0.65s ease`
+              div.style.height = `50px`
+              // comp.style.marginTop = '-20px'
+              // comp.style.marginBottom = '-20px'
+            }
+          }}><div>Фильтр</div>   <div style={{marginRight:'30px'}}>{open1}</div></div>
+          <div className={styles.div_spisok_menu} id={'id_spisok_menu'}>
+            <div id={`id_filter0`} className={styles.div_all} onClick={(e)=>{
+              localStorage.setItem('_filter', 'Все товары')
+              localStorage.setItem('_filterId', '0')
+              setShow('Все товары')
+              setShowId('0')
+            }}>Все товары</div>
+            {dataCategory.map((image) => (
+              <div key={image.id} id={`id_filter`+image.id} className={styles.div_punkt_menu} onClick={(e)=>{
+                localStorage.setItem('_filter', image.title)
+                localStorage.setItem('_filterId', image.id)
+                setShow(image.title)
+                setShowId(image.id)
+              }}>{image.title}</div>
+            ))}
+            <div id={`id_filter_1`} className={styles.div_sale_filter} onClick={(e)=>{
+              localStorage.setItem('_filter', 'Товары со скидкой')
+              localStorage.setItem('_filterId', '_1')
+              setShow('Товары со скидкой')
+              setShowId('_1')
+            }}>Товары со скидкой</div>
+            <div className={styles.div_sbros} onClick={(e)=>{
+              localStorage.setItem('_filter', 'Каталог')
+              localStorage.setItem('_filterId', 'Каталог')
+              setShow('Каталог')
+              setShowId('Каталог')
+            }}>Сброс</div>
+          </div>
         </div>
-        <div className={styles.div_show}>
+        <div className={styles.div_show} style={{width:`${wid}`}}>
         {data_filtered.map((product) => (
           <div className={styles.container}
           onMouseMove={(e) => {
