@@ -23,6 +23,19 @@
 .div_block {
   margin-right: 50px;
 }
+.div_block2 {
+  display: flex;
+  flex-direction:column;
+}
+.div_air {
+  width:20px;
+}
+
+.div_prod {
+  margin-left: 6px;
+  display: flex;
+  justify-content: space-between;
+}
 
 .div_content2 {
   display: flex;
@@ -40,6 +53,17 @@
 }
 .div_userData {
   width: 350px;
+}
+.div_param_and_value {
+  display: flex;
+
+}
+.image_hair {
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center;
+  background-size: contain;
+  border-radius: 50%;
 }
 
 

@@ -74,20 +74,27 @@ prData.map((product) => {
   let notFound = true
   if (productsWeHave) {
     productsWeHave.map((prod) => {
-      if (prod.id === product.id) {
-        prod.value = prod.value + 1
-        notFound = false
+      if ((product.params !== undefined)&(prod.params !== undefined)) {
+        if ((prod.id === product.id)&(prod.params.param === product.params.param)) {
+          prod.valueOrder = prod.valueOrder + 1
+          notFound = false
+        }
+      } else {
+        if (prod.id === product.id) {
+          prod.valueOrder = prod.valueOrder + 1
+          notFound = false
+        }
       }
     })
   }
   else {
     notFound = false
     productsWeHave = [product]
-    productsWeHave[0].value = 1
+    productsWeHave[0].valueOrder = 1
   }
   if (notFound) {
     productsWeHave.push(product)
-    productsWeHave[productsWeHave.length-1].value = 1
+    productsWeHave[productsWeHave.length-1].valueOrder = 1
   }
 
 })
@@ -96,22 +103,51 @@ prData.map((product) => {
 
 if (haveItemIn) {
   let totalPrice = 0
+  let excessValue = false
+  let alertText = ''
   productsWeHave.map((prod) => {
-    prod.sale === 'true' ? totalPrice += prod.priceDiscount*prod.value : totalPrice += prod.price*prod.value
+    prod.sale === 'true' ? totalPrice += prod.priceDiscount*prod.valueOrder : totalPrice += prod.price*prod.valueOrder
+    if (prod.valueOrder>prod.value) {
+      excessValue = true
+    }
   })
+  excessValue ? alertText = '*Внимание, некоторого товара выбрано для заказа больше чем есть в наличии на складе. В связи с чем, сроки доставки могут отличатся. Для уточнения сроков, свяжитесь с нами.' : alertText = ''
+
   return (
 
       <div>
         <div className={styles.mainDiv}>
-        {productsWeHave.map((product) => (
-          <div key={product.id} className={styles.content}>
+        {productsWeHave.map((product) => {
+          let newKey
+          if (product.params !== undefined) {
+            newKey = `${product.id}${product.params.param}`
+          } else {
+            newKey = `${product.id}`
+          }
+          return (
+          <div key={newKey} className={styles.content}>
             <div className={styles.imageAndDescription}>
               <div className={styles.imageDiv}
               style={{
                 backgroundImage: `url(${product.url})`,
               }}></div>
               <div className={styles.description}>
-                <h1>{product.title}</h1>
+                <div className={styles.title_and_param}>
+                  <h1>{product.title}</h1>
+                  {product.params !== undefined && <>
+                    {product.params.ulr_hair.length === 7 && <>
+                      {product.params.ulr_hair[0] === '#' && <>
+                        <div style={{width:'25px', height:'25px', backgroundColor:`${product.params.ulr_hair}`, margin:'0 20px 11px 20px'}}></div>
+                      </>}
+                    </>}
+                    {product.params.ulr_hair[0] !== '#' && <>
+                      <div className={styles.image_hair} style={{width:'45px', height:'45px', backgroundImage:`url("${product.params.ulr_hair}")`, margin:'0 20px 11px 20px'}}></div>
+                    </>}
+
+                    <div><h1>{product.params.param}</h1></div>
+                  </>}
+                </div>
+
                 <h2>{product.description}</h2>
               </div>
             </div>
@@ -128,7 +164,7 @@ if (haveItemIn) {
             <div className={styles.value}>
               <h2>В количестве</h2>
               <div className={styles.valueChange}>
-                <h3>{product.value} шт</h3>
+                <h3>{product.valueOrder} шт</h3>
                 <div className={styles.buttonDiv}>
                   <button className={styles.cornerButton}
                     onClick={()=>{
@@ -146,17 +182,40 @@ if (haveItemIn) {
                           description:`${item1.description}`,
                           volume:`${item1.volume}`,
                           typeVolume:`${item1.typeVolume}`,
+                          params: item1.params?  item1.params : undefined,
                           price:`${item1.price}`,
                           priceDiscount: `${item1.priceDiscount}`,
                           sale: `${item1.sale}`,
                           typePrice:`${item1.typePrice}`,
-                          url:`${item1.url}`
+                          url:`${item1.url}`,
+                          value: `${item1.value}`
                         })
                       })
 
                       newLStorBack.map((item) => {
                         if ((item.id === product.id)&(!delItem)) {
-                          delItem = true
+                          if (item.params) {
+                            if (item.params.param === product.params.param) {
+                              delItem = true
+                            } else {
+                              newLStor.unshift({
+                                id:`${item.id}`,
+                                title:`${item.title}`,
+                                description:`${item.description}`,
+                                volume:`${item.volume}`,
+                                typeVolume:`${item.typeVolume}`,
+                                params: item.params?  item.params : undefined,
+                                price:`${item.price}`,
+                                priceDiscount: `${item.priceDiscount}`,
+                                sale: `${item.sale}`,
+                                typePrice:`${item.typePrice}`,
+                                url:`${item.url}`,
+                                value: `${item.value}`
+                              })
+                            }
+                          } else {
+                            delItem = true
+                          }
                         }
                         else {
                           newLStor.unshift({
@@ -165,11 +224,13 @@ if (haveItemIn) {
                             description:`${item.description}`,
                             volume:`${item.volume}`,
                             typeVolume:`${item.typeVolume}`,
+                            params: item.params?  item.params : undefined,
                             price:`${item.price}`,
                             priceDiscount: `${item.priceDiscount}`,
                             sale: `${item.sale}`,
                             typePrice:`${item.typePrice}`,
-                            url:`${item.url}`
+                            url:`${item.url}`,
+                            value: `${item.value}`
                           })
                         }
                       })
@@ -200,11 +261,13 @@ if (haveItemIn) {
                         description:`${product.description}`,
                         volume:`${product.volume}`,
                         typeVolume:`${product.typeVolume}`,
+                        params: product.params?  product.params : undefined,
                         price:`${product.price}`,
                         priceDiscount: `${product.priceDiscount}`,
                         sale: `${product.sale}`,
                         typePrice:`${product.typePrice}`,
-                        url:`${product.url}`
+                        url:`${product.url}`,
+                        value: `${product.value}`
                       })
                       localStorStr = JSON.stringify(localStorJson)
                       localStorage.setItem('_basket', `${localStorStr}`)
@@ -227,10 +290,10 @@ if (haveItemIn) {
             <div className={styles.sum}>
               <h2>Сумма</h2>
               {product.sale === 'true' && <>
-                <h3>{product.priceDiscount*product.value} ₽</h3>
+                <h3>{product.priceDiscount*product.valueOrder} ₽</h3>
               </>}
               {product.sale === 'false' && <>
-                <h3>{product.price*product.value} ₽</h3>
+                <h3>{product.price*product.valueOrder} ₽</h3>
               </>}
             </div>
 
@@ -250,31 +313,56 @@ if (haveItemIn) {
                       description:`${item1.description}`,
                       volume:`${item1.volume}`,
                       typeVolume:`${item1.typeVolume}`,
+                      params: item1.params?  item1.params : undefined,
                       price:`${item1.price}`,
                       priceDiscount: `${item1.priceDiscount}`,
                       sale: `${item1.sale}`,
                       typePrice:`${item1.typePrice}`,
-                      url:`${item1.url}`
+                      url:`${item1.url}`,
+                      value: `${item1.value}`
                     })
                   })
                   let score = 0
                   newLStorBack.map((item) => {
-                    if (item.id !== product.id) {
+                    if ((item.id !== product.id)) {
                       newLStor.unshift({
                         id:`${item.id}`,
                         title:`${item.title}`,
                         description:`${item.description}`,
                         volume:`${item.volume}`,
                         typeVolume:`${item.typeVolume}`,
+                        params: item.params?  item.params : undefined,
                         price:`${item.price}`,
                         priceDiscount: `${item.priceDiscount}`,
                         sale: `${item.sale}`,
                         typePrice:`${item.typePrice}`,
-                        url:`${item.url}`
+                        url:`${item.url}`,
+                        value: `${item.value}`
                       })
                     }
                     else {
-                      score++
+                      if (item.params) {
+                        if (item.params.param !== product.params.param) {
+                          newLStor.unshift({
+                            id:`${item.id}`,
+                            title:`${item.title}`,
+                            description:`${item.description}`,
+                            volume:`${item.volume}`,
+                            typeVolume:`${item.typeVolume}`,
+                            params: item.params?  item.params : undefined,
+                            price:`${item.price}`,
+                            priceDiscount: `${item.priceDiscount}`,
+                            sale: `${item.sale}`,
+                            typePrice:`${item.typePrice}`,
+                            url:`${item.url}`,
+                            value: `${item.value}`
+                          })
+                        } else {
+                          score++
+                        }
+                      } else {
+                        score++
+                      }
                     }
                   })
 
@@ -297,7 +385,7 @@ if (haveItemIn) {
             </div>
 
           </div>
-        ))}
+        )})}
         <hr  className={styles.hr_div}/>
         <div className={styles.Offer}>
         <div className={styles.totalPrice}>Итого {totalPrice} ₽</div>
@@ -314,6 +402,7 @@ if (haveItemIn) {
             </a>
         </div>
         </div>
+        <div className={styles.alert}>{alertText}</div>
         </div>
         <Popup title={'Укажите и подтвердите ваши данные'} content={userData} typePopup={'order'}/>
       </div>

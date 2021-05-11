@@ -109,6 +109,39 @@ export default function PrivateOfficeContent({selected_tab, users_email}) {
           <div className={styles.div_block}>
             <div className={styles.div_id}>Трек-код: {order.state.track_number}</div>
           </div>
+          <div className={styles.div_block2}>
+            <div className={styles.div_id}>Содержание заказа:</div>
+            {order.products !== undefined && <>
+              {order.products.map((prod)=>{
+                let newKey
+                if (prod.params!== undefined) {
+                  newKey = `${prod.id}${prod.params.param}`
+                } else {
+                  newKey = `${prod.id}`
+                }
+                return (
+                <div key={newKey} className={styles.div_prod}>
+                  <div className={styles.div_id}>-{prod.title}</div>
+                  <div className={styles.div_air}></div>
+                  <div className={styles.div_param_and_value}>
+                    {prod.params!== undefined && <>
+                      {prod.params.ulr_hair!== undefined && <>
+                        {prod.params.ulr_hair.length === 7 && <>
+                          {prod.params.ulr_hair[0] === '#' && <>
+                            <div style={{width:'25px', height:'25px', backgroundColor:`${prod.params.ulr_hair}`, margin:'0 20px 0 0'}}></div>
+                          </>}
+                        </>}
+                        {prod.params.ulr_hair[0] !== '#' && <>
+                          <div className={styles.image_hair} style={{width:'25px', height:'25px', backgroundImage:`url("${prod.params.ulr_hair}")`, margin:'0 20px 0 0'}}></div>
+                        </>}
+                      </>}
+                    </>}
+                    <div className={styles.div_id}>{prod.value} шт.</div>
+                  </div>
+                </div>
+              )})}
+            </>}
+          </div>
 
         </div>
       ))}

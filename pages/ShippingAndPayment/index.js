@@ -28,17 +28,17 @@ export default function Page () {
 
   return(
     <Layout propsBasket={sumItem}>
-      <div style={{
-        width: '90%',
-        margin: 'auto',
-        padding: '30px 0px 30px 0px'
-      }}>
       <Head>
         <title>Услови и сроки доставки товаров из Японии</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta name="description" content = "Лучшие товары из Японии по низким ценам для красоты и здоровья. Условия и сроки доставки лучшей Японской продукции."/>
         <meta charSet = "UTF-8"/>
       </Head>
+      <div style={{
+        width: '90%',
+        margin: 'auto',
+        padding: '30px 0px 30px 0px'
+      }}>
 
         <h1>Доставка и оплата</h1>
         <div className={styles.div_main}>
@@ -162,8 +162,9 @@ export default function Page () {
 
           </>}
           <div className={styles.div_text}>
-          <h2>Способы Оплаты</h2>
-          <h4>Оплата на карту.</h4>
+            <h2>Способы Оплаты:</h2>
+            <h4>1. Оплата на карту Сбербанка по номеру телефона <a href="tel:+79147730000">+79147730000</a>, получатель Ольга Дмитриевна К.</h4>
+            <h4>2. Оплата на QIWI <a href="tel:+79147730000">+79147730000</a></h4>
           </div>
         </div>
       </div>

@@ -10,7 +10,7 @@
     "build": "next build",
     "start": "next start"
   },
-  "author": "Iain Collins <me@iaincollins.com>",
+  "author": "Dmitriy Savchuk <neksyz@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "@adiwajshing/baileys": "^3.4.1",
@@ -23,7 +23,6 @@
     "glamor": "^2.20.40",
     "iframe": "^1.0.0",
     "isomorphic-unfetch": "^3.1.0",
-    "mongodb": "^3.6.4",
     "next": "^10.0.8",
     "next-auth": "^3.4.1",
     "next-connect": "^0.9.1",
@@ -40,5 +39,8 @@
     "styled-components": "^5.2.1",
     "swr": "^0.4.2",
     "whatsapp-web.js": "^1.12.5"
+  },
+  "peerOptionalDependencies": {
+    "mongodb": "^3.6.4"
   }
 }

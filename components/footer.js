@@ -1,18 +1,35 @@
 import Link from 'next/link'
-import styles from './footer.module.css'
+import styles from './footer.module.scss'
 import { version } from '../package.json'
 
 export default function Footer () {
   return (
     <footer className={styles.footer}>
+      <div className={styles.pre_info}>О поступлении отсутствующих позиций узнавать по телефону <a href="tel:+79147730000">+7 (914) 773-00-00</a></div>
       <hr style={{}}/>
-      <ul className={styles.navItems}>
-        <li className={styles.navItem}><a href="https://next-auth.js.org">Documentation</a></li>
-        <li className={styles.navItem}><a href="https://www.npmjs.com/package/next-auth">NPM</a></li>
-        <li className={styles.navItem}><a href="https://github.com/nextauthjs/next-auth-example">GitHub</a></li>
-        <li className={styles.navItem}><Link href="/policy"><a>Policy</a></Link></li>
-        <li className={styles.navItem}><em>{version}</em></li>
-      </ul>
+      <div className={styles.wrapper}>
+        <div>
+          <ul className={styles.navItems}>
+            <li className={styles.navItem}><Link href="/contacts"><a>Контакты</a></Link></li>
+            <li className={styles.navItem}><Link href="/privacyPolicy"><a>Политика конфиденциальности</a></Link></li>
+          </ul>
+        </div>
+        <div className={styles.wrapper__containerNameShop}>
+          <div>
+            <div className={styles.infoShop}>Магазин товаров из японии bestjap.ru</div>
+          </div>
+          <div>
+            <div className={styles.infoShop}><a href="tel:+79147730000">+7 (914) 773-00-00</a>, <a href="tel:+79144061391">+7 (914) 406-13-91</a></div>
+          </div>
+          <div>
+
+          </div>
+          <div></div>
+        </div>
+        <div>
+          <div className={styles.wrapper__copyright}>Copyright ©2021 bestjap.ru — Магазин товаров из японии. Все права защищены. Доставка по всей России.</div>
+        </div>
+      </div>
     </footer>
   )
 }

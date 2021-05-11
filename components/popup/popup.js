@@ -88,6 +88,7 @@ export default function Popup({title, content, typePopup}) {
   const [index_value, setIndex_value] = useState('')
   const [phone_value, setPhone_value] = useState('+7')
   const [phone_value_length, setPhone_value_length] = useState(3)
+  const [phone_max_length, setPhone_max_length] = useState(16)
 
 
 
@@ -136,9 +137,16 @@ export default function Popup({title, content, typePopup}) {
       let notFound = true
       if (productsWeHave) {
         productsWeHave.map((prod) => {
-          if (prod.id === product.id) {
-            prod.value = prod.value + 1
-            notFound = false
+          if ((product.params !== undefined)&(prod.params !== undefined)) {
+            if ((prod.id === product.id)&(prod.params.param === product.params.param)) {
+              prod.value += 1
+              notFound = false
+            }
+          } else {
+            if (prod.id === product.id) {
+              prod.value += 1
+              notFound = false
+            }
           }
         })
       }
@@ -368,6 +376,12 @@ if (typePopup === 'order') {
                     }
                   }
 
+                  if (e.target.value[0] !== '+') {
+                    setPhone_max_length(15)
+                  } else {
+                    setPhone_max_length(16)
+                  }
+
                   setPhone_value(newVal)
                   setPhone_value_length(e.target.value.length)
                 }}
@@ -526,7 +540,7 @@ if (typePopup === 'userData') {
             <div className={styles.div_block}>
               <div className={styles.div_input}>
                 <h2 id={'h2_telephone'}>Номер телефона</h2>
-                <input id={'input_telephone'} className={styles.popup_input} type='tel' value={phone_value} maxLength='16'
+                <input id={'input_telephone'} className={styles.popup_input} type='tel' value={phone_value} maxLength={phone_max_length}
                 onChange = {(e)=>{
                   const val = e.target.value
                   let newVal = val

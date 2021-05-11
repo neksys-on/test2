@@ -93,6 +93,9 @@ export default async function (req, res) {
               data.sale = true
             }
           }
+          if (whatChange === 'params') {
+            data.distinctiveParameters = newInfo
+          }
         } // if type = product or category
         if (typeData === 'orders') {
           if (whatChange === 'track_number') {

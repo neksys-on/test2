@@ -135,12 +135,12 @@ export default function Page ({colorObj, email_1, email_2, email_3}) {
   if ((session.user.email === email_1)||(session.user.email === email_2)||(session.user.email === email_3)) {
     return (
       <Layout propsBasket={sumItem}>
+      <Head>
+        <meta name = "robots" content = "noindex, nofollow" />
+      </Head>
         <div style={{
 
         }}>
-        <Head>
-          <meta name = "robots" content = "noindex, nofollow" />
-        </Head>
         <div style={{
           width: '90%',
           margin: 'auto',
@@ -215,14 +215,14 @@ export default function Page ({colorObj, email_1, email_2, email_3}) {
   else {
     return (
       <Layout propsBasket={sumItem}>
+      <Head>
+        <meta name = "robots" content = "noindex, nofollow" />
+      </Head>
         <div style={{
           width: '90%',
           margin: 'auto',
           padding: '30px'
         }}>
-        <Head>
-          <meta name = "robots" content = "noindex, nofollow" />
-        </Head>
         <h1>Protected Page</h1>
         <h2>У вас нет прав на внесение измениний</h2>
 

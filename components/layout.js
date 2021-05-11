@@ -95,7 +95,7 @@ export default function Layout ({children, propsBasket}) {
 
 if (show === '1') {
   return (
-    <>
+    <div className={styles.layout}>
       <Header propsBasket={propsBasket}/>
       <div className={styles.content} onMouseMove={_onMouseMove}>
         <main>
@@ -121,13 +121,14 @@ if (show === '1') {
           <OpenVision/>
         </div>
       </div>
-    </>
+      <Footer/>
+    </div>
   )
 }
 
 if (show === '2') {
   return (
-    <>
+    <div className={styles.layout}>
       <Header propsBasket={propsBasket}/>
       <div className={styles.content} onMouseMove={_onMouseMove}>
         <main>
@@ -153,7 +154,8 @@ if (show === '2') {
           <OpenVision/>
         </div>
       </div>
-    </>
+      <Footer/>
+    </div>
   )
 }
 

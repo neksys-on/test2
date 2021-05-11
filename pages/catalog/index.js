@@ -4,8 +4,9 @@ import path from 'path'
 import { useState, useEffect, useCallback } from 'react'
 import styles from './index.module.scss'
 import Head from 'next/head'
-import category from '../api/dataBase/category.json'
-import products from '../api/dataBase/products.json'
+import category from '../../dataBase/category.json'
+import products from '../../dataBase/products.json'
+import Router from "next/router"
 
 
 export async function getServerSideProps(context) {
@@ -27,11 +28,14 @@ export async function getServerSideProps(context) {
 }
 
 
+
 export default function Page ({data_category, data_products}) {
 
+  let cardTransitionTime = 6
   let localStorStr
   let localStorJson
   const [dataProducts, setDataProducts] = useState([{id: 's'}])
+  const [dataProductsControl, setDataProductsControl] = useState([{id: 's'}])
   const [dataProductsDB, setDataProductsDB] = useState('1')
   const [dataCategory, setDataCategory] = useState([])
   const [dataCategoryDB, setDataCategoryDB] = useState('1')
@@ -44,6 +48,24 @@ export default function Page ({data_category, data_products}) {
 
   const [open1, setOpen1] = useState('▼')
   const [wid, setWid] = useState(0)
+  const [widDisp, setWidDisp] = useState(0)
+
+  const [openDescription, setOpenDescription] = useState([])
+  const [loadCustom, setLoadCustom] = useState(false)
+  const [descriptionContent, setDescriptionContent] = useState([])
+  const [descriptionContentBack, setDescriptionContentBack] = useState([])
+
+  const [inputFound, setInputFound] = useState('')
+  const [inputControl, setInputControl] = useState('')
+  const [dataFinal, setDataFinal] = useState([{id: 's'}])
+
+  const [titleParams, setTitleParams] = useState({
+    version: '1',
+    params: [],
+  })
+  const [titleParamsControl, setTitleParamsControl] = useState([])
+  const [showParamsSpisok, setShowParamsSpisok] = useState([])
+
 
   if ((data_category !== undefined)&(dataCategory !== data_category)&(dataCategoryDB === '1')) {
     setDataCategory(data_category)
@@ -61,7 +83,7 @@ export default function Page ({data_category, data_products}) {
 
     if ((typeof window !== 'undefined')&(wid === 0)) {
       document.documentElement.clientWidth>=650 ? setWid(`${document.documentElement.clientWidth - 233}px`) : setWid(`100%`)
-
+      setWidDisp(document.documentElement.clientWidth)
     }
 
     const fetchData = async () => {
@@ -143,14 +165,14 @@ if ( show === 'Каталог' ) {
         padding: '51px 0px 30px 30px'
       }}>Каталог</h1>
       <div className={styles.div_main}>
-        <div className={styles.div_show}>
+        <div className={styles.div_show2}>
           {dataCategory.map((image) => (
             <div onClick={(e)=>{
               localStorage.setItem('_filter', image.title)
               localStorage.setItem('_filterId', image.id)
               setShow(image.title)
               setShowId(image.id)
-            }} key={image.id} className={styles.imgDivCatalog} style={{backgroundImage: `url(${image.url})`, width: `${image.width}`}}>
+            }} key={image.id} className={styles.imgDivCatalog} style={{backgroundImage: `url(${image.url})`}}>
               <div className={styles.blackoutDivCatalog}>
                 <div className={styles.containerDivCatalog}>
                   <div className={styles.titleDivCatalog}>{image.title}</div>
@@ -167,6 +189,44 @@ if ( show === 'Каталог' ) {
 }
 
 if ( show !== 'Каталог' ) {
+
+
+  if ((!loadCustom)||(dataProductsControl !== dataProducts)) {
+    setDataProductsControl(dataProducts)
+    setLoadCustom(true)
+    let description_state = []
+    let description_content = []
+    dataProducts.map((prod)=>{
+      description_state[prod.id-1] = '▼'
+      prod.abbreviatedDescription = ''
+      let simbols = 60
+      let maxI3
+      prod.description.length > simbols-1 ? maxI3 = simbols : maxI3 = prod.description.length
+      if (prod.description.length > 0 ) {
+        for (let i3 = 0; i3 < maxI3; i3++) {
+          prod.abbreviatedDescription+= prod.description[i3]
+        }
+        if ((maxI3 === simbols) & (prod.description[maxI3] !== ' ')) {
+          for (let i4 = maxI3; i4 < maxI3+15; i4++) {
+            if (prod.description[i4] !== ' ') {
+              prod.abbreviatedDescription+= prod.description[i4]
+            }
+            else {
+              break
+            }
+          }
+        }
+      }
+      description_content[prod.id-1] =  <pre><h3 className={styles.descriptionItem} >{prod.abbreviatedDescription} ...▼</h3></pre>
+    })
+    setOpenDescription(description_state)
+    setDescriptionContent(description_content)
+    setDescriptionContentBack(description_content)
+  }
+
+
+
+
 
   let data_filtered = []
   if ((show !=='Все товары')&(dataProducts[0].id !== 's')&(show !== 'Товары со скидкой')) {
@@ -193,20 +253,62 @@ if ( show !== 'Каталог' ) {
     }
   }
 
+
   let height_for_div_menu = 210
   dataCategory.map((image)=>{
-    height_for_div_menu+=47
+    let koef = 1
+    if (image.title.length>21) {
+      koef = 2
+    }
+    if (image.title.length>42) {
+      koef = 3
+    }
+    if (image.title.length>63) {
+      koef = 4
+    }
+    height_for_div_menu+=21+(26*koef)
   })
+
+  function lupa_show(e) {
+    const lupa = document.querySelector(`#idLuppa_hair`)
+    const x = e.pageX
+    const y = e.pageY
+    lupa.style.display = 'block'
+    lupa.style.top = `${y+20}px`
+    lupa.style.left = `${x+20}px`
+    lupa.style.backgroundImage = `url("${e.target.title}")`
+    lupa.style.visibility = 'visible'
+    lupa.style.opacity = '1'
+  }
+
+  function lupa_hide(event) {
+    const lupa = document.querySelector(`#idLuppa_hair`)
+    lupa.style.visibility = 'hidden'
+    lupa.style.opacity = '0'
+  }
 
   return (
     <Layout propsBasket={sumItem}>
-      <h1 style={{
-
-        margin: 'auto',
-        padding: '51px 0px 30px 30px'
-      }}>{show}</h1>
+    <Head>
+      <title>Каталог товаров из Японии, доступных для покупки.</title>
+      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      <meta name="description" content = "Каталог товаров из Японии для красоты и здоровья. Здесь, среди лучшей Японской продукции, вы можете выбрать то, что вам необходимо."/>
+      <meta charSet = "UTF-8"/>
+    </Head>
+      <div className={styles.div_name_categAndFound}>
+        <h1 style={{
+          padding: '0px 10px 0px 0px',
+        }}>{show}</h1>
+        <div className={styles.div_found}>
+          <div className={styles.div_lupa}></div>
+          <input type='text' placeholder={'Поиск'} value={inputFound} onChange={(e) => {
+            setInputFound(e.target.value)
+          }}></input>
+        </div>
+      </div>
+      <div id={'idLuppa_hair'} className={styles.div_luppa_hair}></div>
       <div className={styles.div_main}>
-        <div className={styles.div_menu} id={'id_div_menu'} style={{ height: `50px`}}>
+        <div className={styles.div_menu} id={'id_div_menu'} style={open1 === '▼' ? { height: `50px`} : { height: `${height_for_div_menu}px`}}>
           <div className={styles.div_heading_menu} onClick={(e)=>{
             const comp = document.querySelector(`#id_spisok_menu`)
             const div = document.querySelector(`#id_div_menu`)
@@ -230,176 +332,436 @@ if ( show !== 'Каталог' ) {
               // comp.style.marginBottom = '-20px'
             }
           }}><div>Фильтр</div>   <div style={{marginRight:'30px'}}>{open1}</div></div>
-          <div className={styles.div_spisok_menu} id={'id_spisok_menu'}>
-            <div id={`id_filter0`} className={styles.div_all} onClick={(e)=>{
+          <div className={styles.div_spisok_menu} id={'id_spisok_menu'} style={open1 === '▼' ? { visibility: `hidden`, opacity: '0'} : { visibility: 'visible', opacity: '1'}}>
+            <div className={styles.div_all} onClick={(e)=>{
               localStorage.setItem('_filter', 'Все товары')
               localStorage.setItem('_filterId', '0')
               setShow('Все товары')
               setShowId('0')
-            }}>Все товары</div>
+            }}><a id={`id_filter0`}>Все товары</a></div>
             {dataCategory.map((image) => (
-              <div key={image.id} id={`id_filter`+image.id} className={styles.div_punkt_menu} onClick={(e)=>{
+              <div key={image.id} className={styles.div_punkt_menu} onClick={(e)=>{
                 localStorage.setItem('_filter', image.title)
                 localStorage.setItem('_filterId', image.id)
                 setShow(image.title)
                 setShowId(image.id)
-              }}>{image.title}</div>
+              }}><a id={`id_filter`+image.id}>{image.title}</a></div>
             ))}
-            <div id={`id_filter_1`} className={styles.div_sale_filter} onClick={(e)=>{
+            <div className={styles.div_sale_filter} onClick={(e)=>{
               localStorage.setItem('_filter', 'Товары со скидкой')
               localStorage.setItem('_filterId', '_1')
               setShow('Товары со скидкой')
               setShowId('_1')
-            }}>Товары со скидкой</div>
+            }}><a id={`id_filter_1`}>Товары со скидкой</a></div>
             <div className={styles.div_sbros} onClick={(e)=>{
               localStorage.setItem('_filter', 'Каталог')
               localStorage.setItem('_filterId', 'Каталог')
               setShow('Каталог')
               setShowId('Каталог')
-            }}>Сброс</div>
+            }}><a>Сброс</a></div>
           </div>
         </div>
         <div className={styles.div_show} style={{width:`${wid}`}}>
-        {data_filtered.map((product) => (
-          <div className={styles.container}
-          onMouseMove={(e) => {
-            const card = document.querySelector(`#idCard${product.id}`)
-            const coord = card.getBoundingClientRect()
-            let xAxis =  (coord.x + (coord.width / 2) - e.clientX) / 20;
-            let yAxis =  -1*(coord.y + (coord.height / 2) - e.clientY) / 35;
-            card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`
-          }}
-          onMouseEnter={(e) =>{
-            const card = document.querySelector(`#idCard${product.id}`)
-            const сircle = document.querySelector(`#idCircle${product.id}`)
-            const img = document.querySelector(`#idImg${product.id}`)
-            const title = document.querySelector(`#idTitle${product.id}`)
-            const description = document.querySelector(`#idDescription${product.id}`)
-            const volume = document.querySelector(`#idVolume${product.id}`)
-            const price = document.querySelector(`#idPrice${product.id}`)
-            const button = document.querySelector(`#idButton${product.id}`)
-            card.style.transition = 'none'
+        {data_filtered.map((product) => {
 
-            сircle.style.transition = 'all 0.5s ease'
-            img.style.transition = 'all 0.5s ease'
-            title.style.transition = 'all 0.7s ease'
-            description.style.transition = 'all 0.9s ease'
-            volume.style.transition = 'all 1.1s ease'
-            price.style.transition = 'all 1.3s ease'
-            button.style.transition = 'all 1.5s ease'
+          let successful_search = false
+          if (inputFound !== '') {
+            for (let i = 0; i < product.title.length; i++) {
+              if (product.title[i].toLowerCase()===inputFound[0].toLowerCase()) {
+                successful_search = true
+                let title_prod = ''
+                for (let i2 = 0; i2 < inputFound.length; i2++) {
+                  if (product.title[i+i2]) {
+                    title_prod+= product.title[i+i2]
+                  }
+                  else {title_prod+= ' '}
+                }
+                if (inputFound.toLowerCase() !== title_prod.toLowerCase()) {
+                  successful_search = false
+                }
+                if (inputFound.toLowerCase() === title_prod.toLowerCase()) {
+                  break
+                }
+              }
+            }
+          } else {
+            successful_search = true
+          }
 
-            сircle.style.transform = 'translateZ(30px)'
-            img.style.transform = 'translateZ(80px)'
-            title.style.transform = 'translateZ(70px)'
-            description.style.transform = 'translateZ(60px)'
-            volume.style.transform = 'translateZ(60px)'
-            price.style.transform = 'translateZ(80px)'
-            button.style.transform = 'translateZ(80px)'
-          }}
-          onMouseLeave={(e) =>{
-            const card = document.querySelector(`#idCard${product.id}`)
-            const сircle = document.querySelector(`#idCircle${product.id}`)
-            const img = document.querySelector(`#idImg${product.id}`)
-            const title = document.querySelector(`#idTitle${product.id}`)
-            const description = document.querySelector(`#idDescription${product.id}`)
-            const volume = document.querySelector(`#idVolume${product.id}`)
-            const price = document.querySelector(`#idPrice${product.id}`)
-            const button = document.querySelector(`#idButton${product.id}`)
-            card.style.transform = `rotateY(0deg) rotateX(0deg)`
-            card.style.transition = 'all 0.5s ease'
+          product.abbreviatedDescription = ''
+          let simbols = 50
+          let maxI3
+          product.description.length >= simbols ? maxI3 = simbols : maxI3 = product.description.length
+          if (product.description.length > 0 ) {
+            for (let i3 = 0; i3 < maxI3; i3++) {
+              product.abbreviatedDescription+= product.description[i3]
+            }
+            if ((maxI3 === simbols) & (product.description[maxI3] !== ' ')) {
+              for (let i4 = maxI3; i4 < maxI3+15; i4++) {
+                if (product.description[i4] !== ' ') {
+                  product.abbreviatedDescription+= product.description[i4]
+                }
+                else {
+                  break
+                }
+              }
+            }
+          }
 
-            сircle.style.transition = 'all 0.4s ease'
-            img.style.transition = 'all 0.45s ease'
-            title.style.transition = 'all 0.6s ease'
-            description.style.transition = 'all 0.75s ease'
-            volume.style.transition = 'all 0.9s ease'
-            price.style.transition = 'all 1.05s ease'
-            button.style.transition = 'all 1.2s ease'
 
-            сircle.style.transform = 'translateZ(0px)'
-            img.style.transform = 'translateZ(0px)'
-            title.style.transform = 'translateZ(0px)'
-            description.style.transform = 'translateZ(0px)'
-            volume.style.transform = 'translateZ(0px)'
-            price.style.transform = 'translateZ(0px)'
-            button.style.transform = 'translateZ(0px)'
-          }}
-          key={product.id}>
-            <div className={styles.card} id={'idCard'+product.id}>
-              <div className={styles.element} id={'idElement'+product.id}>
-                <div className={styles.circle} id={'idCircle'+product.id}></div>
-                <div
-                  className={styles.imageSrc} id={'idImg'+product.id}
-                  style={{
-                  backgroundImage: `url(${product.url})`,
-                }}></div>
-              </div>
-              <div className={styles.info}>
-                <div className={styles.infoIn}>
-                <h1 className={styles.title} id={'idTitle'+product.id}>{product.title}</h1>
-                <h3 className={styles.descriptionItem} id={'idDescription'+product.id}>{product.description}</h3>
-                <h3 className={styles.VolumeAndType} id={'idVolume'+product.id}>{product.volume}    {product.typeVolume}</h3>                </div>
-                <h3 className={styles.ValueItem} id={'idValue'+product.id}>В наличии: {product.value} шт.</h3>
-                {product.priceDiscount === '' && <>
-                  <div className={styles.price} id={'idPrice'+product.id}>{product.price} ₽</div>
-                </>}
-                {product.priceDiscount !== '' && <>
-                  <div className={styles.priceFormer} id={'idPriceDiscount'+product.id}>{product.price} ₽</div>
-                  <div className={styles.price} id={'idPrice'+product.id}>{product.priceDiscount} ₽</div>
-                </>}
-                <div className={styles.butt} id={'idButton'+product.id}>
-                    <a onClick={()=>{
-                      let localStorStr
-                      let localStorJson
-                      let localStor = localStorage.getItem('_basket')
-                      if (localStor) {
-                        localStorJson = JSON.parse(localStor)
-                        localStorJson.push({
-                          id:`${product.id}`,
-                          title:`${product.title}`,
-                          description:`${product.description}`,
-                          volume:`${product.volume}`,
-                          typeVolume:`${product.typeVolume}`,
-                          price:`${product.price}`,
-                          priceDiscount: `${product.priceDiscount}`,
-                          typePrice:`${product.typePrice}`,
-                          url:`${product.url}`,
-                          sale: `${product.sale}`
-                        })
-                        localStorStr = JSON.stringify(localStorJson)
-                      }
-                      else {
-                        localStorJson = []
-                        localStorJson.push({
-                          id:`${product.id}`,
-                          title:`${product.title}`,
-                          description:`${product.description}`,
-                          volume:`${product.volume}`,
-                          typeVolume:`${product.typeVolume}`,
-                          price:`${product.price}`,
-                          priceDiscount: `${product.priceDiscount}`,
-                          typePrice:`${product.typePrice}`,
-                          url:`${product.url}`,
-                          sale: `${product.sale}`
-                        })
-                        localStorStr = JSON.stringify(localStorJson)
-                      }
+          let stateOpenDescription = false
+          if (openDescription[product.id-1] === '▼') {
+            // product.stateDescription = <pre><h3 className={styles.descriptionItem} >{product.abbreviatedDescription} ...▼</h3></pre>
+          }
+          if (openDescription[product.id-1] === '▲') {
+            stateOpenDescription = true
+            // product.stateDescription = <pre><h3 className={styles.descriptionItem} >{product.description}</h3></pre>
+          }
+          if (product.description.length < simbols) {
+            stateOpenDescription = false
+          }
 
-                      localStorage.setItem('_basket', `${localStorStr}`)
-                      localStor = localStorage.getItem('_basket')
-                      if (localStor) {
-                        localStorJson = JSON.parse(localStor)
-                        setSumItem(localStorJson.length)
-                      }
-                    }}>
-                        <p><span className={styles.bg}></span><span className={styles.base}></span><span className={styles.text}>В     корзину</span></p>
-                    </a>
+          if ((successful_search)) {
+            return (
+            <div id={'idContainer'+product.id} className={styles.container}
+            onMouseMove={(e) => {
+              if (widDisp>768) {
+                const card = document.querySelector(`#idCard${product.id}`)
+                const coord = card.getBoundingClientRect()
+                let xAxis =  (coord.x + (coord.width / 2) - e.clientX) / 20 *(650/card.clientHeight);
+                let yAxis =  -1*(coord.y + (coord.height / 2) - e.clientY) / 35 *(650/(card.clientHeight*card.clientHeight/650))*0.65;
+                card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`
+                cardTransitionTime -= 1
+                if (cardTransitionTime>0) {
+                  card.style.transition = `all 0.${cardTransitionTime*10}s ease`
+                }
+              }
+            }}
+            onMouseEnter={(e) =>{
+              if (widDisp>768) {
+                const card = document.querySelector(`#idCard${product.id}`)
+                const сircle = document.querySelector(`#idCircle${product.id}`)
+                const img = document.querySelector(`#idImg${product.id}`)
+                const title = document.querySelector(`#idTitle${product.id}`)
+                const description = document.querySelector(`#idDescription${product.id}`)
+                const volume = document.querySelector(`#idVolume${product.id}`)
+                const value = document.querySelector(`#idValue${product.id}`)
+                const price = document.querySelector(`#idPrice${product.id}`)
+                const button = document.querySelector(`#idButton${product.id}`)
+
+
+                if (titleParams.params[product.id] !== undefined) {
+                  const params = document.querySelector(`#idSpisok_distinctiveParameters${product.id}`)
+                  params.style.transition = 'all 1.5s ease'
+                  params.style.transform = 'translateZ(60px)'
+                }
+
+
+                // container.style.perspective = `${900*(650/card.clientHeight)}`
+
+                // card.style.transition = 'none'
+
+                сircle.style.transition = 'all 0.5s ease'
+                img.style.transition = 'all 0.5s ease'
+                title.style.transition = 'all 0.7s ease'
+                description.style.transition = 'all 0.9s ease'
+                volume.style.transition = 'all 1.1s ease'
+                value.style.transition = 'all 1.3s ease'
+                price.style.transition = 'all 1.7s ease'
+                button.style.transition = 'all 1.9s ease'
+
+
+                сircle.style.transform = 'translateZ(30px)'
+                img.style.transform = 'translateZ(80px)'
+                title.style.transform = 'translateZ(70px)'
+                description.style.transform = 'translateZ(60px)'
+                volume.style.transform = 'translateZ(60px)'
+                value.style.transform = 'translateZ(60px)'
+                price.style.transform = 'translateZ(70px)'
+                button.style.transform = 'translateZ(70px)'
+              }
+            }}
+            onMouseLeave={(e) =>{
+              if (widDisp>768) {
+                cardTransitionTime = 6
+                const card = document.querySelector(`#idCard${product.id}`)
+                const сircle = document.querySelector(`#idCircle${product.id}`)
+                const img = document.querySelector(`#idImg${product.id}`)
+                const title = document.querySelector(`#idTitle${product.id}`)
+                const description = document.querySelector(`#idDescription${product.id}`)
+                const volume = document.querySelector(`#idVolume${product.id}`)
+                const value = document.querySelector(`#idValue${product.id}`)
+                const price = document.querySelector(`#idPrice${product.id}`)
+                const button = document.querySelector(`#idButton${product.id}`)
+
+                if (titleParams.params[product.id] !== undefined) {
+                  const params = document.querySelector(`#idSpisok_distinctiveParameters${product.id}`)
+                  params.style.transition = 'all 1.0s ease'
+                  params.style.transform = 'translateZ(0px)'
+                }
+
+                card.style.transform = `rotateY(0deg) rotateX(0deg)`
+                card.style.transition = 'all 0.5s ease'
+
+                сircle.style.transition = 'all 0.4s ease'
+                img.style.transition = 'all 0.45s ease'
+                title.style.transition = 'all 0.6s ease'
+                description.style.transition = 'all 0.75s ease'
+                volume.style.transition = 'all 0.9s ease'
+                value.style.transition = 'all 1.05s ease'
+                price.style.transition = 'all 1.2s ease'
+                button.style.transition = 'all 1.3s ease'
+
+                сircle.style.transform = 'translateZ(0px)'
+                img.style.transform = 'translateZ(0px)'
+                title.style.transform = 'translateZ(0px)'
+                description.style.transform = 'translateZ(0px)'
+                volume.style.transform = 'translateZ(0px)'
+                value.style.transform = 'translateZ(0px)'
+                price.style.transform = 'translateZ(0px)'
+                button.style.transform = 'translateZ(0px)'
+              }
+            }}
+            key={product.id}>
+              <div className={styles.card} id={'idCard'+product.id}>
+                <div className={styles.element} id={'idElement'+product.id}>
+                  <div className={styles.circle} id={'idCircle'+product.id}></div>
+                  <div
+                    className={styles.imageSrc} id={'idImg'+product.id}
+                    style={{
+                    backgroundImage: `url(${product.url})`,
+                  }}></div>
+                </div>
+                <div className={styles.info}>
+                  <div className={styles.infoIn}>
+                  <h1 className={styles.title} id={'idTitle'+product.id} onClick={(e)=>{Router.push(`/catalog/${product.id}`)}}>{product.title}</h1>
+                  <div id={'idDescription'+product.id} onClick={(e)=>{
+                    const desctShort = document.querySelector(`#idDescrShort${product.id}`)
+                    const desctFull = document.querySelector(`#idDescrFull${product.id}`)
+                    let desctShortHeight = desctShort.clientHeight
+                    let desctFullHeight = desctFull.clientHeight
+                    if (openDescription[product.id-1] === '▼') {
+                      let copyOpenDescr = openDescription
+                      copyOpenDescr[product.id-1] = '▲'
+                      setOpenDescription(copyOpenDescr)
+                      desctShort.style.visibility = 'hidden'
+                      desctShort.style.opacity = '0'
+                      desctShort.style.marginBottom = `${-desctShortHeight}px`
+                      desctShort.style.height = `auto`
+
+                      desctFull.style.visibility = 'visible'
+                      desctFull.style.opacity = '1'
+                      desctFull.style.height = `auto`
+                      desctFull.style.marginTop = `0px`
+                      desctFull.style.marginBottom = `0px`
+                    } else {
+                      let copyOpenDescr = openDescription
+                      copyOpenDescr[product.id-1] = '▼'
+                      setOpenDescription(copyOpenDescr)
+                      desctShort.style.visibility = 'visible'
+                      desctShort.style.opacity = '1'
+                      desctShort.style.marginTop = `0px`
+                      desctShort.style.height = `auto`
+                      desctShort.style.marginBottom = `0px`
+
+                      desctFull.style.visibility = 'hidden'
+                      desctFull.style.opacity = '0'
+                      desctFull.style.height = `auto`
+                      desctFull.style.marginTop = `${-desctFullHeight/2}px`
+                      desctFull.style.marginBottom = `${-desctFullHeight/2}px`
+                    }
+                  }}>
+                    {product.description.length >= simbols && <>
+                      <div className={styles.descriptionContainer}>
+                        <div id={'idDescrShort'+product.id} className={styles.descriptionShort}><pre id={'idPreShort'+product.id}><h3 className={styles.descriptionItem} >{product.abbreviatedDescription} ...▼</h3></pre></div>
+                        <div id={'idDescrFull'+product.id} style={{visibility:'hidden', opacity: '0', height: '200px', marginTop:'-200px' }} className={styles.descriptionFull}><pre id={'idPreFull'+product.id}><h3 className={styles.descriptionItem} >{product.description}</h3></pre></div>
+                      </div>
+                    </>}
+                    {product.description.length < simbols && <>
+                      <pre><h3 className={styles.descriptionItem} >{product.description}</h3></pre>
+                    </>}
+                  </div>
+                  <h3 className={styles.VolumeAndType} id={'idVolume'+product.id}>{product.volume}    {product.typeVolume}</h3>                </div>
+                  <h3 className={styles.ValueItem} id={'idValue'+product.id}>В наличии: {product.value} шт.</h3>
+                  {product.distinctiveParameters !== undefined && <>
+                    {product.distinctiveParameters !== [] && <>
+                      <div>
+                        {titleParams.params[product.id] !== undefined && <>
+                          <div id={`idSpisok_distinctiveParameters${product.id}`} className={styles.spisok_distinctiveParameters}>
+                            <div className={styles.spisok_Title} onClick={(e)=>{
+                              const strelca = document.querySelector(`#idShowParamsSpisok${product.id}`)
+                              const list = document.querySelector(`#idSpisol_List${product.id}`)
+                              if (showParamsSpisok[product.id] === '▼') {
+                                showParamsSpisok[product.id] = '▲'
+                                setShowParamsSpisok(showParamsSpisok)
+                                strelca.style.transform = 'rotateZ(+180deg)'
+                                list.style.display = 'block'
+                              } else {
+                                showParamsSpisok[product.id] = '▼'
+                                setShowParamsSpisok(showParamsSpisok)
+                                strelca.style.transform = 'rotateZ(0deg)'
+                                list.style.display = 'none'
+                              }
+                            }}>
+
+                                <div className={styles.distinctiveParameters}>
+                                  {titleParams.params[product.id].ulr_hair.length === 7 && <>
+                                    {titleParams.params[product.id].ulr_hair[0] === '#' && <>
+                                      <div style={{width:'25px', height:'25px', backgroundColor:`${titleParams.params[product.id].ulr_hair}`, margin:'0 20px 0 0'}}></div>
+                                    </>}
+                                  </>}
+                                  {titleParams.params[product.id].ulr_hair[0] !== '#' && <>
+                                    <div title={`${titleParams.params[product.id].ulr_hair}`} className={styles.image_hair} style={{width:'45px', height:'45px', backgroundImage:`url("${titleParams.params[product.id].ulr_hair}")`, margin:'0 20px 0 0'}} onMouseEnter={lupa_show} onMouseLeave={lupa_hide}></div>
+                                  </>}
+
+                                  <div>{titleParams.params[product.id].param}</div>
+                                </div>
+
+                              {showParamsSpisok[product.id] === undefined && <>
+                                {product.distinctiveParameters.map((parameters)=>{
+                                  if (showParamsSpisok[product.id] === undefined) {
+                                    showParamsSpisok[product.id] = '▼'
+                                    setShowParamsSpisok(showParamsSpisok)
+                                  }
+                                })}
+                              </>}
+
+                              <div id={`idShowParamsSpisok${product.id}`} className={styles.showParamsSpisok}>'▼'</div>
+
+                            </div>
+
+
+                              <div id={`idSpisol_List${product.id}`} className={styles.spisol_List}>
+                                <div className={styles.cherta}/>
+                                <div className={styles.spisok_flex}>
+                                  {product.distinctiveParameters.map((parameters)=>{
+                                    return (
+                                      <div key={`distinctiveParameters${product.id}${parameters.color}${parameters.param}`} className={styles.distinctiveParameters2} onClick={(e)=>{
+                                        const strelca = document.querySelector(`#idShowParamsSpisok${product.id}`)
+                                        const list = document.querySelector(`#idSpisol_List${product.id}`)
+                                        strelca.style.transform = 'rotateZ(0deg)'
+                                        list.style.display = 'none'
+                                        showParamsSpisok[product.id] = '▼'
+                                        titleParams.params[product.id] = parameters
+                                        titleParams.version++
+
+                                        setTitleParams(titleParams)
+                                        setShowParamsSpisok(showParamsSpisok)
+                                        setTitleParamsControl(parameters)
+                                      }}>
+                                        {titleParams.params[product.id].ulr_hair.length === 7 && <>
+                                          {titleParams.params[product.id].ulr_hair[0] === '#' && <>
+                                            <div style={{width:'25px', height:'25px', backgroundColor:`${parameters.ulr_hair}`, margin:'0 20px 0 0'}}></div>
+                                          </>}
+                                        </>}
+                                        {titleParams.params[product.id].ulr_hair[0] !== '#' && <>
+                                          <div title={`${parameters.ulr_hair}`} className={styles.image_hair} style={{width:'45px', height:'45px', backgroundImage:`url("${parameters.ulr_hair}")`, margin:'0 20px 0 0'}} onMouseEnter={lupa_show} onMouseLeave={lupa_hide}></div>
+                                        </>}
+                                        <div>{parameters.param}</div>
+                                      </div>
+                                    )
+                                  })}
+                                </div>
+                              </div>
+
+                          </div>
+                        </>}
+                        {titleParams.params[product.id] === undefined && <>
+                          {product.distinctiveParameters[0]!==undefined && <>
+                            <div className={styles.spisok_distinctiveParameters}>
+                              <div className={styles.distinctiveParameters}>
+                                {product.distinctiveParameters[0].color !== undefined && <>
+                                  <div style={{width:'25px', height:'25px', backgroundColor:`${product.distinctiveParameters[0].color}`, margin:'0 20px 0 0'}}></div>
+                                </>}
+                                {product.distinctiveParameters[0].ulr_hair !== undefined && <>
+                                  <div title={`${product.distinctiveParameters[0].ulr_hair}`} className={styles.image_hair} style={{width:'45px', height:'45px', backgroundImage:`url("${product.distinctiveParameters[0].ulr_hair}")`, margin:'0 20px 0 0'}} onMouseEnter={lupa_show} onMouseLeave={lupa_hide}></div>
+                                </>}
+
+                                <div>{product.distinctiveParameters[0].param}</div>
+                              </div>
+                            </div>
+                            {product.distinctiveParameters.map((parameters)=>{
+
+                              if (titleParams.params[product.id] === undefined) {
+                                let copyParams = []
+
+                                copyParams[product.id] = {ulr_hair: parameters.ulr_hair, param: parameters.param}
+                                titleParams.params[product.id] = {ulr_hair: parameters.ulr_hair, param: parameters.param}
+
+                                titleParams.version++
+                                setTitleParams(titleParams)
+                                setTitleParamsControl(copyParams[product.id])
+                              }
+                            })}
+                          </>}
+                        </>}
+                      </div>
+                    </>}
+                  </>}
+                  {product.priceDiscount === '' && <>
+                    <div className={styles.price} id={'idPrice'+product.id}>{product.price} ₽</div>
+                  </>}
+                  {product.priceDiscount !== '' && <>
+                    <div className={styles.priceFormer} id={'idPriceDiscount'+product.id}>{product.price} ₽</div>
+                    <div className={styles.price} id={'idPrice'+product.id}>{product.priceDiscount} ₽</div>
+                  </>}
+                  <div className={styles.butt} id={'idButton'+product.id}>
+                      <a onClick={()=>{
+                        let localStorStr
+                        let localStorJson
+                        let localStor = localStorage.getItem('_basket')
+                        if (localStor) {
+                          localStorJson = JSON.parse(localStor)
+                          localStorJson.push({
+                            id:`${product.id}`,
+                            title:`${product.title}`,
+                            description:`${product.description}`,
+                            volume:`${product.volume}`,
+                            typeVolume:`${product.typeVolume}`,
+                            params: titleParams.params[product.id],
+                            price:`${product.price}`,
+                            priceDiscount: `${product.priceDiscount}`,
+                            typePrice:`${product.typePrice}`,
+                            url:`${product.url}`,
+                            sale: `${product.sale}`,
+                            value: `${product.value}`
+                          })
+                          localStorStr = JSON.stringify(localStorJson)
+                        }
+                        else {
+                          localStorJson = []
+                          localStorJson.push({
+                            id:`${product.id}`,
+                            title:`${product.title}`,
+                            description:`${product.description}`,
+                            volume:`${product.volume}`,
+                            typeVolume:`${product.typeVolume}`,
+                            params: titleParams.params[product.id],
+                            price:`${product.price}`,
+                            priceDiscount: `${product.priceDiscount}`,
+                            typePrice:`${product.typePrice}`,
+                            url:`${product.url}`,
+                            sale: `${product.sale}`,
+                            value: `${product.value}`
+                          })
+                          localStorStr = JSON.stringify(localStorJson)
+                        }
+
+                        localStorage.setItem('_basket', `${localStorStr}`)
+                        localStor = localStorage.getItem('_basket')
+                        if (localStor) {
+                          localStorJson = JSON.parse(localStor)
+                          setSumItem(localStorJson.length)
+                        }
+                      }}>
+                          <p><span className={styles.bg}></span><span className={styles.base}></span><span className={styles.text}>В     корзину</span></p>
+                      </a>
+                  </div>
                 </div>
               </div>
-            </div>
 
-          </div>
-        ))}
+            </div>
+        )}})}
         </div>
       </div>
 

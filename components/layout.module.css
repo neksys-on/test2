@@ -1,5 +1,13 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
 .content {
-  min-height: 80vh;
+  min-height: 75vh;
+  flex: 1, 1, auto;
 }
 
 .div_wrapper{

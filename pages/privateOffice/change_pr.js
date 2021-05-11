@@ -75,6 +75,7 @@ export default function Page ({email_1, email_2, email_3}) {
 
   const [input1, setInput1] = useState([])
   const [input2, setInput2] = useState([])
+  const [input2Load, setInput2Load] = useState(false)
   const [input3, setInput3] = useState([])
   const [input4, setInput4] = useState([])
   const [input5, setInput5] = useState([])
@@ -83,19 +84,13 @@ export default function Page ({email_1, email_2, email_3}) {
   const [input8, setInput8] = useState([])
   const [input9, setInput9] = useState([])
   const [input10, setInput10] = useState([])
+  const [input11, setInput11] = useState([])
   const [sumItem, setSumItem] = useState('0')
   const [listCategory, setListCategory] = useState(undefined)
   const [listNoChose, setListNoChose] = useState(undefined)
   let list_filtre = []
   let list_filtre2 = []
 
-  const Test = function ({id}) {
-    listCategory[id].map((item)=>{
-    })
-    return(
-        <div>{item.category}</div>
-      )
-  }
 
 
   // Fetch content from protected route
@@ -205,19 +200,62 @@ export default function Page ({email_1, email_2, email_3}) {
       categoryGoToData.push(item.category)
     })
 
+
+    let parameters = document.querySelector(`#idDistinctiveParameters`).value
+    let ulr_hair = ''
+    let param = ''
+    let needPush = false
+    let distinctiveParameters = []
+
+    let i = 0
+    while (i < parameters.length) {
+      while ((i < parameters.length)&(parameters[i] === '\n')) {
+        i++
+        console.log('n')
+      }
+      while ((i < parameters.length)&(parameters[i] === ' ')) {
+        i++
+      }
+      while ((i < parameters.length)&(parameters[i] !== ' ')) {
+        ulr_hair += parameters[i]
+        needPush = true
+        i++
+      }
+      while ((i < parameters.length)&(parameters[i] === ' ')) {
+        i++
+      }
+      while ((i < parameters.length)&(parameters[i] !== ',')) {
+        param += parameters[i]
+        i++
+      }
+      while ((i < parameters.length)&(parameters[i] === ',')) {
+        i++
+      }
+      if (needPush) {
+        needPush = false
+        distinctiveParameters.push({ulr_hair,param})
+      }
+      param = ''
+      ulr_hair = ''
+    }
+
+    // ${e.target.id}
     const addData = {
-      url: document.querySelector(`#idUrlInput${e.target.id}`).value,
-      title: document.querySelector(`#idTitleInput${e.target.id}`).value,
-      description: document.querySelector(`#idDescriptionInput${e.target.id}`).value,
-      volume: document.querySelector(`#idVolumeInput${e.target.id}`).value,
-      typeVolume: document.querySelector(`#idTypeVolumeInput${e.target.id}`).value,
-      price: document.querySelector(`#idPriceInput${e.target.id}`).value,
-      priceDiscount: document.querySelector(`#idPriceDiscountInput${e.target.id}`).value,
-      value: document.querySelector(`#idValueInput${e.target.id}`).value,
+      url: document.querySelector(`#idUrlInput`).value,
+      title: document.querySelector(`#idTitleInput`).value,
+      description: document.querySelector(`#idDescriptionInput`).value,
+      volume: document.querySelector(`#idVolumeInput`).value,
+      typeVolume: document.querySelector(`#idTypeVolumeInput`).value,
+      price: document.querySelector(`#idPriceInput`).value,
+      priceDiscount: document.querySelector(`#idPriceDiscountInput`).value,
+      value: document.querySelector(`#idValueInput`).value,
       typePrice: "рубли",
       width: '32%',
       category: categoryGoToData,
+      distinctiveParameters: distinctiveParameters,
     }
+
+
 
     pushInData(addData).then(setTimeout(Router.reload, 700))
   }, [listCategory]);
@@ -266,6 +304,51 @@ export default function Page ({email_1, email_2, email_3}) {
     if (e.target.getAttribute('value') === '10')
     changeInData(e.target.id, e.target.getAttribute('title'), document.querySelector(`#idInputPriceDiscount${e.target.id}`).value).then(setTimeout(Router.reload, 700))
 
+    if (e.target.getAttribute('value') === '11') {
+      let parameters = document.querySelector(`#idInputParams${e.target.id}`).value
+      let ulr_hair = ''
+      let param = ''
+      let needPush = false
+      let distinctiveParameters = []
+
+      let i = 0
+      while (i < parameters.length) {
+        while ((i < parameters.length)&(parameters[i] === '\n')) {
+          i++
+          console.log('n')
+        }
+        while ((i < parameters.length)&(parameters[i] === ' ')) {
+          i++
+        }
+        while ((i < parameters.length)&(parameters[i] !== ' ')) {
+          ulr_hair += parameters[i]
+          needPush = true
+          i++
+        }
+        while ((i < parameters.length)&(parameters[i] === ' ')) {
+          i++
+        }
+        while ((i < parameters.length)&(parameters[i] !== ',')) {
+          param += parameters[i]
+          i++
+        }
+        while ((i < parameters.length)&(parameters[i] === ',')) {
+          i++
+        }
+        if (needPush) {
+          needPush = false
+          distinctiveParameters.push({ulr_hair,param})
+        }
+        param = ''
+        ulr_hair = ''
+      }
+
+
+
+      changeInData(e.target.id, e.target.getAttribute('title'), distinctiveParameters).then(setTimeout(Router.reload, 700))
+    }
+
+
 
   }, [listCategory]);
 
@@ -283,14 +366,55 @@ export default function Page ({email_1, email_2, email_3}) {
 
   // If session exists, display content
   if (((session.user.email === email_1)||(session.user.email === email_2)||(session.user.email === email_3))&(listCategory !== undefined)&(listNoChose !== undefined)) {
+
+    if (!input2Load) {
+      setInput2Load(true)
+      let copyInput1 = input1
+      let copyInput2 = input2
+      // let copyInput3 = input3
+      let copyInput4 = input4
+      let copyInput5 = input5
+      let copyInput6 = input6
+      let copyInput7 = input7
+      let copyInput11 = input11
+
+      dataProducts.map((product)=>{
+        if (product.distinctiveParameters!== undefined) {
+          let textParam = ''
+          product.distinctiveParameters.map((item)=>{
+            textParam+= item.ulr_hair + ' '+ item.param+ ','+'\n'
+          })
+          copyInput11[product.id-1] = textParam
+          setInput11(copyInput11)
+        }
+        copyInput1[product.id-1] = product.title
+        copyInput2[product.id-1] = product.description
+        // copyInput3[product.id-1] = product.url
+        copyInput4[product.id-1] = product.volume
+        copyInput5[product.id-1] = product.typeVolume
+        copyInput6[product.id-1] = product.price
+        copyInput7[product.id-1] = product.value
+
+
+      })
+      setInput1(copyInput1)
+      setInput2(copyInput2)
+      // setInput3(copyInput3)
+      setInput4(copyInput4)
+      setInput5(copyInput5)
+      setInput6(copyInput6)
+      setInput7(copyInput7)
+
+    }
+
     return (
       <Layout propsBasket={sumItem}>
+      <Head>
+        <meta name = "robots" content = "noindex, nofollow" />
+      </Head>
         <div style={{
 
         }}>
-        <Head>
-          <meta name = "robots" content = "noindex, nofollow" />
-        </Head>
         <div style={{
           width: '90%',
           margin: 'auto',
@@ -308,12 +432,12 @@ export default function Page ({email_1, email_2, email_3}) {
                 setInput9(n)
                 setInput9([])
               }}></input> </div>
-              <div><h3>Описание:</h3> <input id={`idDescriptionInput`} type='text' placeholder={'Описание товара'} value={input9[1]} className={styles.inputN} onChange={(e) => {
+              <div><h3>Описание:</h3> <textarea wrap="hard" id={`idDescriptionInput`} type='text' placeholder={'Описание товара'} value={input9[1]} className={styles.inputN1} onChange={(e) => {
                 let n = input9
                 n[1] = e.target.value
                 setInput9(n)
                 setInput9([])
-              }}></input> </div>
+              }}></textarea> </div>
               <div><h3>Url адрес фото:</h3> <input id={`idUrlInput`} placeholder={'Url картинки товара'} value={input9[2]} className={styles.inputN} onChange={(e) => {
                 let n = input9
                 n[2] = e.target.value
@@ -390,12 +514,19 @@ export default function Page ({email_1, email_2, email_3}) {
                     ))}
                   </div>
               </div>
+              <div><h3>Отличительные параметры:</h3> <textarea wrap="hard" id={`idDistinctiveParameters`} type='text' placeholder={'Отличительные параметры'} value={input9[8]} className={styles.inputN1} onChange={(e) => {
+                let n = input9
+                n[8] = e.target.value
+                setInput9(n)
+                setInput9([])
+              }}></textarea> </div>
               <button className={styles.addDataButton} onClick={onClickButtonAddData}>Добавить товар в базу</button>
             </div>
           </div>
           <hr/>
           <div className={styles.mainDiv}>
-            {dataProducts.map((product) => (
+            {dataProducts.map((product) => {
+              return (
               <div key={product.id} className={styles.list}>
                 <div><h3>ID: {product.id}</h3></div>
                 <div className={styles.elem2}><h3>Название:</h3> <input id={'idInputTitle'+product.id} placeholder={product.title} value={input1[product.id-1]} className={styles.inputN} onChange={(e) => {
@@ -404,12 +535,12 @@ export default function Page ({email_1, email_2, email_3}) {
                   setInput1(n)
                   setInput1([])
                 }}></input> <button id={product.id} title={'title'} value={'1'} onClick={onClickChangeData}>Изменить</button></div>
-                <div className={styles.elem}><h3>Описание:</h3> <input id={'idInputDescription'+product.id} placeholder={product.description} value={input2[product.id-1]} className={styles.inputN} onChange={(e) => {
+                <div className={styles.elem}><h3>Описание:</h3> <textarea wrap="hard" id={'idInputDescription'+product.id} placeholder={product.description} value={input2[product.id-1]} className={styles.inputN1} onChange={(e) => {
                   let n = input2
                   n[product.id-1] = e.target.value
                   setInput2(n)
                   setInput2([])
-                }}></input> <button id={product.id} title={'description'} value={'2'} onClick={onClickChangeData}>Изменить</button></div>
+                }}></textarea> <button id={product.id} title={'description'} value={'2'} onClick={onClickChangeData}>Изменить</button></div>
                 <div className={styles.elem}><h3>Url адрес фона:</h3> <input id={'idInputUrl'+product.id} placeholder={product.url} value={input3[product.id-1]} className={styles.inputN} onChange={(e) => {
                   let n = input3
                   n[product.id-1] = e.target.value
@@ -489,6 +620,12 @@ export default function Page ({email_1, email_2, email_3}) {
                   </div>
 
                 <button id={product.id} title={'category'} value={'9'} onClick={onClickChangeData}>Изменить</button></div>
+                <div className={styles.elem}><h3>Параметры:</h3> <textarea wrap="hard" id={'idInputParams'+product.id}  value={input11[product.id-1]} className={styles.inputN1} onChange={(e) => {
+                  let n = input11
+                  n[product.id-1] = e.target.value
+                  setInput11(n)
+                  setInput11([])
+                }}></textarea> <button id={product.id} title={'params'} value={'11'} onClick={onClickChangeData}>Изменить</button></div>
                 <div className={styles.elem}><h3>Цена со скидкой:</h3> <input id={'idInputPriceDiscount'+product.id} placeholder={product.priceDiscount} value={input10[product.id-1]} className={styles.inputN} onChange={(e) => {
                   let n = input10
                   n[product.id-1] = e.target.value
@@ -499,7 +636,7 @@ export default function Page ({email_1, email_2, email_3}) {
                 <div className={styles.deleteDiv}><button id={product.id} title={'delete'} value={''} onClick={onClickDeletData}>Удалить товар с ID:{product.id}</button></div>
 
               </div>
-            ))}
+            )})}
           </div>
         </div>
       </Layout>
@@ -509,14 +646,14 @@ export default function Page ({email_1, email_2, email_3}) {
     if (((session.user.email === email_1)||(session.user.email === email_2)||(session.user.email === email_3))&((listCategory === undefined)||(listNoChose !== undefined))) {
       return (
         <Layout propsBasket={sumItem}>
+        <Head>
+          <meta name = "robots" content = "noindex, nofollow" />
+        </Head>
           <div style={{
             width: '90%',
             margin: 'auto',
             padding: '30px 0px 30px 30px'
           }}>
-          <Head>
-            <meta name = "robots" content = "noindex, nofollow" />
-          </Head>
           <h1>Protected Page</h1>
           <h2>Загрузка ...</h2>
 
@@ -528,14 +665,14 @@ export default function Page ({email_1, email_2, email_3}) {
     else {
       return (
         <Layout propsBasket={sumItem}>
+        <Head>
+          <meta name = "robots" content = "noindex, nofollow" />
+        </Head>
           <div style={{
             width: '90%',
             margin: 'auto',
             padding: '30px 0px 30px 30p'
           }}>
-          <Head>
-            <meta name = "robots" content = "noindex, nofollow" />
-          </Head>
           <h1>Protected Page</h1>
           <h2>У вас нет прав на внесение измениний</h2>
 

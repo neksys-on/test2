@@ -143,11 +143,11 @@ export default function Page ({email_1, email_2, email_3}) {
   if ((session.user.email === email_1)||(session.user.email === email_2)||(session.user.email === email_3)) {
     return (
       <Layout propsBasket={sumItem}>
+      <Head>
+        <meta name = "robots" content = "noindex, nofollow" />
+      </Head>
         <div style={{
         }}>
-        <Head>
-          <meta name = "robots" content = "noindex, nofollow" />
-        </Head>
             <div className={styles.div_main}>
               <div className={styles.div_content_menu}>
                 <div id={'id_filter1'} onClick={(e)=>{
@@ -298,14 +298,14 @@ export default function Page ({email_1, email_2, email_3}) {
   }
     return (
       <Layout propsBasket={sumItem}>
+      <Head>
+        <meta name = "robots" content = "noindex, nofollow" />
+      </Head>
         <div style={{
           width: '90%',
           margin: 'auto',
           padding: '30px'
         }}>
-        <Head>
-          <meta name = "robots" content = "noindex, nofollow" />
-        </Head>
           <h1>Личный кабинет</h1>
           <p>
             У вас нет права на внесение изменений.

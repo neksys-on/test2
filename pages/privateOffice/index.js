@@ -22,7 +22,24 @@ export async function getServerSideProps(context) {
   }
 }
 
-// sda
+
+async function CopyData(type) {
+  const response = await fetch('/api/data/saveData', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      id: '1',
+      whatChange: 'any',
+      newInfo: 'any',
+      type: type
+     }),
+  })
+  const data = await response.json()
+  return 'complite'
+}
+
 
 export default function Page ({email_1, email_2, email_3}) {
   const [ session, loading ] = useSession()
@@ -51,7 +68,10 @@ export default function Page ({email_1, email_2, email_3}) {
 
   },[session])
 
-
+  const onClickCopyData = React.useCallback((e) => {
+    CopyData('products')
+    CopyData('category')
+  }, []);
 
   // When rendering client side don't display anything until loading is complete
   if (typeof window !== 'undefined' && loading) return null
@@ -62,14 +82,15 @@ export default function Page ({email_1, email_2, email_3}) {
 if ((session.user.email === email_1)||(session.user.email === email_2)||(session.user.email === email_3)) {
   return (
     <Layout propsBasket={sumItem}>
+    <Head>
+      <title>Личный кабинет</title>
+      <meta name = "robots" content = "noindex, nofollow" />
+    </Head>
       <div style={{
         width: '90%',
         margin: 'auto',
 
       }}>
-      <Head>
-        <meta name = "robots" content = "noindex, nofollow" />
-      </Head>
         <h1>Личный кабинет</h1>
         <h2>
          Администратор
@@ -81,6 +102,9 @@ if ((session.user.email === email_1)||(session.user.email === email_2)||(session
           <li onClick={() => {Router.push('/privateOffice/change_offers')}}>Управление Заказами</li>
           <li onClick={() => {Router.push('/privateOffice/statistics')}}>Статистика Товаров</li>
           <li onClick={() => {Router.push('/privateOffice/change_color')}}>Управление цветовой гаммой</li>
+          {session.user.email === email_1 && <>
+            <li onClick={onClickCopyData}>Скопировать базу данных</li>
+          </>}
         </div>
         <div className={styles.otstup}></div>
         <div className={styles.div_main}>
@@ -111,6 +135,10 @@ if ((session.user.email === email_1)||(session.user.email === email_2)||(session
 }
   return (
     <Layout propsBasket={sumItem}>
+    <Head>
+      <title>Личный кабинет</title>
+      <meta name = "robots" content = "noindex, nofollow" />
+    </Head>
       <div style={{
         width: '90%',
         margin: 'auto',

@@ -1,0 +1,74 @@
+@import '../pages/control.scss';
+
+.footer {
+  margin-top: 1rem;
+}
+.pre_info {
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  text-align: center;
+}
+.pre_info a{
+  margin-left: 15px;
+}
+.wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.wrapper__containerNameShop {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.infoShop {
+  opacity: 1;
+  color: #ccc;
+  font-size: 15px;
+  margin-left: 30px;
+  margin-right: 30px;
+  text-align: center;
+}
+.wrapper__copyright {
+  opacity: 1;
+  color: #ccc;
+  font-size: 15px;
+  text-align: center;
+}
+
+.navItems {
+  margin-bottom: 1rem;
+  padding: 0;
+  list-style: none;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items:  center;
+}
+
+.navItem {
+  display: inline-block;
+  margin-left: 30px;
+  margin-right: 30px;
+  text-align: center;
+}
+
+.navItem a {
+  text-decoration: none;
+}
+.navItem a:hover {
+  color: $color4;
+  text-decoration: underline;
+}
+.infoShop a {
+  text-decoration: none;
+}
+.infoShop a:hover {
+  color: $color4;
+  text-decoration: underline;
+}

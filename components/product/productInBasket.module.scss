@@ -8,11 +8,12 @@
   flex-wrap: wrap;
   justify-content: center;
   padding: 10px 20px 20px 10px;
-  background-image: url("/fon_311.jpg");
-  background-repeat: repeat;
-  background-attachment: local;
-  background-position: top;
-  background-size: auto;
+  // background-image: url("/fon_311.jpg");
+  // background-repeat: repeat;
+  // background-attachment: local;
+  // background-position: top;
+  // background-size: auto;
+  background-color: #322D31;
   border: 2px solid $color5;
   box-shadow: 0px 0px 6px rgba(255, 66, 82, 0.8), 0px 0px 13px rgba(255, 66, 82, 0.4), 0px 0px 18px rgba(255, 255, 255, 0.7);
   border-radius: 20px;
@@ -23,13 +24,14 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+
 }
 
 .imageDiv {
   margin: 10px;
   height: 120px;
   width: 160px;
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
   background-position: center 40%;
 }
@@ -41,11 +43,34 @@
   flex-direction: column;
   flex-wrap: wrap;
   align-items: flex-start;
-  min-width: 200px;
+  min-width: 290px;
+  max-width: 61%;
   min-height: 100px;
 }
 
+.title_and_param {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  flex-wrap: wrap;
+}
+
+.image_hair {
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center;
+  background-size: contain;
+  border-radius: 50%;
+}
+
+.description h2{
+  overflow: hidden;
+  max-height: 100px;
+}
+
 .imageAndDescription {
+  max-width: 48%;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
@@ -192,6 +217,13 @@
   border-radius: 20px;
 }
 
+.alert {
+  display: flex;
+  margin-left: 50%;
+  justify-content: flex-end;
+  color:$color5;
+}
+
 
 
 .cornerButton {
@@ -226,7 +258,8 @@
  .cornerButton::before, .cornerButton::after {
 	 content: '';
 	 position: absolute;
-	 background-image: url("/fon_311.jpg");
+	 // background-image: url("/fon_311.jpg");
+   background-color: #322D31;
 	 z-index: 1;
 	 transition: all 0.3s;
 }
@@ -244,7 +277,6 @@
 	 top: 50%;
 	 transform: translateY(-50%);
 }
-
 
 
 

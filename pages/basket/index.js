@@ -25,6 +25,7 @@ export default function Page () {
   return (
     <Layout propsBasket={sumItem}>
     <Head>
+      <title>Корзина товаров</title>
       <meta name = "robots" content = "noindex, nofollow" />
     </Head>
       <h1 style={{
