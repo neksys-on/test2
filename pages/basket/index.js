@@ -26,7 +26,7 @@ export default function Page () {
     <Layout propsBasket={sumItem}>
     <Head>
       <title>Корзина товаров</title>
-      <meta name = "robots" content = "noindex, nofollow" />
+      <meta name = "robots" content = "noindex, follow" />
     </Head>
       <h1 style={{
         width: '90%',

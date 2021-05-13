@@ -28,9 +28,7 @@ export default function Page () {
     <Layout propsBasket={sumItem}>
     <Head>
       <title>Политика конфиденциальности</title>
-      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      <meta name="description" content = "Политика конфиденциальности магазина bestjap. Лучшие товары из Японии по низким ценам для красоты и здоровья."/>
-      <meta charSet = "UTF-8"/>
+      <meta name = "robots" content = "noindex, follow" />
     </Head>
       <div style={{
         width: '90%',

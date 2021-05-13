@@ -31,7 +31,11 @@ export default function Page () {
       <Head>
         <title>Услови и сроки доставки товаров из Японии</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <meta name="description" content = "Лучшие товары из Японии по низким ценам для красоты и здоровья. Условия и сроки доставки лучшей Японской продукции."/>
+        <meta name="description" content = "Условия и сроки доставки качественной Японской продукции. Интернет магазин bestjap - Лучшее из Японии."/>
+        <meta name="keywords" content = "доставка из японии, япония, японская продукция, продукция, сроки, доставка, условия доставки, bestjap, лучшее из японии, заказать из японии, заказать, купить, купить японскую, как купить, как заказать, из японии"/>
+        <meta name = "robots" content = "index, follow" />
+        <meta name="google-site-verification" content="5iQH12a1WI8Qz_u6afuv6zVkLHmngjX2dzb_NLnfZBc" />
+        <meta name="yandex-verification" content="a446fe2c0342224b" />
         <meta charSet = "UTF-8"/>
       </Head>
       <div style={{

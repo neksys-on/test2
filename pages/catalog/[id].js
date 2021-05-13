@@ -86,8 +86,31 @@ export default function ProductIndex() {
       lupa.style.opacity = '0'
     }
 
+    let keywordsAdd = ' '
+    let keyWord = ''
+    for (let i = 0; i< stateProduct.description.length; i++) {
+      if (stateProduct.description[i] !== ' ' & stateProduct.description[i] !== ',' & stateProduct.description[i] !== '1' & stateProduct.description[i] !== '0' & stateProduct.description[i] !== '2'  & stateProduct.description[i] !== '3' & stateProduct.description[i] !== '4' & stateProduct.description[i] !== '5' & stateProduct.description[i] !== '6' & stateProduct.description[i] !== '7' & stateProduct.description[i] !== '8' & stateProduct.description[i] !== '9') {
+        keyWord+= stateProduct.description[i]
+      } else {
+        if (keyWord.length > 3) {
+          keywordsAdd+= keyWord+', '
+        }
+        keyWord = ''
+      }
+    }
+
     return (
       <Layout propsBasket={sumItem}>
+      <Head>
+        <title>{stateProduct.title} из Японии. Информация о товаре {stateProduct.title}</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta name="description" content = {stateProduct.title +" из Японии. Здесь вы можете купить "+ stateProduct.title + " и другую качественную Японскую продукцию. Интернет магазин besjap - Лучшее из Японии. Так же Вы можете заказать интересующие Вас товары из Японии."}/>
+        <meta name="keywords" content = {"товары, товары из японии, японские товары, производитель япония, низкие цены, красота, здоровье, для красоты, для здоровья, доставка из японии, япония, японская продукция, продукция, японские витамины, для детей, косметика, бады, краска для волос, уход за волосами, для волос, для лица, уход за лицом, уход за кожей, уход, витамины, добавки, чай, японский чай, напитки, японские напитки, капли для глаз, глазные капли, Lebel, ламинария, краситель, materia, краситель materia, lebel уход, лучшее из японии, bestjap, из японии, купить, заказать, заказать из японии, купить из японии, маленькая япония"+ keywordsAdd}/>
+        <meta name = "robots" content = "index, follow" />
+        <meta name="google-site-verification" content="5iQH12a1WI8Qz_u6afuv6zVkLHmngjX2dzb_NLnfZBc" />
+        <meta name="yandex-verification" content="a446fe2c0342224b" />
+        <meta charSet = "UTF-8"/>
+      </Head>
         <div style={{
           display: 'flex',
           width: '90%',

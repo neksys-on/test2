@@ -49,10 +49,13 @@ export default function Page () {
 return (
   <Layout propsBasket={sumItem}>
   <Head>
-    <title>Товары из Японии по низким ценам</title>
+    <title>Товары из Японии по низким ценам. Лучшее качество.</title>
     <meta name="mailru-domain" content="l58zwtBEk8TZcyqH" />
     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-    <meta name="description" content = "Лучшие товары из Японии по низким ценам для красоты и здоровья. Прямые поставки из Японии, кратчайшие сроки. Только лучшая Японская продукция."/>
+    <meta name="description" content = "Лучшие товары из Японии по низким ценам для красоты и здоровья. Прямые поставки из Японии, кратчайшие сроки. Только лучшая Японская продукция. Интернет магазин besjap - Лучшее из Японии. Так же Вы можете заказать интересующие Вас товары из Японии."/>
+    <meta name="keywords" content = "товары, товары из японии, японские товары, производитель япония, низкие цены, красота, здоровье, для красоты, для здоровья, доставка из японии, япония, японская продукция, продукция, лучшее из японии, bestjap, из японии, купить, заказать, заказать из японии, купить из японии, маленькая япония"/>
+    <meta name="google-site-verification" content="5iQH12a1WI8Qz_u6afuv6zVkLHmngjX2dzb_NLnfZBc" />
+    <meta name="yandex-verification" content="a446fe2c0342224b" />
     <meta charSet = "UTF-8"/>
   </Head>
   {wid>768 && <>

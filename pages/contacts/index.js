@@ -28,9 +28,13 @@ export default function Page () {
   return(
     <Layout propsBasket={sumItem}>
     <Head>
-      <title>Контакты</title>
+      <title>Контакты интернет магазина besjap</title>
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      <meta name="description" content = "Контакты интернет магазина bestjap. Лучшие товары из Японии по низким ценам для красоты и здоровья."/>
+      <meta name="description" content = "Контакты интернет магазина bestjap. Самые качественные товары из Японии по низким ценам для красоты и здоровья. Интернет магазин besjap - Лучшее из Японии. Что бы заказать, интересующие вас, товары из Японии свяжитесь с нами."/>
+      <meta name="keywords" content = "из японии, японские товары, производитель япония, контакты, контактные данные, интернет магазин, bestjap, лучшее из японии, заказать из японии, купить, заказать"/>
+      <meta name = "robots" content = "index, follow" />
+      <meta name="google-site-verification" content="5iQH12a1WI8Qz_u6afuv6zVkLHmngjX2dzb_NLnfZBc" />
+      <meta name="yandex-verification" content="a446fe2c0342224b" />
       <meta charSet = "UTF-8"/>
     </Head>
       <div style={{
