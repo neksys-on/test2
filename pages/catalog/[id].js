@@ -1,20 +1,41 @@
 import Layout from '../../components/layout.js'
 import Head from 'next/head'
+import Link from 'next/link'
 import {useRouter} from 'next/router'
 import { useState, useEffect, useCallback } from 'react'
 import styles from './[id].module.scss'
+import prodPrev from '../../dataBase/products.json'
 
 
+export async function getServerSideProps(context) {
 
-export default function ProductIndex() {
+  const data_products = await prodPrev.products
 
+  return {
+    props: {
+      data_products: data_products,
+    },
+  }
+}
+
+export default function ProductIndex({data_products}) {
   const router = useRouter()
+  let preLoadProd = '0'
+  data_products.map((item)=>{
+    if (item.id ===router.query.id) {
+      preLoadProd=item
+    }
+  })
+
   const [sumItem, setSumItem] = useState('0')
   const [sumThisProduct, setSumThisProduct] = useState('0')
   const [thisProductParam, setThisProductParam] = useState(0)
   const [stateWasLoad, setStateWasLoad] = useState(false)
   const [stateListOpening, setStateListOpening] = useState(false)
-  const [stateProduct, setStateProduct] = useState('0')
+  const [stateProduct, setStateProduct] = useState(preLoadProd)
+
+  const [find, setFind] = useState(false)
+  const [complite_find, setComplite_find] = useState(false)
 
 
   useEffect(()=>{
@@ -31,7 +52,7 @@ export default function ProductIndex() {
 
     const fetchData = async () => {
 
-      if (stateProduct === '0') {
+      if (stateWasLoad === false) {
         const responseProd = await fetch('/api/data/getData', {
           method: 'POST',
           headers: {
@@ -45,20 +66,18 @@ export default function ProductIndex() {
         if (jsonProd) {
           jsonProd.products.map((prod)=>{
             if (prod.id ===router.query.id) {
-              find = true
+              setFind(true)
               setStateProduct(prod)
               if ((thisProductParam === 0)&(prod.distinctiveParameters!==undefined)&(prod.distinctiveParameters!==[]))  setThisProductParam(prod.distinctiveParameters[0])
               setStateWasLoad(true)
             }
 
           })
-          complite_find = true
+          setComplite_find(true)
         }
 
       }
     }
-    let find = false
-    let complite_find = false
     fetchData()
     if (!find & complite_find) {
       setStateProduct('none')
@@ -67,7 +86,7 @@ export default function ProductIndex() {
 
   })
 
-  if ((stateProduct!=='none') & (stateProduct!=='0') & (stateWasLoad === true)) {
+  if ((stateProduct!=='none') & (stateProduct!=='0')) {
 
     function lupa_show(e) {
       const lupa = document.querySelector(`#idLuppa_hair`)
@@ -89,7 +108,7 @@ export default function ProductIndex() {
     let keywordsAdd = ' '
     let keyWord = ''
     for (let i = 0; i< stateProduct.description.length; i++) {
-      if (stateProduct.description[i] !== ' ' & stateProduct.description[i] !== ',' & stateProduct.description[i] !== '1' & stateProduct.description[i] !== '0' & stateProduct.description[i] !== '2'  & stateProduct.description[i] !== '3' & stateProduct.description[i] !== '4' & stateProduct.description[i] !== '5' & stateProduct.description[i] !== '6' & stateProduct.description[i] !== '7' & stateProduct.description[i] !== '8' & stateProduct.description[i] !== '9') {
+      if (stateProduct.description[i] !== ' ' & stateProduct.description[i] !== '/n' & stateProduct.description[i] !== '\n' & stateProduct.description[i] !== ',' & stateProduct.description[i] !== '.' & stateProduct.description[i] !== '-' & stateProduct.description[i] !== '1' & stateProduct.description[i] !== '0' & stateProduct.description[i] !== '2'  & stateProduct.description[i] !== '3' & stateProduct.description[i] !== '4' & stateProduct.description[i] !== '5' & stateProduct.description[i] !== '6' & stateProduct.description[i] !== '7' & stateProduct.description[i] !== '8' & stateProduct.description[i] !== '9') {
         keyWord+= stateProduct.description[i]
       } else {
         if (keyWord.length > 3) {
@@ -281,15 +300,36 @@ export default function ProductIndex() {
 
 
   if (stateProduct==='none') {
+    const linkTitle = ' >>> Контакты <<< '
     return (
       <Layout propsBasket={sumItem}>
+      <Head>
+        <title>Товар не найден</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta name="description" content = {"Поиск товара № "+ stateProduct.id +". Здесь вы можете купить качественную Японскую продукцию. Интернет магазин besjap - Лучшее из Японии. Даже если товар не найден, Вы можете, связавшись с нами, заказать интересующие Вас товары из Японии."}/>
+        <meta name="keywords" content = {"товары, товары из японии, японские товары, производитель япония, низкие цены, красота, здоровье, для красоты, для здоровья, доставка из японии, япония, японская продукция, продукция, японские витамины, для детей, косметика, бады, краска для волос, уход за волосами, для волос, для лица, уход за лицом, уход за кожей, уход, витамины, добавки, чай, японский чай, напитки, японские напитки, капли для глаз, глазные капли, Lebel, ламинария, краситель, materia, краситель materia, lebel уход, лучшее из японии, bestjap, из японии, купить, заказать, заказать из японии, купить из японии, маленькая япония"}/>
+        <meta name = "robots" content = "index, follow" />
+        <meta name="google-site-verification" content="5iQH12a1WI8Qz_u6afuv6zVkLHmngjX2dzb_NLnfZBc" />
+        <meta name="yandex-verification" content="a446fe2c0342224b" />
+        <meta charSet = "UTF-8"/>
+      </Head>
         <div style={{
           width: '90%',
           margin: 'auto',
           padding: '30px 0px 30px 0px',
-          overflow: 'hidden'
+          overflow: 'hidden',
+          display: 'flex',
+          justifyContent: 'center',
         }}>
-          Товара с таким ID нет в базе данных.
+          <div className={styles.wrapperNotFoundInfo}>
+            <div className={styles.containerNotFoundInfo}>
+              <div>Товара с таким ID нет в базе данных.</div>
+              <div>Даже если товара нет в базе, вы можете связаться с нами и заказать, интересующие Вас, товары из Японии. Мы с радостью поможем найти то, что Вам нужно.</div>
+              <ul className={styles.navItems}>
+                <li className={styles.navItem}><Link href="/contacts"><a>{linkTitle}</a></Link></li>
+              </ul>
+            </div>
+          </div>
 
         </div>
       </Layout>
@@ -298,14 +338,29 @@ export default function ProductIndex() {
 
   return (
     <Layout propsBasket={sumItem}>
+    <Head>
+      <title>Поиск информации по товару из Японии</title>
+      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      <meta name="description" content = {"Поиск товара № "+ stateProduct.id +". Здесь вы можете купить качественную Японскую продукцию. Интернет магазин besjap - Лучшее из Японии. Если товар не будет найден, Вы можете, связавшись с нами, заказать интересующие Вас товары из Японии."}/>
+      <meta name="keywords" content = {"товары, товары из японии, японские товары, производитель япония, низкие цены, красота, здоровье, для красоты, для здоровья, доставка из японии, япония, японская продукция, продукция, японские витамины, для детей, косметика, бады, краска для волос, уход за волосами, для волос, для лица, уход за лицом, уход за кожей, уход, витамины, добавки, чай, японский чай, напитки, японские напитки, капли для глаз, глазные капли, Lebel, ламинария, краситель, materia, краситель materia, lebel уход, лучшее из японии, bestjap, из японии, купить, заказать, заказать из японии, купить из японии, маленькая япония"}/>
+      <meta name = "robots" content = "index, follow" />
+      <meta name="google-site-verification" content="5iQH12a1WI8Qz_u6afuv6zVkLHmngjX2dzb_NLnfZBc" />
+      <meta name="yandex-verification" content="a446fe2c0342224b" />
+      <meta charSet = "UTF-8"/>
+    </Head>
       <div style={{
         width: '90%',
         margin: 'auto',
         padding: '30px 0px 30px 0px',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        display: 'flex',
+        justifyContent: 'center',
       }}>
-        Loading...
-
+        <div className={styles.wrapperNotFoundInfo}>
+          <div className={styles.containerNotFoundInfo}>
+            Поиск информации по товару...
+          </div>
+        </div>
       </div>
     </Layout>
   )
