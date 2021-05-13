@@ -1,7 +1,6 @@
 User-agent: *
 Disallow: /privateOffice
 Disallow: /basket
-Disallow: /api
 Disallow: /test
 Disallow: /privacyPolicy
 
