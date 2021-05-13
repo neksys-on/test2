@@ -176,7 +176,7 @@ try {
         const text_offer = ' ФИО: '+pushData.surname+' '+pushData.name+' '+pushData.patronymic+', тел.: '+pushData.telephone+', Населенный пункт: '+pushData.city+', адрес: '+pushData.address+', индекс: '+pushData.index+', Содержание: '+list_products
         const text = '№ заказа: '+pushData.id+' , Cумма заказа: '+pushData.totalPrice+' р. '+text_offer
         // msgsend('send', text, '+79673055577', '+79147730000')
-        msgsend('send', text, '+79086752252', ['+79086752252'])
+        msgsend('send', text, '+79673055577', ['+79147730000','+79144061391'])
       }
 
       res.status(201)

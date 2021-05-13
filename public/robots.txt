@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /privateOffice
+Disallow: /basket
+Disallow: /api
+Disallow: /test
+
+Sitemap: https://bestjap.ru/api/my-sitemap
