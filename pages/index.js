@@ -86,6 +86,7 @@ return (
           <div className={styles.div_image_content2}>
             <div className={styles.div_image_content2_hair}></div>
           </div>
+          <video id={'idVideoFon'} autoPlay src={'/miracle_fon2.webm'} loop muted className={styles.content2_video}></video>
           <div className={styles.div_image_content3}></div>
         </div>
       </div>

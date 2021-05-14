@@ -107,7 +107,7 @@ if (show === '1') {
         <div className={styles.div_wrapper}>
           <div className={styles.div_video}>
             {wid>767 && <>
-              <video id={'idVideoFon'} autoPlay src={'./Fon_video2.mp4'} loop muted>
+              <video id={'idVideoFon'} autoPlay src={'./Fon_video2.webm'} loop muted>
 
               </video>
               <style jsx>{`
@@ -140,7 +140,7 @@ if (show === '2') {
         <div className={styles.div_wrapper}>
           <div className={styles.div_video}>
             {wid>767 && <>
-              <video id={'idVideoFon'} autoPlay src={'./Fon_video2.mp4'} loop muted>
+              <video id={'idVideoFon'} autoPlay src={'./Fon_video2.webm'} loop muted>
 
               </video>
               <style jsx>{`
