@@ -141,7 +141,7 @@ export default function ProductIndex({data_products}) {
         }}>
           <div className={styles.wrapper}>
           <div id={'idLuppa_hair'} className={styles.div_luppa_hair}></div>
-            <div className={styles.container}>
+            <div className={styles.container} itemScope itemType={"https://schema.org/Product"}>
               <div className={styles.container_top}>
                 <div className={styles.container_top_image}>
                   <div className={styles.image_circle}>
@@ -150,24 +150,24 @@ export default function ProductIndex({data_products}) {
                   </div>
                 </div>
                 <div className={styles.container_top_info}>
-                  <div className={styles.info_title}>
+                  <div className={styles.info_title} itemProp = "name">
                     {stateProduct.title}
                   </div>
                   <div className={styles.info_block}>
                     <div className={styles.info_volumeAndType}>
-                      <h3>{stateProduct.volume} {stateProduct.typeVolume}</h3>
+                      <h3 itemProp = "hasMeasurement">{stateProduct.volume} {stateProduct.typeVolume}</h3>
                     </div>
                     <div className={styles.info_value}>
-                      <h3>В наличии: {stateProduct.value} шт.</h3>
+                      <h3 itemProp = "availability">В наличии: {stateProduct.value} шт.</h3>
                     </div>
                   </div>
                   <div className={styles.info_price}>
                     {stateProduct.priceDiscount === '' && <>
-                      <div className={styles.price}>{stateProduct.price} ₽</div>
+                      <div className={styles.price} itemProp="price">{stateProduct.price} ₽</div>
                     </>}
                     {stateProduct.priceDiscount !== '' && <>
-                      <div className={styles.priceFormer}>{stateProduct.price} ₽</div>
-                      <div className={styles.price}>{stateProduct.priceDiscount} ₽</div>
+                      <div className={styles.priceFormer} itemProp="highPrice">{stateProduct.price} ₽</div>
+                      <div className={styles.price} itemProp="lowPrice">{stateProduct.priceDiscount} ₽</div>
                     </>}
                   </div>
                   <div className={styles.changeValueinBasket}>
@@ -292,7 +292,7 @@ export default function ProductIndex({data_products}) {
               </div>
               <div className={styles.container_bottom}>
                 <div className={styles.description}>
-                  <pre><h3>{stateProduct.description}</h3></pre>
+                  <pre><h3 itemProp="description">{stateProduct.description}</h3></pre>
                 </div>
               </div>
             </div>

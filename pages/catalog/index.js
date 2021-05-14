@@ -369,7 +369,7 @@ if ( show !== 'Каталог' ) {
             }}><a>Сброс</a></div>
           </div>
         </div>
-        <div className={styles.div_show} style={{width:`${wid}`}}>
+        <div className={styles.div_show} style={{width:`${wid}`}} itemProp="itemListElement" itemScope itemType="https://schema.org/Product">
         {data_filtered.map((product) => {
 
           let successful_search = false
@@ -531,19 +531,19 @@ if ( show !== 'Каталог' ) {
               }
             }}
             key={product.id}>
-              <div className={styles.card} id={'idCard'+product.id}>
+              <div className={styles.card} id={'idCard'+product.id} itemScope itemType={"https://schema.org/Product"}>
                 <div className={styles.element} id={'idElement'+product.id}>
                   <div className={styles.circle} id={'idCircle'+product.id}></div>
                   <div
                     className={styles.imageSrc} id={'idImg'+product.id}
                     style={{
                     backgroundImage: `url(${product.url})`,
-                  }}></div>
+                  }} itemProp = "image"></div>
                 </div>
                 <div className={styles.info}>
                   <div className={styles.infoIn}>
-                  <h1 className={styles.title} id={'idTitle'+product.id} onClick={(e)=>{Router.push(`/catalog/${product.id}`)}}>{product.title}</h1>
-                  <div id={'idDescription'+product.id} onClick={(e)=>{
+                  <h1 className={styles.title} id={'idTitle'+product.id} onClick={(e)=>{Router.push(`/catalog/${product.id}`)}} itemProp = "name" itemProp="url">{product.title}</h1>
+                  <div id={'idDescription'+product.id} itemProp="description" onClick={(e)=>{
                     const desctShort = document.querySelector(`#idDescrShort${product.id}`)
                     const desctFull = document.querySelector(`#idDescrFull${product.id}`)
                     let desctShortHeight = desctShort.clientHeight
@@ -589,8 +589,8 @@ if ( show !== 'Каталог' ) {
                       <pre><h3 className={styles.descriptionItem} >{product.description}</h3></pre>
                     </>}
                   </div>
-                  <h3 className={styles.VolumeAndType} id={'idVolume'+product.id}>{product.volume}    {product.typeVolume}</h3>                </div>
-                  <h3 className={styles.ValueItem} id={'idValue'+product.id}>В наличии: {product.value} шт.</h3>
+                  <h3 className={styles.VolumeAndType} id={'idVolume'+product.id} itemProp = "hasMeasurement">{product.volume}    {product.typeVolume}</h3>                </div>
+                  <h3 className={styles.ValueItem} id={'idValue'+product.id} itemProp = "availability" href = "https://schema.org/InStock">В наличии: {product.value} шт.</h3>
                   {product.distinctiveParameters !== undefined && <>
                     {product.distinctiveParameters !== [] && <>
                       <div>
@@ -707,11 +707,11 @@ if ( show !== 'Каталог' ) {
                     </>}
                   </>}
                   {product.priceDiscount === '' && <>
-                    <div className={styles.price} id={'idPrice'+product.id}>{product.price} ₽</div>
+                    <div className={styles.price} id={'idPrice'+product.id} itemProp="price">{product.price} ₽</div>
                   </>}
                   {product.priceDiscount !== '' && <>
-                    <div className={styles.priceFormer} id={'idPriceDiscount'+product.id}>{product.price} ₽</div>
-                    <div className={styles.price} id={'idPrice'+product.id}>{product.priceDiscount} ₽</div>
+                    <div className={styles.priceFormer} id={'idPriceDiscount'+product.id} itemProp="highPrice">{product.price} ₽</div>
+                    <div className={styles.price} id={'idPrice'+product.id} itemProp="lowPrice">{product.priceDiscount} ₽</div>
                   </>}
                   <div className={styles.butt} id={'idButton'+product.id}>
                       <a onClick={()=>{
