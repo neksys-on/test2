@@ -44,7 +44,7 @@ export default function Page () {
         overflow: 'hidden'
       }}>
         <h1>Контакты</h1>
-        <div className={styles.wrapper}>
+        <div className={styles.wrapper} itemScope itemType="http://schema.org/Organization">
           <div className={styles.container}
             onMouseMove={(e) => {
               const card = document.querySelector(`#idCard1`)
@@ -74,22 +74,22 @@ export default function Page () {
           >
             <div className={styles.card} id={'idCard1'}>
               <div className={styles.element} id={'idElement1'}>
-                <div className={styles.heading}>
+                <div className={styles.heading} itemProp="director" itemScope itemType="https://schema.org/Person">
                   ИП Корнева Ольга Дмитриевна
                 </div>
                 <div className={styles.heading}>
                   Телефон:
                 </div>
                 <div className={styles.text} style={{textAlign: 'center'}}>
-                  <a href="tel:+79147730000">+7 (914) 773-00-00</a>
+                  <a href="tel:+79147730000" itemProp="telephone">+7 (914) 773-00-00</a>
                 </div>
                 <div className={styles.text} style={{textAlign: 'center'}}>
-                  <a href="tel:+79144061391">+7 (914) 406-13-91</a>
+                  <a href="tel:+79144061391" itemProp="telephone">+7 (914) 406-13-91</a>
                 </div>
                 <div className={styles.heading}>
                   EMAIL:
                 </div>
-                <div className={styles.text} style={{textAlign: 'center'}}>
+                <div className={styles.text} style={{textAlign: 'center'}} itemProp="email">
                  support@bestjap.ru
                 </div>
               </div>
