@@ -7,32 +7,34 @@ import styles from './[id].module.scss'
 import prodPrev from '../../dataBase/products.json'
 
 
+let dataPreLoad
 export async function getServerSideProps(context) {
 
   const data_products = await prodPrev.products
 
+  let preLoadProd
+  data_products.map((item)=>{
+    if (item.id ===context.query.id) {
+      dataPreLoad=item
+    }
+  })
+
   return {
     props: {
-      data_products: data_products,
+      data_products: dataPreLoad,
     },
   }
 }
 
 export default function ProductIndex({data_products}) {
   const router = useRouter()
-  let preLoadProd = '0'
-  data_products.map((item)=>{
-    if (item.id ===router.query.id) {
-      preLoadProd=item
-    }
-  })
 
   const [sumItem, setSumItem] = useState('0')
   const [sumThisProduct, setSumThisProduct] = useState('0')
   const [thisProductParam, setThisProductParam] = useState(0)
   const [stateWasLoad, setStateWasLoad] = useState(false)
   const [stateListOpening, setStateListOpening] = useState(false)
-  const [stateProduct, setStateProduct] = useState(preLoadProd)
+  const [stateProduct, setStateProduct] = useState(data_products)
 
   const [find, setFind] = useState(false)
   const [complite_find, setComplite_find] = useState(false)
