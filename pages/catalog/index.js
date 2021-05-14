@@ -34,14 +34,14 @@ export default function Page ({data_category, data_products}) {
   let cardTransitionTime = 6
   let localStorStr
   let localStorJson
-  const [dataProducts, setDataProducts] = useState([{id: 's'}])
+  const [dataProducts, setDataProducts] = useState(data_products)
   const [dataProductsControl, setDataProductsControl] = useState([{id: 's'}])
   const [dataProductsDB, setDataProductsDB] = useState('1')
-  const [dataCategory, setDataCategory] = useState([])
+  const [dataCategory, setDataCategory] = useState(data_category)
   const [dataCategoryDB, setDataCategoryDB] = useState('1')
 
-  const [show, setShow] = useState('Каталог')
-  const [showId, setShowId] = useState('Каталог')
+  const [show, setShow] = useState('Все товары')
+  const [showId, setShowId] = useState('0')
   const [sumItem, setSumItem] = useState('0')
   const [recoveryItem, setRecoveryItem] = useState('')
   const [recoveryColor, setRecoveryColor] = useState('')
