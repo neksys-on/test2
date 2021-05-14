@@ -253,7 +253,7 @@
   transition: all 0.35s ease;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,.45);
+  background-color: rgba(0,0,0,.25);
   z-index: 2;
   display: flex;
   justify-content: center;
@@ -296,7 +296,7 @@
 
 .blackoutDivCatalog:hover {
   transition: all 0.35s ease;
-  background-color: rgba(0,0,0,.2);
+  background-color: rgba(0,0,0,.01);
 }
 .blackoutDivCatalog:hover .outlineDivCatalog{
   transition: all 0.15s ease;
