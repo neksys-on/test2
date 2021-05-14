@@ -180,7 +180,10 @@ export default function ProductIndex({data_products}) {
                           let localStorStr
                           let localStorJson
                           let localStor = localStorage.getItem('_basket')
-                          localStorJson = JSON.parse(localStor)
+                          localStorJson = []
+                          if (localStor) {
+                            localStorJson = JSON.parse(localStor)
+                          }
                           localStorJson.push({
                             id:`${stateProduct.id}`,
                             title:`${stateProduct.title}`,
