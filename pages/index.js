@@ -108,7 +108,7 @@ return (
 
       <div className={styles.div_presentations}>
         <div className={styles.div_main_text}>
-          <div className={styles.div_zagolovok}>Маленькая япония</div>
+          <div className={styles.div_zagolovok}><h1>Маленькая япония</h1></div>
           <div className={styles.div_text}>Все лучшее из Японии для красоты и здоровья.</div>
         </div>
         <div className={styles.div_card_image} >
