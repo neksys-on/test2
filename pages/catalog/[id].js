@@ -207,7 +207,7 @@ export default function ProductIndex({data_products}) {
         }}>
           <div className={styles.wrapper}>
           <div id={'idLuppa_hair'} className={styles.div_luppa_hair}></div>
-            <div className={styles.container} itemscope itemtype="https://schema.org/Offer" >
+            <div className={styles.container} itemScope itemType={"https://schema.org/Offer"} >
               <div className={styles.container_top}>
                 <div className={styles.container_top_image}>
                   <div className={styles.image_circle}>
