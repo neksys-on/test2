@@ -207,7 +207,7 @@ export default function ProductIndex({data_products}) {
         }}>
           <div className={styles.wrapper}>
           <div id={'idLuppa_hair'} className={styles.div_luppa_hair}></div>
-            <div className={styles.container} itemScope itemType={"https://schema.org/Product"}>
+            <div className={styles.container} itemscope itemtype="https://schema.org/Offer" >
               <div className={styles.container_top}>
                 <div className={styles.container_top_image}>
                   <div className={styles.image_circle}>
@@ -227,7 +227,7 @@ export default function ProductIndex({data_products}) {
                       <h3 itemProp = "availability">В наличии: {stateProduct.value} шт.</h3>
                     </div>
                   </div>
-                  <div className={styles.info_price}>
+                  <div className={styles.info_price} >
                     {stateProduct.priceDiscount === '' && <>
                       <div className={styles.price} itemProp="price">{stateProduct.price} ₽</div>
                     </>}
