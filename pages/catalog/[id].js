@@ -29,9 +29,14 @@ export async function getServerSideProps(context) {
 export default function ProductIndex({data_products}) {
   const router = useRouter()
 
+  let thisProductParamInitial = 0
+  if (data_products.distinctiveParameters) {
+    thisProductParamInitial = data_products.distinctiveParameters[0]
+  }
+
   const [sumItem, setSumItem] = useState('0')
   const [sumThisProduct, setSumThisProduct] = useState('0')
-  const [thisProductParam, setThisProductParam] = useState(data_products.distinctiveParameters[0])
+  const [thisProductParam, setThisProductParam] = useState(thisProductParamInitial)
   const [stateWasLoad, setStateWasLoad] = useState(false)
   const [stateListOpening, setStateListOpening] = useState(false)
   const [stateProduct, setStateProduct] = useState(data_products)
