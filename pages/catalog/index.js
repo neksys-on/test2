@@ -448,7 +448,7 @@ if ( show !== 'Каталог' ) {
             }}><a>Сброс</a></div>
           </div>
         </div>
-        <div className={styles.div_show} style={{width:`${wid}`}} itemProp="itemListElement" itemScope itemType="https://schema.org/Product">
+        <div className={styles.div_show} style={{width:`${wid}`}} itemProp="itemListElement" >
         {data_filtered.map((product) => {
 
           let successful_search = false
@@ -610,7 +610,7 @@ if ( show !== 'Каталог' ) {
               }
             }}
             key={product.id}>
-              <div className={styles.card} id={'idCard'+product.id} itemScope itemType={"https://schema.org/Product"}>
+              <div className={styles.card} id={'idCard'+product.id} itemScope itemType="https://schema.org/Offer" >
                 <div className={styles.element} id={'idElement'+product.id}>
                   <div className={styles.circle} id={'idCircle'+product.id}></div>
                   <div
