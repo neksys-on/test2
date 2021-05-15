@@ -31,7 +31,7 @@ export default function ProductIndex({data_products}) {
 
   const [sumItem, setSumItem] = useState('0')
   const [sumThisProduct, setSumThisProduct] = useState('0')
-  const [thisProductParam, setThisProductParam] = useState(0)
+  const [thisProductParam, setThisProductParam] = useState(data_products.distinctiveParameters[0])
   const [stateWasLoad, setStateWasLoad] = useState(false)
   const [stateListOpening, setStateListOpening] = useState(false)
   const [stateProduct, setStateProduct] = useState(data_products)
@@ -182,7 +182,6 @@ export default function ProductIndex({data_products}) {
         <meta name="msapplication-config" content="/favicons/browserconfig.xml"/>
         <meta name="theme-color" content="#ffffff"/>
 
-        <link href="https://fonts.googleapis.com/css2?family=Philosopher&display=swap" rel="stylesheet"/>
         <meta property="og:locale" content="ru_RU" />
         <meta property="og:title" content={stateProduct.title + 'из Японии. Информация о товаре' + stateProduct.title} />
         <meta property="og:description" content={stateProduct.title +" из Японии. Здесь вы можете купить "+ stateProduct.title + " и другую качественную Японскую продукцию. Интернет магазин BestJap - Лучшее из Японии. Так же Вы можете заказать интересующие Вас товары из Японии."} />
@@ -407,7 +406,6 @@ export default function ProductIndex({data_products}) {
         <meta name="msapplication-config" content="/favicons/browserconfig.xml"/>
         <meta name="theme-color" content="#ffffff"/>
 
-        <link href="https://fonts.googleapis.com/css2?family=Philosopher&display=swap" rel="stylesheet"/>
         <meta property="og:locale" content="ru_RU" />
         <meta property="og:title" content='Товар не найден' />
         <meta property="og:description" content={"Поиск товара № "+ router.query.id +". Здесь вы можете купить качественную Японскую продукцию. Интернет магазин besjap - Лучшее из Японии. Даже если товар не найден, Вы можете, связавшись с нами, заказать интересующие Вас товары из Японии."} />
@@ -481,7 +479,6 @@ export default function ProductIndex({data_products}) {
       <meta name="msapplication-config" content="/favicons/browserconfig.xml"/>
       <meta name="theme-color" content="#ffffff"/>
 
-      <link href="https://fonts.googleapis.com/css2?family=Philosopher&display=swap" rel="stylesheet"/>
       <meta property="og:locale" content="ru_RU" />
       <meta property="og:title" content='Поиск информации по товару из Японии' />
       <meta property="og:description" content={"Поиск товара № "+ router.query.id +". Здесь вы можете купить качественную Японскую продукцию. Интернет магазин besjap - Лучшее из Японии. Если товар не будет найден, Вы можете, связавшись с нами, заказать интересующие Вас товары из Японии."} />

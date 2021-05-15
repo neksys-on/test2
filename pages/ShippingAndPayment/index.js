@@ -68,7 +68,6 @@ export default function Page () {
         <meta name="msapplication-config" content="/favicons/browserconfig.xml"/>
         <meta name="theme-color" content="#ffffff"/>
 
-        <link href="https://fonts.googleapis.com/css2?family=Philosopher&display=swap" rel="stylesheet"/>
         <meta property="og:locale" content="ru_RU" />
         <meta property="og:title" content={titleMeta} />
         <meta property="og:description" content={descriptionMeta} />
