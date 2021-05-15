@@ -108,29 +108,91 @@ export default function ProductIndex({data_products}) {
     }
 
     let keywordsAdd = ' '
+    let keywordsAdd2 = ' '
     let keyWord = ''
+    let valueWord = 0
     for (let i = 0; i< stateProduct.description.length; i++) {
       if (stateProduct.description[i] !== ' ' & stateProduct.description[i] !== '/n' & stateProduct.description[i] !== '\n' & stateProduct.description[i] !== ',' & stateProduct.description[i] !== '.' & stateProduct.description[i] !== '-' & stateProduct.description[i] !== '1' & stateProduct.description[i] !== '0' & stateProduct.description[i] !== '2'  & stateProduct.description[i] !== '3' & stateProduct.description[i] !== '4' & stateProduct.description[i] !== '5' & stateProduct.description[i] !== '6' & stateProduct.description[i] !== '7' & stateProduct.description[i] !== '8' & stateProduct.description[i] !== '9') {
         keyWord+= stateProduct.description[i]
       } else {
-        if (keyWord.length > 3) {
+        if (keyWord.length > 3 & valueWord < 30) {
           keywordsAdd+= keyWord+', '
+          valueWord++
         }
         keyWord = ''
       }
     }
+    if (keyWord.length > 3 & valueWord < 30) {
+      keywordsAdd+= keyWord+', '
+      valueWord++
+    }
+
+    keyWord = ''
+    for (let i = 0; i< stateProduct.title.length; i++) {
+      if (stateProduct.title[i] !== ' ' & stateProduct.title[i] !== '/n' & stateProduct.title[i] !== '\n' & stateProduct.title[i] !== ',' & stateProduct.title[i] !== '.' & stateProduct.title[i] !== '-' & stateProduct.title[i] !== '1' & stateProduct.title[i] !== '0' & stateProduct.title[i] !== '2'  & stateProduct.title[i] !== '3' & stateProduct.title[i] !== '4' & stateProduct.title[i] !== '5' & stateProduct.title[i] !== '6' & stateProduct.title[i] !== '7' & stateProduct.title[i] !== '8' & stateProduct.title[i] !== '9') {
+        keyWord+= stateProduct.title[i]
+      } else {
+        if (keyWord.length > 3) {
+          keywordsAdd2+= keyWord+', '
+        }
+        keyWord = ''
+      }
+    }
+    if (keyWord.length > 3) {
+      keywordsAdd2+= keyWord+', '
+    }
+
 
     return (
       <Layout propsBasket={sumItem}>
       <Head>
         <title>{stateProduct.title} из Японии. Информация о товаре {stateProduct.title}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <meta name="description" content = {stateProduct.title +" из Японии. Здесь вы можете купить "+ stateProduct.title + " и другую качественную Японскую продукцию. Интернет магазин besjap - Лучшее из Японии. Так же Вы можете заказать интересующие Вас товары из Японии."}/>
-        <meta name="keywords" content = {"товары, товары из японии, японские товары, производитель япония, низкие цены, красота, здоровье, для красоты, для здоровья, доставка из японии, япония, японская продукция, продукция, японские витамины, для детей, косметика, бады, краска для волос, уход за волосами, для волос, для лица, уход за лицом, уход за кожей, уход, витамины, добавки, чай, японский чай, напитки, японские напитки, капли для глаз, глазные капли, Lebel, ламинария, краситель, materia, краситель materia, lebel уход, лучшее из японии, bestjap, из японии, купить, заказать, заказать из японии, купить из японии, маленькая япония"+ keywordsAdd}/>
-        <meta name = "robots" content = "index, follow" />
+        <meta name="description" content={stateProduct.title +" из Японии. Здесь вы можете купить "+ stateProduct.title + " и другую качественную Японскую продукцию. Интернет магазин BestJap - Лучшее из Японии. Так же Вы можете заказать интересующие Вас товары из Японии."} />
+        <meta name="keywords" content={keywordsAdd2 + "товары, товары из японии, японские товары, производитель япония, красота, здоровье, доставка из японии, япония, продукция, японские витамины, уход, лучшее из японии, bestjap, из японии, купить, заказать, маленькая япония"+ keywordsAdd} />
+        <meta name="robots" content="index, follow" />
         <meta name="google-site-verification" content="5iQH12a1WI8Qz_u6afuv6zVkLHmngjX2dzb_NLnfZBc" />
         <meta name="yandex-verification" content="a446fe2c0342224b" />
-        <meta charSet = "UTF-8"/>
+        <meta charSet="UTF-8"/>
+
+        <link type="image/png" sizes="96x96" rel="icon" href="/favicons/favicon-96x96.png"/>
+        <link type="image/png" sizes="120x120" rel="icon" href="/favicons/favicon-120x120.png"/>
+        <link type="image/png" sizes="192x192" rel="icon" href="/favicons/android-icon-192x192.png"/>
+        <link sizes="57x57" rel="apple-touch-icon" href="/favicons/apple-touch-icon-57x57.png"/>
+        <link sizes="60x60" rel="apple-touch-icon" href="/favicons/apple-touch-icon-60x60.png"/>
+        <link sizes="72x72" rel="apple-touch-icon" href="/favicons/apple-touch-icon-72x72.png"/>
+        <link sizes="76x76" rel="apple-touch-icon" href="/favicons/apple-touch-icon-76x76.png"/>
+        <link sizes="114x114" rel="apple-touch-icon" href="/favicons/apple-touch-icon-114x114.png"/>
+        <link sizes="120x120" rel="apple-touch-icon" href="/favicons/apple-touch-icon-120x120.png"/>
+        <link sizes="144x144" rel="apple-touch-icon" href="/favicons/apple-touch-icon-144x144.png"/>
+        <link sizes="152x152" rel="apple-touch-icon" href="/favicons/apple-touch-icon-152x152.png"/>
+        <meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png"/>
+        <meta name="msapplication-square70x70logo" content="/favicons/mstile-70x70.png"/>
+        <meta name="msapplication-square150x150logo" content="/favicons/mstile-150x150.png"/>
+        <meta name="msapplication-wide310x150logo" content="/favicons/mstile-310x150.png"/>
+        <meta name="msapplication-square310x310logo" content="/favicons/mstile-310x310.png"/>
+        <meta name="application-name" content="Интернет магазин bestjap - Лучшее из Японии"/>
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png"/>
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png"/>
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png"/>
+        <link rel="manifest" href="/favicons/site.webmanifest"/>
+        <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#d80000"/>
+        <link rel="shortcut icon" href="/favicons/favicon.ico"/>
+        <meta name="msapplication-TileColor" content="#da532c"/>
+        <meta name="msapplication-config" content="/favicons/browserconfig.xml"/>
+        <meta name="theme-color" content="#ffffff"/>
+
+        <link href="https://fonts.googleapis.com/css2?family=Philosopher&display=swap" rel="stylesheet"/>
+        <meta property="og:locale" content="ru_RU" />
+        <meta property="og:title" content={stateProduct.title + 'из Японии. Информация о товаре' + stateProduct.title} />
+        <meta property="og:description" content={stateProduct.title +" из Японии. Здесь вы можете купить "+ stateProduct.title + " и другую качественную Японскую продукцию. Интернет магазин BestJap - Лучшее из Японии. Так же Вы можете заказать интересующие Вас товары из Японии."} />
+        <meta property="og:image" content="https://www.bestjap.ru/map_japan4.webp" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content={stateProduct.title + 'из Японии. Информация о товаре' + stateProduct.title} />
+        <meta name="twitter:description" content={stateProduct.title +" из Японии. Здесь вы можете купить "+ stateProduct.title + " и другую качественную Японскую продукцию. Интернет магазин BestJap - Лучшее из Японии. Так же Вы можете заказать интересующие Вас товары из Японии."} />
+        <meta name="twitter:image" content="https://www.bestjap.ru/map_japan4.webp" />
+        <meta name="twitter:image:alt" content="/map_japan4.webp" />
       </Head>
         <div style={{
           display: 'flex',
@@ -311,12 +373,51 @@ export default function ProductIndex({data_products}) {
       <Head>
         <title>Товар не найден</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <meta name="description" content = {"Поиск товара № "+ stateProduct.id +". Здесь вы можете купить качественную Японскую продукцию. Интернет магазин besjap - Лучшее из Японии. Даже если товар не найден, Вы можете, связавшись с нами, заказать интересующие Вас товары из Японии."}/>
-        <meta name="keywords" content = {"товары, товары из японии, японские товары, производитель япония, низкие цены, красота, здоровье, для красоты, для здоровья, доставка из японии, япония, японская продукция, продукция, японские витамины, для детей, косметика, бады, краска для волос, уход за волосами, для волос, для лица, уход за лицом, уход за кожей, уход, витамины, добавки, чай, японский чай, напитки, японские напитки, капли для глаз, глазные капли, Lebel, ламинария, краситель, materia, краситель materia, lebel уход, лучшее из японии, bestjap, из японии, купить, заказать, заказать из японии, купить из японии, маленькая япония"}/>
+        <meta name="description" content = {"Поиск товара № "+ router.query.id +". Здесь вы можете купить качественную Японскую продукцию. Интернет магазин besjap - Лучшее из Японии. Даже если товар не найден, Вы можете, связавшись с нами, заказать интересующие Вас товары из Японии."} />
+        <meta name="keywords" content = {"товары, товары из японии, японские товары, производитель япония, красота, здоровье, доставка из японии, япония, японская продукция, лучшее из японии, bestjap, из японии, купить, заказать, маленькая япония"} />
         <meta name = "robots" content = "index, follow" />
         <meta name="google-site-verification" content="5iQH12a1WI8Qz_u6afuv6zVkLHmngjX2dzb_NLnfZBc" />
         <meta name="yandex-verification" content="a446fe2c0342224b" />
         <meta charSet = "UTF-8"/>
+
+        <link type="image/png" sizes="96x96" rel="icon" href="/favicons/favicon-96x96.png"/>
+        <link type="image/png" sizes="120x120" rel="icon" href="/favicons/favicon-120x120.png"/>
+        <link type="image/png" sizes="192x192" rel="icon" href="/favicons/android-icon-192x192.png"/>
+        <link sizes="57x57" rel="apple-touch-icon" href="/favicons/apple-touch-icon-57x57.png"/>
+        <link sizes="60x60" rel="apple-touch-icon" href="/favicons/apple-touch-icon-60x60.png"/>
+        <link sizes="72x72" rel="apple-touch-icon" href="/favicons/apple-touch-icon-72x72.png"/>
+        <link sizes="76x76" rel="apple-touch-icon" href="/favicons/apple-touch-icon-76x76.png"/>
+        <link sizes="114x114" rel="apple-touch-icon" href="/favicons/apple-touch-icon-114x114.png"/>
+        <link sizes="120x120" rel="apple-touch-icon" href="/favicons/apple-touch-icon-120x120.png"/>
+        <link sizes="144x144" rel="apple-touch-icon" href="/favicons/apple-touch-icon-144x144.png"/>
+        <link sizes="152x152" rel="apple-touch-icon" href="/favicons/apple-touch-icon-152x152.png"/>
+        <meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png"/>
+        <meta name="msapplication-square70x70logo" content="/favicons/mstile-70x70.png"/>
+        <meta name="msapplication-square150x150logo" content="/favicons/mstile-150x150.png"/>
+        <meta name="msapplication-wide310x150logo" content="/favicons/mstile-310x150.png"/>
+        <meta name="msapplication-square310x310logo" content="/favicons/mstile-310x310.png"/>
+        <meta name="application-name" content="Интернет магазин bestjap - Лучшее из Японии"/>
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png"/>
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png"/>
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png"/>
+        <link rel="manifest" href="/favicons/site.webmanifest"/>
+        <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#d80000"/>
+        <link rel="shortcut icon" href="/favicons/favicon.ico"/>
+        <meta name="msapplication-TileColor" content="#da532c"/>
+        <meta name="msapplication-config" content="/favicons/browserconfig.xml"/>
+        <meta name="theme-color" content="#ffffff"/>
+
+        <link href="https://fonts.googleapis.com/css2?family=Philosopher&display=swap" rel="stylesheet"/>
+        <meta property="og:locale" content="ru_RU" />
+        <meta property="og:title" content='Товар не найден' />
+        <meta property="og:description" content={"Поиск товара № "+ router.query.id +". Здесь вы можете купить качественную Японскую продукцию. Интернет магазин besjap - Лучшее из Японии. Даже если товар не найден, Вы можете, связавшись с нами, заказать интересующие Вас товары из Японии."} />
+        <meta property="og:image" content="https://www.bestjap.ru/map_japan4.webp" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content='Товар не найден' />
+        <meta name="twitter:description" content={"Поиск товара № "+ router.query.id +". Здесь вы можете купить качественную Японскую продукцию. Интернет магазин besjap - Лучшее из Японии. Даже если товар не найден, Вы можете, связавшись с нами, заказать интересующие Вас товары из Японии."} />
+        <meta name="twitter:image" content="https://www.bestjap.ru/map_japan4.webp" />
+        <meta name="twitter:image:alt" content="/map_japan4.webp" />
       </Head>
         <div style={{
           width: '90%',
@@ -346,12 +447,51 @@ export default function ProductIndex({data_products}) {
     <Head>
       <title>Поиск информации по товару из Японии</title>
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      <meta name="description" content = {"Поиск товара № "+ stateProduct.id +". Здесь вы можете купить качественную Японскую продукцию. Интернет магазин besjap - Лучшее из Японии. Если товар не будет найден, Вы можете, связавшись с нами, заказать интересующие Вас товары из Японии."}/>
-      <meta name="keywords" content = {"товары, товары из японии, японские товары, производитель япония, низкие цены, красота, здоровье, для красоты, для здоровья, доставка из японии, япония, японская продукция, продукция, японские витамины, для детей, косметика, бады, краска для волос, уход за волосами, для волос, для лица, уход за лицом, уход за кожей, уход, витамины, добавки, чай, японский чай, напитки, японские напитки, капли для глаз, глазные капли, Lebel, ламинария, краситель, materia, краситель materia, lebel уход, лучшее из японии, bestjap, из японии, купить, заказать, заказать из японии, купить из японии, маленькая япония"}/>
-      <meta name = "robots" content = "index, follow" />
+      <meta name="description" content={"Поиск товара № "+ router.query.id +". Здесь вы можете купить качественную Японскую продукцию. Интернет магазин besjap - Лучшее из Японии. Если товар не будет найден, Вы можете, связавшись с нами, заказать интересующие Вас товары из Японии."} />
+      <meta name="keywords" content={"товары, товары из японии, японские товары, производитель япония, низкие цены, красота, здоровье, для красоты, для здоровья, доставка из японии, япония, японская продукция, продукция, японские витамины, для детей, косметика, бады, краска для волос, уход за волосами, для волос, для лица, уход за лицом, уход за кожей, уход, витамины, добавки, чай, японский чай, напитки, японские напитки, капли для глаз, глазные капли, Lebel, ламинария, краситель, materia, краситель materia, lebel уход, лучшее из японии, bestjap, из японии, купить, заказать, заказать из японии, купить из японии, маленькая япония"}/>
+      <meta name="robots" content="index, follow" />
       <meta name="google-site-verification" content="5iQH12a1WI8Qz_u6afuv6zVkLHmngjX2dzb_NLnfZBc" />
       <meta name="yandex-verification" content="a446fe2c0342224b" />
       <meta charSet = "UTF-8"/>
+
+      <link type="image/png" sizes="96x96" rel="icon" href="/favicons/favicon-96x96.png"/>
+      <link type="image/png" sizes="120x120" rel="icon" href="/favicons/favicon-120x120.png"/>
+      <link type="image/png" sizes="192x192" rel="icon" href="/favicons/android-icon-192x192.png"/>
+      <link sizes="57x57" rel="apple-touch-icon" href="/favicons/apple-touch-icon-57x57.png"/>
+      <link sizes="60x60" rel="apple-touch-icon" href="/favicons/apple-touch-icon-60x60.png"/>
+      <link sizes="72x72" rel="apple-touch-icon" href="/favicons/apple-touch-icon-72x72.png"/>
+      <link sizes="76x76" rel="apple-touch-icon" href="/favicons/apple-touch-icon-76x76.png"/>
+      <link sizes="114x114" rel="apple-touch-icon" href="/favicons/apple-touch-icon-114x114.png"/>
+      <link sizes="120x120" rel="apple-touch-icon" href="/favicons/apple-touch-icon-120x120.png"/>
+      <link sizes="144x144" rel="apple-touch-icon" href="/favicons/apple-touch-icon-144x144.png"/>
+      <link sizes="152x152" rel="apple-touch-icon" href="/favicons/apple-touch-icon-152x152.png"/>
+      <meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png"/>
+      <meta name="msapplication-square70x70logo" content="/favicons/mstile-70x70.png"/>
+      <meta name="msapplication-square150x150logo" content="/favicons/mstile-150x150.png"/>
+      <meta name="msapplication-wide310x150logo" content="/favicons/mstile-310x150.png"/>
+      <meta name="msapplication-square310x310logo" content="/favicons/mstile-310x310.png"/>
+      <meta name="application-name" content="Интернет магазин bestjap - Лучшее из Японии"/>
+      <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png"/>
+      <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png"/>
+      <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png"/>
+      <link rel="manifest" href="/favicons/site.webmanifest"/>
+      <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#d80000"/>
+      <link rel="shortcut icon" href="/favicons/favicon.ico"/>
+      <meta name="msapplication-TileColor" content="#da532c"/>
+      <meta name="msapplication-config" content="/favicons/browserconfig.xml"/>
+      <meta name="theme-color" content="#ffffff"/>
+
+      <link href="https://fonts.googleapis.com/css2?family=Philosopher&display=swap" rel="stylesheet"/>
+      <meta property="og:locale" content="ru_RU" />
+      <meta property="og:title" content='Поиск информации по товару из Японии' />
+      <meta property="og:description" content={"Поиск товара № "+ router.query.id +". Здесь вы можете купить качественную Японскую продукцию. Интернет магазин besjap - Лучшее из Японии. Если товар не будет найден, Вы можете, связавшись с нами, заказать интересующие Вас товары из Японии."} />
+      <meta property="og:image" content="https://www.bestjap.ru/map_japan4.webp" />
+      <meta property="og:type" content="website" />
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:title" content='Поиск информации по товару из Японии' />
+      <meta name="twitter:description" content={"Поиск товара № "+ router.query.id +". Здесь вы можете купить качественную Японскую продукцию. Интернет магазин besjap - Лучшее из Японии. Если товар не будет найден, Вы можете, связавшись с нами, заказать интересующие Вас товары из Японии."} />
+      <meta name="twitter:image" content="https://www.bestjap.ru/map_japan4.webp" />
+      <meta name="twitter:image:alt" content="/map_japan4.webp" />
     </Head>
       <div style={{
         width: '90%',
