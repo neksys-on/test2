@@ -30,7 +30,14 @@ export default function Header ({propsBasket}) {
                   localStorage.setItem('_filter', 'Товары со скидкой')
                   localStorage.setItem('_filterId', '_1')
                 }}><Link href="/catalog"><a>Акции</a></Link></li>
-                <li className={styles.navItem}><Link href="/catalog"><a>Каталог</a></Link></li>
+                <li className={styles.navItem} onClick={(e)=>{
+                  const localStor_filter = localStorage.getItem('_filter')
+                  const localStor_filterId = localStorage.getItem('_filterId')
+                  if ( localStor_filter === 'Товары со скидкой' || localStor_filterId === '_1' ) {
+                    localStorage.setItem('_filter', 'Все товары')
+                    localStorage.setItem('_filterId', '0')
+                  }
+                }}><Link href="/catalog"><a>Каталог</a></Link></li>
                 <li className={styles.navItem}><Link href="/ShippingAndPayment"><a>Доставка и оплата</a></Link></li>
                 <li className={styles.navItem}><Link href="/privateOffice"><a>Кабинет</a></Link></li>
 
