@@ -283,7 +283,7 @@ export default function ProductIndex({data_products}) {
                   </div>
 
                   {stateProduct.distinctiveParameters!==undefined && <>
-                    {stateProduct.distinctiveParameters!==[] && <>
+                    {stateProduct.distinctiveParameters.length>0 && <>
                       <div id={'idparamWrapper'} className={styles.paramWrapper}>
                         <div className={styles.paramHeader} onClick={(e)=>{
                           const paramWrapper = document.querySelector(`#idparamWrapper`)
