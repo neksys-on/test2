@@ -43,8 +43,8 @@ export default function Page ({data_category, data_products}) {
   const [dataCategory, setDataCategory] = useState(data_category)
   const [dataCategoryDB, setDataCategoryDB] = useState('1')
 
-  const [show, setShow] = useState('Все товары')
-  const [showId, setShowId] = useState('0')
+  const [show, setShow] = useState('Каталог')
+  const [showId, setShowId] = useState('Каталог')
   const [sumItem, setSumItem] = useState('0')
   const [recoveryItem, setRecoveryItem] = useState('')
   const [recoveryColor, setRecoveryColor] = useState('')
@@ -71,7 +71,7 @@ export default function Page ({data_category, data_products}) {
 
   const [loadImages, setLoadImages] = useState(0)
   const [activationScroll, setActivationScroll] = useState(false)
-  const [simpleImage, setSimpleImage] = useState(true)
+  const [simpleImage, setSimpleImage] = useState(false)
 
 
   if ((data_category !== undefined)&(dataCategory !== data_category)&(dataCategoryDB === '1')) {
@@ -81,14 +81,14 @@ export default function Page ({data_category, data_products}) {
     setDataProducts(data_products)
   }
 
-const handleScroll = () => {
-    const position = window.pageYOffset;
-
-    if ((position > 300) & (!activationScroll)) {
-      setActivationScroll(true)
-      setSimpleImage(false)
-    }
-};
+// const handleScroll = () => {
+//     const position = window.pageYOffset;
+//
+//     if ((position > 300) & (!activationScroll)) {
+//       setActivationScroll(true)
+//       setSimpleImage(false)
+//     }
+// };
 
 
   useEffect(()=>{
@@ -141,7 +141,7 @@ const handleScroll = () => {
       setSimpleImage(false)
     }
     else {
-      localStorage.setItem('_filter', 'Все товары')
+      localStorage.setItem('_filter', 'Каталог')
     }
 
 
@@ -150,7 +150,7 @@ const handleScroll = () => {
       setShowId(localStorFilterId)
     }
     else {
-      localStorage.setItem('_filterId', '0')
+      localStorage.setItem('_filterId', 'Каталог')
     }
 
 
@@ -169,10 +169,10 @@ const handleScroll = () => {
 
     }
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => {
-        window.removeEventListener('scroll', handleScroll);
-    };
+    // window.addEventListener('scroll', handleScroll, { passive: true });
+    // return () => {
+    //     window.removeEventListener('scroll', handleScroll);
+    // };
 
   })
 
@@ -355,21 +355,20 @@ if ( show !== 'Каталог' ) {
     lupa.style.opacity = '0'
   }
 
-  let itemschet = 0
-  let podgruzka_cartinki = []
-  if ((show ==='Все товары')&(dataProducts[0].id !== 's')&(loadImages === 0)) {
 
-
-    dataProducts.map((item)=>{
-      if (itemschet<8) {
-        podgruzka_cartinki[item.id] = true
-      } else {
-        podgruzka_cartinki[item.id] = false
-      }
-      itemschet++
-    })
-    setLoadImages(podgruzka_cartinki)
-  }
+  // let itemschet = 0
+  // let podgruzka_cartinki = []
+  // if ((show ==='Все товары')&(dataProducts[0].id !== 's')&(loadImages === 0)) {
+  //   dataProducts.map((item)=>{
+  //     if (itemschet<8) {
+  //       podgruzka_cartinki[item.id] = true
+  //     } else {
+  //       podgruzka_cartinki[item.id] = false
+  //     }
+  //     itemschet++
+  //   })
+  //   setLoadImages(podgruzka_cartinki)
+  // }
 
 
   return (
