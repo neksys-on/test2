@@ -71,7 +71,7 @@ export default function Page ({data_category, data_products}) {
 
   const [loadImages, setLoadImages] = useState(0)
   const [activationScroll, setActivationScroll] = useState(false)
-  const [addEventScroll, setAddEventScroll] = useState(false)
+  const [simpleImage, setSimpleImage] = useState(true)
 
 
   if ((data_category !== undefined)&(dataCategory !== data_category)&(dataCategoryDB === '1')) {
@@ -86,11 +86,7 @@ const handleScroll = () => {
 
     if ((position > 300) & (!activationScroll)) {
       setActivationScroll(true)
-      let podgruzka_cartinki2 = []
-      dataProducts.map((item)=>{
-        podgruzka_cartinki2[item.id] = true
-      })
-      setLoadImages(podgruzka_cartinki2)
+      setSimpleImage(false)
     }
 };
 
@@ -142,18 +138,21 @@ const handleScroll = () => {
     const localStorFilter = localStorage.getItem('_filter')
     if (localStorFilter) {
       setShow(localStorFilter)
+      setSimpleImage(false)
     }
-    else (
+    else {
       localStorage.setItem('_filter', 'Все товары')
-    )
+    }
+
 
     const localStorFilterId = localStorage.getItem('_filterId')
     if (localStorFilterId) {
       setShowId(localStorFilterId)
     }
-    else (
+    else {
       localStorage.setItem('_filterId', '0')
-    )
+    }
+
 
     if (show !== 'Каталог') {
       try {
@@ -356,10 +355,11 @@ if ( show !== 'Каталог' ) {
     lupa.style.opacity = '0'
   }
 
+  let itemschet = 0
+  let podgruzka_cartinki = []
   if ((show ==='Все товары')&(dataProducts[0].id !== 's')&(loadImages === 0)) {
 
-    let itemschet = 0
-    let podgruzka_cartinki = []
+
     dataProducts.map((item)=>{
       if (itemschet<8) {
         podgruzka_cartinki[item.id] = true
@@ -370,6 +370,7 @@ if ( show !== 'Каталог' ) {
     })
     setLoadImages(podgruzka_cartinki)
   }
+
 
   return (
     <Layout propsBasket={sumItem}>
@@ -463,6 +464,7 @@ if ( show !== 'Каталог' ) {
               localStorage.setItem('_filterId', '0')
               setShow('Все товары')
               setShowId('0')
+              setSimpleImage(false)
             }}><div id={`id_filter0`} className={styles.menu_list_item}>Все товары</div></div>
             {dataCategory.map((image) => (
               <div key={image.id} className={styles.div_punkt_menu} onClick={(e)=>{
@@ -470,6 +472,7 @@ if ( show !== 'Каталог' ) {
                 localStorage.setItem('_filterId', image.id)
                 setShow(image.title)
                 setShowId(image.id)
+                setSimpleImage(false)
               }}><div id={`id_filter`+image.id} className={styles.menu_list_item}>{image.title}</div></div>
             ))}
             <div className={styles.div_sale_filter} onClick={(e)=>{
@@ -477,12 +480,14 @@ if ( show !== 'Каталог' ) {
               localStorage.setItem('_filterId', '_1')
               setShow('Товары со скидкой')
               setShowId('_1')
+              setSimpleImage(false)
             }}><div id={`id_filter_1`} className={styles.menu_list_item}>Товары со скидкой</div></div>
             <div className={styles.div_sbros} onClick={(e)=>{
               localStorage.setItem('_filter', 'Каталог')
               localStorage.setItem('_filterId', 'Каталог')
               setShow('Каталог')
               setShowId('Каталог')
+              setSimpleImage(false)
             }}><div className={styles.menu_list_item_sbros}>Сброс</div></div>
           </div>
         </div>
@@ -651,20 +656,30 @@ if ( show !== 'Каталог' ) {
               <div className={styles.card} id={'idCard'+product.id} itemScope itemType="https://schema.org/Offer" >
                 <div className={styles.element} id={'idElement'+product.id}>
                   <div className={styles.circle} id={'idCircle'+product.id}></div>
-                  {loadImages[product.id] && <>
+                  {simpleImage && <>
+                    {loadImages[product.id] && <>
+                      <div
+                        className={styles.imageSrc} id={'idImg'+product.id}
+                        style={{
+                        backgroundImage: `url(${product.url})`,
+                      }} itemProp = "image"></div>
+                    </>}
+                    {!loadImages[product.id] && <>
+                      <div
+                        className={styles.imageSrc} id={'idImg'+product.id}
+                        style={{
+
+                      }} itemProp = "image"></div>
+                    </>}
+                  </>}
+                  {!simpleImage && <>
                     <div
                       className={styles.imageSrc} id={'idImg'+product.id}
                       style={{
                       backgroundImage: `url(${product.url})`,
                     }} itemProp = "image"></div>
                   </>}
-                  {!loadImages[product.id] && <>
-                    <div
-                      className={styles.imageSrc} id={'idImg'+product.id}
-                      style={{
 
-                    }} itemProp = "image"></div>
-                  </>}
                 </div>
                 <div className={styles.info}>
                   <div className={styles.infoIn}>
