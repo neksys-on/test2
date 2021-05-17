@@ -1,8 +1,11 @@
 import Header from '../components/header'
 import Footer from '../components/footer'
+import InstagramIcon from '../components/instagramIcon/instagramIcon'
 import styles from './layout.module.css'
 import { useState, useEffect } from 'react'
 import path from 'path'
+
+
 
 
 
@@ -46,9 +49,6 @@ export default function Layout ({children, propsBasket}) {
     }
   };
 
-  function getRandomInt(max) {
-    return Math.floor(Math.random() * Math.floor(max));
-  }
 
   function OpenVision() {
 
@@ -81,8 +81,9 @@ export default function Layout ({children, propsBasket}) {
 
 
   function  _onMouseMove(e) {
+    const randInt = Math.floor(Math.random() * 10000000)
 
-    let newitem = {x: e.clientX+5, y: e.clientY+50, time: + new Date(), radius: state.length/3+100, rand: getRandomInt(10000000)}
+    let newitem = {x: e.clientX+5, y: e.clientY+50, time: + new Date(), radius: state.length/3+100, rand: randInt}
     state.push(newitem)
     if (state.length > 200) {
       state.shift()
@@ -99,6 +100,7 @@ if (show === '1') {
       <Header propsBasket={propsBasket}/>
       <div className={styles.content} onMouseMove={_onMouseMove}>
         <main>
+          <InstagramIcon />
           {children}
         </main>
       </div>
@@ -132,6 +134,7 @@ if (show === '2') {
       <Header propsBasket={propsBasket}/>
       <div className={styles.content} onMouseMove={_onMouseMove}>
         <main>
+          <InstagramIcon />
           {children}
         </main>
       </div>
