@@ -1,5 +1,4 @@
 import styles from './instagramIcon.module.scss'
-import Link from 'next/link'
 
 
 
@@ -27,7 +26,6 @@ export default function YandexMetrica() {
           const rand = Math.floor(Math.random() * 9)
           wave.style.width = '60px'
           wave.style.height = '60px'
-          console.log(randCol)
           wave.style.backgroundColor = randWave[randCol].color
           smeshenie.style.alignItems = randWave[rand].alignItems
           smeshenie.style.justifyContent = randWave[rand].justifyContent
@@ -38,7 +36,7 @@ export default function YandexMetrica() {
           }, 500);
         }}>
           <div className={styles.sloy}>
-            <Link href="https://www.instagram.com/bestjap_2021/"><a className={styles.element}></a></Link>
+            <a className={styles.element} alt='icon' href="https://www.instagram.com/bestjap_2021/"></a>
             <div id={'id_Smeshenie'}className={styles.smeshenie}>
               <div id={'id_Wave'} className={styles.wave}></div>
             </div>

@@ -72,6 +72,7 @@
 }
 
 .div_menu {
+  position: inherit;
   margin-top: 30px;
   margin-left: 10px;
   border-radius: 20px;
@@ -89,6 +90,7 @@
   background-color: #322D31;
   border: 2px solid $color5;
   box-shadow: 0px 0px 6px rgba(255, 66, 82, 0.8), 0px 0px 13px rgba(255, 66, 82, 0.4), 0px 0px 18px rgba(255, 255, 255, 0.7);
+  transition: all 0.9s ease;
 }
 
 .div_spisok_menu {
@@ -128,12 +130,33 @@
     transform: perspective(700px) translateZ(0px) ;
     border-radius: 4px;
   }
+
 }
 .div_all a:hover{
   border-bottom: 2px solid;
   border-color: $color6;
   margin-left: -5px;
  transform:  translateZ(110px) ;
+}
+
+.menu_list_item {
+  color: $color1;
+  display: flex;
+  margin-right: 1rem;
+  margin-left: 3px;
+  text-decoration: none;
+  border-bottom: 2px groove;
+  border-color: #333333;
+  // padding: 3px;
+  transition: all 0.4s ease;
+  transform: perspective(700px) translateZ(0px) ;
+  border-radius: 4px;
+}
+.menu_list_item:hover {
+  border-bottom: 2px solid;
+  border-color: $color6;
+  margin-left: -5px;
+  transform:  translateZ(110px) ;
 }
 
 .div_punkt_menu {
@@ -191,7 +214,7 @@
   margin-top: 10px;
   margin-bottom: 10px;
   cursor: pointer;
-  a {
+  .menu_list_item_sbros {
     color: $color4;
     display: flex;
     margin-right: 1rem;
@@ -204,7 +227,7 @@
     border-radius: 4px;
   }
 }
-.div_sbros a:hover{
+.menu_list_item_sbros:hover{
   border-bottom: 2px solid;
   border-color: $color6;
   margin-left: -5px;
@@ -281,6 +304,9 @@
   border-bottom: 3px solid;
 }
 
+.title {
+  color: #ffd900;
+}
 .title:hover {
   color: $color5;
 }
@@ -379,13 +405,16 @@
 .infoIn {
   min-height: 15vh;
 }
-.info h1{
+.info h2{
   font-size: 25px;
   display: flex;
   justify-content: space-between;
   color: $color3;
   font-weight: bolder;
   transition: all 0.75s ease;
+}
+.info a{
+  text-decoration: none;
 }
 .info h3 {
   font-size: 18px;

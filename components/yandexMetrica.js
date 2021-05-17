@@ -14,7 +14,7 @@ export default function YandexMetrica() {
               accurateTrackBounce:true
          });`}
       </script>
-      <div><img crossorigin="anonymous" src="https://mc.yandex.ru/watch/78632355" style={{position: 'absolute', left:'-9999px'}} alt=""></img></div>
+      <div><img crossOrigin="anonymous" src="https://mc.yandex.ru/watch/78632355" style={{position: 'absolute', left:'-9999px'}} alt=""></img></div>
     </>
   )
 }

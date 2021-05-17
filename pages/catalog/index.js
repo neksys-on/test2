@@ -6,7 +6,7 @@ import styles from './index.module.scss'
 import Head from 'next/head'
 import category from '../../dataBase/category.json'
 import products from '../../dataBase/products.json'
-import Router from "next/router"
+import Link from 'next/link'
 
 
 export async function getServerSideProps(context) {
@@ -37,19 +37,19 @@ export default function Page ({data_category, data_products}) {
   let cardTransitionTime = 6
   let localStorStr
   let localStorJson
-  const [dataProducts, setDataProducts] = useState([{id: 's'}])
-  const [dataProductsControl, setDataProductsControl] = useState([{id: 's'}])
+  const [dataProducts, setDataProducts] = useState(data_products)
+  const [dataProductsControl, setDataProductsControl] = useState(data_products)
   const [dataProductsDB, setDataProductsDB] = useState('1')
-  const [dataCategory, setDataCategory] = useState([])
+  const [dataCategory, setDataCategory] = useState(data_category)
   const [dataCategoryDB, setDataCategoryDB] = useState('1')
 
-  const [show, setShow] = useState('Каталог')
-  const [showId, setShowId] = useState('Каталог')
+  const [show, setShow] = useState('Все товары')
+  const [showId, setShowId] = useState('0')
   const [sumItem, setSumItem] = useState('0')
   const [recoveryItem, setRecoveryItem] = useState('')
   const [recoveryColor, setRecoveryColor] = useState('')
 
-  const [open1, setOpen1] = useState('▼')
+  const [open1, setOpen1] = useState('▲')
   const [wid, setWid] = useState(0)
   const [widDisp, setWidDisp] = useState(0)
 
@@ -69,6 +69,10 @@ export default function Page ({data_category, data_products}) {
   const [titleParamsControl, setTitleParamsControl] = useState([])
   const [showParamsSpisok, setShowParamsSpisok] = useState([])
 
+  const [loadImages, setLoadImages] = useState(0)
+  const [activationScroll, setActivationScroll] = useState(false)
+  const [addEventScroll, setAddEventScroll] = useState(false)
+
 
   if ((data_category !== undefined)&(dataCategory !== data_category)&(dataCategoryDB === '1')) {
     setDataCategory(data_category)
@@ -76,6 +80,20 @@ export default function Page ({data_category, data_products}) {
   if ((data_products !== undefined)&(dataProducts !== data_products)&(dataProductsDB === '1')) {
     setDataProducts(data_products)
   }
+
+const handleScroll = () => {
+    const position = window.pageYOffset;
+
+    if ((position > 300) & (!activationScroll)) {
+      setActivationScroll(true)
+      let podgruzka_cartinki2 = []
+      dataProducts.map((item)=>{
+        podgruzka_cartinki2[item.id] = true
+      })
+      setLoadImages(podgruzka_cartinki2)
+    }
+};
+
 
   useEffect(()=>{
     const localStor = localStorage.getItem('_basket')
@@ -126,7 +144,7 @@ export default function Page ({data_category, data_products}) {
       setShow(localStorFilter)
     }
     else (
-      localStorage.setItem('_filter', 'Каталог')
+      localStorage.setItem('_filter', 'Все товары')
     )
 
     const localStorFilterId = localStorage.getItem('_filterId')
@@ -134,7 +152,7 @@ export default function Page ({data_category, data_products}) {
       setShowId(localStorFilterId)
     }
     else (
-      localStorage.setItem('_filterId', 'Каталог')
+      localStorage.setItem('_filterId', '0')
     )
 
     if (show !== 'Каталог') {
@@ -151,6 +169,12 @@ export default function Page ({data_category, data_products}) {
       catch {}
 
     }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+        window.removeEventListener('scroll', handleScroll);
+    };
+
   })
 
 if ( show === 'Каталог' ) {
@@ -208,7 +232,7 @@ if ( show === 'Каталог' ) {
 
         margin: 'auto',
         padding: '51px 0px 30px 30px'
-      }}>Каталог</h1>
+      }} >Каталог</h1>
       <div className={styles.div_main}>
         <div className={styles.div_show2}>
           {dataCategory.map((image) => (
@@ -332,6 +356,21 @@ if ( show !== 'Каталог' ) {
     lupa.style.opacity = '0'
   }
 
+  if ((show ==='Все товары')&(dataProducts[0].id !== 's')&(loadImages === 0)) {
+
+    let itemschet = 0
+    let podgruzka_cartinki = []
+    dataProducts.map((item)=>{
+      if (itemschet<8) {
+        podgruzka_cartinki[item.id] = true
+      } else {
+        podgruzka_cartinki[item.id] = false
+      }
+      itemschet++
+    })
+    setLoadImages(podgruzka_cartinki)
+  }
+
   return (
     <Layout propsBasket={sumItem}>
     <Head>
@@ -399,6 +438,7 @@ if ( show !== 'Каталог' ) {
           <div className={styles.div_heading_menu} onClick={(e)=>{
             const comp = document.querySelector(`#id_spisok_menu`)
             const div = document.querySelector(`#id_div_menu`)
+            const strelka = document.querySelector(`#id_open_strelka`)
             if (open1 === '▼') {
               setOpen1('▲')
               comp.style.transition = `all 1.95s ease`
@@ -406,8 +446,7 @@ if ( show !== 'Каталог' ) {
               comp.style.opacity = '1'
               div.style.transition = `all .65s ease`
               div.style.height = `${height_for_div_menu}px`
-              // comp.style.marginTop = '10px'
-              // comp.style.marginBottom = '10px'
+              strelka.style.transform = 'rotateZ(0deg)'
             } else {
               setOpen1('▼')
               comp.style.transition = `all .25s ease`
@@ -415,37 +454,36 @@ if ( show !== 'Каталог' ) {
               comp.style.opacity = '0'
               div.style.transition = `all 0.65s ease`
               div.style.height = `50px`
-              // comp.style.marginTop = '-20px'
-              // comp.style.marginBottom = '-20px'
+              strelka.style.transform = 'rotateZ(-180deg)'
             }
-          }}><div>Фильтр</div>   <div style={{marginRight:'30px'}}>{open1}</div></div>
+          }}><div>Фильтр</div>   <div id={`id_open_strelka`} style={{marginRight:'30px', transition:'all 0.5s ease' }}>▲</div></div>
           <div className={styles.div_spisok_menu} id={'id_spisok_menu'} style={open1 === '▼' ? { visibility: `hidden`, opacity: '0'} : { visibility: 'visible', opacity: '1'}}>
             <div className={styles.div_all} onClick={(e)=>{
               localStorage.setItem('_filter', 'Все товары')
               localStorage.setItem('_filterId', '0')
               setShow('Все товары')
               setShowId('0')
-            }}><a id={`id_filter0`}>Все товары</a></div>
+            }}><div id={`id_filter0`} className={styles.menu_list_item}>Все товары</div></div>
             {dataCategory.map((image) => (
               <div key={image.id} className={styles.div_punkt_menu} onClick={(e)=>{
                 localStorage.setItem('_filter', image.title)
                 localStorage.setItem('_filterId', image.id)
                 setShow(image.title)
                 setShowId(image.id)
-              }}><a id={`id_filter`+image.id}>{image.title}</a></div>
+              }}><div id={`id_filter`+image.id} className={styles.menu_list_item}>{image.title}</div></div>
             ))}
             <div className={styles.div_sale_filter} onClick={(e)=>{
               localStorage.setItem('_filter', 'Товары со скидкой')
               localStorage.setItem('_filterId', '_1')
               setShow('Товары со скидкой')
               setShowId('_1')
-            }}><a id={`id_filter_1`}>Товары со скидкой</a></div>
+            }}><div id={`id_filter_1`} className={styles.menu_list_item}>Товары со скидкой</div></div>
             <div className={styles.div_sbros} onClick={(e)=>{
               localStorage.setItem('_filter', 'Каталог')
               localStorage.setItem('_filterId', 'Каталог')
               setShow('Каталог')
               setShowId('Каталог')
-            }}><a>Сброс</a></div>
+            }}><div className={styles.menu_list_item_sbros}>Сброс</div></div>
           </div>
         </div>
         <div className={styles.div_show} style={{width:`${wid}`}} itemProp="itemListElement" >
@@ -613,15 +651,24 @@ if ( show !== 'Каталог' ) {
               <div className={styles.card} id={'idCard'+product.id} itemScope itemType="https://schema.org/Offer" >
                 <div className={styles.element} id={'idElement'+product.id}>
                   <div className={styles.circle} id={'idCircle'+product.id}></div>
-                  <div
-                    className={styles.imageSrc} id={'idImg'+product.id}
-                    style={{
-                    backgroundImage: `url(${product.url})`,
-                  }} itemProp = "image"></div>
+                  {loadImages[product.id] && <>
+                    <div
+                      className={styles.imageSrc} id={'idImg'+product.id}
+                      style={{
+                      backgroundImage: `url(${product.url})`,
+                    }} itemProp = "image"></div>
+                  </>}
+                  {!loadImages[product.id] && <>
+                    <div
+                      className={styles.imageSrc} id={'idImg'+product.id}
+                      style={{
+
+                    }} itemProp = "image"></div>
+                  </>}
                 </div>
                 <div className={styles.info}>
                   <div className={styles.infoIn}>
-                  <h1 className={styles.title} id={'idTitle'+product.id} onClick={(e)=>{Router.push(`/catalog/${product.id}`)}} itemProp = "name" itemProp="url">{product.title}</h1>
+                  <Link href={`/catalog/${product.id}`}><a><h2 className={styles.title} id={'idTitle'+product.id} itemProp = "name" itemProp="url">{product.title}</h2></a></Link>
                   <div id={'idDescription'+product.id} itemProp="description" onClick={(e)=>{
                     const desctShort = document.querySelector(`#idDescrShort${product.id}`)
                     const desctFull = document.querySelector(`#idDescrFull${product.id}`)
