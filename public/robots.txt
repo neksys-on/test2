@@ -4,4 +4,4 @@ Disallow: /basket
 Disallow: /test
 Disallow: /privacyPolicy
 
-Sitemap: https://bestjap.ru/api/my-sitemap
+Sitemap: https://www.bestjap.ru/robots.txt
