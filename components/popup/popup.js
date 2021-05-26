@@ -104,6 +104,102 @@ export default function Popup({title, content, typePopup}) {
   })
 
   const onClickButtonAddData = React.useCallback((e) => {
+
+    const surname = document.querySelector(`#input_surname`).value
+    const name = document.querySelector(`#input_name`).value
+    const patronymic = document.querySelector(`#input_patronymic`).value
+    const telephone = document.querySelector(`#input_telephone`).value
+    const city = document.querySelector(`#input_city`).value
+    const address = document.querySelector(`#input_address`).value
+    const index = document.querySelector(`#input_index`).value
+
+    const mark_surname = document.querySelector(`#mark_surname`)
+    const mark_name = document.querySelector(`#mark_name`)
+    const mark_patronymic = document.querySelector(`#mark_patronymic`)
+    const mark_telephone = document.querySelector(`#mark_telephone`)
+    const mark_city = document.querySelector(`#mark_city`)
+    const mark_address = document.querySelector(`#mark_address`)
+    const mark_index = document.querySelector(`#mark_index`)
+    const marksText = document.querySelector(`#marksText`)
+
+    if ( surname.length >= 2 && name.length >= 2 && patronymic.length >= 2 && telephone.length >= 11 && city.length >= 2 && address.length >= 3 && index.length === 6 ) {
+
+      mark_surname.style.display = 'none'
+      mark_name.style.display = 'none'
+      mark_patronymic.style.display = 'none'
+      mark_telephone.style.display = 'none'
+      mark_city.style.display = 'none'
+      mark_address.style.display = 'none'
+      mark_index.style.display = 'none'
+      marksText.style.display = 'none'
+
+      const localStor = localStorage.getItem('_basket')
+      const localStorJson = JSON.parse(localStor)
+
+      let productsWeHave = undefined
+      localStorJson.map((product) => {
+        let notFound = true
+        if (productsWeHave) {
+          productsWeHave.map((prod) => {
+            if ((product.params !== undefined)&(prod.params !== undefined)) {
+              if ((prod.id === product.id)&(prod.params.param === product.params.param)) {
+                prod.value += 1
+                notFound = false
+              }
+            } else {
+              if (prod.id === product.id) {
+                prod.value += 1
+                notFound = false
+              }
+            }
+          })
+        }
+        else {
+          notFound = false
+          productsWeHave = [product]
+          productsWeHave[0].value = 1
+        }
+        if (notFound) {
+          productsWeHave.push(product)
+          productsWeHave[productsWeHave.length-1].value = 1
+        }
+
+      })
+
+      let totalPrice = 0
+      if (productsWeHave) {
+        productsWeHave.map((prod) => {
+          totalPrice += prod.price*prod.value
+        })
+      }
+      const addData = {
+        surname: document.querySelector(`#input_surname`).value,
+        name: document.querySelector(`#input_name`).value,
+        patronymic: document.querySelector(`#input_patronymic`).value,
+        email: document.querySelector(`#input_email`).value,
+        telephone: document.querySelector(`#input_telephone`).value,
+        city: document.querySelector(`#input_city`).value,
+        address: document.querySelector(`#input_address`).value,
+        index: document.querySelector(`#input_index`).value,
+        comments: document.querySelector(`#input_comments`).value,
+        products: productsWeHave,
+        totalPrice: totalPrice,
+      }
+
+      localStorage.setItem('_basket', [])
+      pushInData(addData).then(setTimeout(Router.push, 700, "/privateOffice"))
+
+    } else {
+      marksText.style.display = 'block'
+      if ( surname.length < 2 ) {mark_surname.style.display = 'block'} else {mark_surname.style.display = 'none'}
+      if ( name.length < 2 ) {mark_name.style.display = 'block'} else {mark_name.style.display = 'none'}
+      if ( patronymic.length < 2 ) {mark_patronymic.style.display = 'block'} else {mark_patronymic.style.display = 'none'}
+      if ( telephone.length < 11 ) {mark_telephone.style.display = 'block'} else {mark_telephone.style.display = 'none'}
+      if ( city.length < 2 ) {mark_city.style.display = 'block'} else {mark_city.style.display = 'none'}
+      if ( address.length < 3 ) {mark_address.style.display = 'block'} else {mark_address.style.display = 'none'}
+      if ( index.length !== 6 ) {mark_index.style.display = 'block'} else {mark_index.style.display = 'none'}
+    }
+
     if (document.querySelector(`#input_surname`).value === '') {
       console.log('Нет фамилии')
     }
@@ -129,70 +225,6 @@ export default function Popup({title, content, typePopup}) {
       console.log('Индекс неправильный')
     }
 
-    const localStor = localStorage.getItem('_basket')
-    const localStorJson = JSON.parse(localStor)
-
-    let productsWeHave = undefined
-    localStorJson.map((product) => {
-      let notFound = true
-      if (productsWeHave) {
-        productsWeHave.map((prod) => {
-          if ((product.params !== undefined)&(prod.params !== undefined)) {
-            if ((prod.id === product.id)&(prod.params.param === product.params.param)) {
-              prod.value += 1
-              notFound = false
-            }
-          } else {
-            if (prod.id === product.id) {
-              prod.value += 1
-              notFound = false
-            }
-          }
-        })
-      }
-      else {
-        notFound = false
-        productsWeHave = [product]
-        productsWeHave[0].value = 1
-      }
-      if (notFound) {
-        productsWeHave.push(product)
-        productsWeHave[productsWeHave.length-1].value = 1
-      }
-
-    })
-
-    let totalPrice = 0
-    if (productsWeHave) {
-      productsWeHave.map((prod) => {
-        totalPrice += prod.price*prod.value
-      })
-    }
-    const addData = {
-      surname: document.querySelector(`#input_surname`).value,
-      name: document.querySelector(`#input_name`).value,
-      patronymic: document.querySelector(`#input_patronymic`).value,
-      email: document.querySelector(`#input_email`).value,
-      telephone: document.querySelector(`#input_telephone`).value,
-      city: document.querySelector(`#input_city`).value,
-      address: document.querySelector(`#input_address`).value,
-      index: document.querySelector(`#input_index`).value,
-      comments: document.querySelector(`#input_comments`).value,
-      products: productsWeHave,
-      totalPrice: totalPrice,
-    }
-
-    localStorage.setItem('_basket', [])
-    //   pushInData(addData).then(Router.reload()
-    // msgsend('connect', 'msg')
-    // let list_products = ''
-    // productsWeHave.map((prod)=>{
-    //   list_products = list_products+' \n '+'№'+ prod.id +', '+ prod.title +', Цена: '+ prod.price +', количество: '+ prod.value
-    // })
-    //
-    // let id_pure
-    // const text_offer = ' ФИО: '+addData.surname+' '+addData.name+' '+addData.patronymic+', тел.: '+addData.telephone+', Населенный пункт: '+addData.city+', адрес: '+addData.address+', индекс: '+addData.index+', Содержание: '+list_products
-    pushInData(addData).then(setTimeout(Router.push, 700, "/privateOffice"))
 
 
   }, []);
@@ -259,7 +291,7 @@ if (typePopup === 'order') {
           <div className={styles.popup_body}>
             <div className={styles.div_block}>
               <div className={styles.div_input}>
-                <h2 id={'h2_surname'}>Фамилия</h2>
+                <div className={styles.input_title}><h2 id={'h2_surname'}>Фамилия</h2><h3 id={'mark_surname'}>*обязательное</h3></div>
                 <input id={'input_surname'} className={styles.popup_input} type='text' defaultValue={content.surname}
                 onFocus={()=>{
                   highlighting('surname')
@@ -270,7 +302,7 @@ if (typePopup === 'order') {
                 ></input>
               </div>
               <div className={styles.div_input}>
-                <h2 id={'h2_name'}>Имя</h2>
+                <div className={styles.input_title}><h2 id={'h2_name'}>Имя</h2><h3 id={'mark_name'}>*обязательное</h3></div>
                 <input id={'input_name'} className={styles.popup_input} type='text' defaultValue={content.name}
                 onFocus={()=>{
                   highlighting('name')
@@ -283,7 +315,7 @@ if (typePopup === 'order') {
             </div>
             <div className={styles.div_block}>
               <div className={styles.div_input}>
-                <h2 id={'h2_patronymic'}>Отчество</h2>
+                <div className={styles.input_title}><h2 id={'h2_patronymic'}>Отчество</h2><h3 id={'mark_patronymic'}>*обязательное</h3></div>
                 <input id={'input_patronymic'} className={styles.popup_input} type='text' defaultValue={content.patronymic}
                 onFocus={()=>{
                   highlighting('patronymic')
@@ -294,7 +326,7 @@ if (typePopup === 'order') {
                 ></input>
               </div>
               <div className={styles.div_input}>
-                <h2 id={'h2_email'}>Email</h2>
+                <div className={styles.input_title}><h2 id={'h2_email'}>Email</h2><h3 id={'mark_email'}>*обязательное</h3></div>
                 {session && <>
                   <input id={'input_email'} className={styles.popup_input} type='email' defaultValue={session.user.email}
                   onFocus={()=>{
@@ -320,7 +352,7 @@ if (typePopup === 'order') {
             </div>
             <div className={styles.div_block}>
               <div className={styles.div_input}>
-                <h2 id={'h2_telephone'}>Номер телефона</h2>
+                <div className={styles.input_title}><h2 id={'h2_telephone'}>Номер телефона</h2><h3 id={'mark_telephone'}>*обязательное</h3></div>
                 <input id={'input_telephone'} className={styles.popup_input} type='tel' value={phone_value} maxLength='16'
                 onChange = {(e)=>{
                   const val = e.target.value
@@ -394,7 +426,7 @@ if (typePopup === 'order') {
                 ></input>
               </div>
               <div className={styles.div_input}>
-                <h2 id={'h2_city'}>Населенный пункт</h2>
+                <div className={styles.input_title}><h2 id={'h2_city'}>Населенный пункт</h2><h3 id={'mark_city'}>*обязательное</h3></div>
                 <input id={'input_city'} className={styles.popup_input} type='text' defaultValue={content.city}
                 onFocus={()=>{
                   highlighting('city')
@@ -407,7 +439,7 @@ if (typePopup === 'order') {
             </div>
             <div className={styles.div_block}>
               <div className={styles.div_input}>
-                <h2 id={'h2_address'}>Адрес доставки</h2>
+                <div className={styles.input_title}><h2 id={'h2_address'}>Адрес доставки</h2><h3 id={'mark_address'}>*обязательное</h3></div>
                 <input id={'input_address'} className={styles.popup_input} type='text' defaultValue={content.address}
                 onFocus={()=>{
                   highlighting('address')
@@ -418,7 +450,7 @@ if (typePopup === 'order') {
                 ></input>
               </div>
               <div className={styles.div_input}>
-                <h2 id={'h2_index'}>Индекс</h2>
+                <div className={styles.input_title}><h2 id={'h2_index'}>Индекс</h2><h3 id={'mark_index'}>*обязательное</h3></div>
                 <input id={'input_index'} className={styles.popup_input_index} type='number' value={index_value}
                 onChange = {(e)=>{
                   const val = e.target.value
@@ -447,6 +479,7 @@ if (typePopup === 'order') {
                   stop_highlighting('comments')
                 }}
                 ></textarea>
+                <div className={styles.marksTextDiv}><h3 id={'marksText'}>*Пожалуйста, заполните все обязательные поля</h3></div>
               </div>
             </div>
           </div>
