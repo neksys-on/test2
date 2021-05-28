@@ -162,6 +162,7 @@ export default function ProductIndex({data_products}) {
 
         <link type="image/png" sizes="96x96" rel="icon" href="/favicons/favicon-96x96.png"/>
         <link type="image/png" sizes="120x120" rel="icon" href="/favicons/favicon-120x120.png"/>
+        <link type="image/x-icon" sizes="120x120" rel="icon" href="/favicons/favicon-120x120.ico"/>
         <link type="image/png" sizes="192x192" rel="icon" href="/favicons/android-icon-192x192.png"/>
         <link sizes="57x57" rel="apple-touch-icon" href="/favicons/apple-touch-icon-57x57.png"/>
         <link sizes="60x60" rel="apple-touch-icon" href="/favicons/apple-touch-icon-60x60.png"/>
@@ -386,6 +387,7 @@ export default function ProductIndex({data_products}) {
 
         <link type="image/png" sizes="96x96" rel="icon" href="/favicons/favicon-96x96.png"/>
         <link type="image/png" sizes="120x120" rel="icon" href="/favicons/favicon-120x120.png"/>
+        <link type="image/x-icon" sizes="120x120" rel="icon" href="/favicons/favicon-120x120.ico"/>
         <link type="image/png" sizes="192x192" rel="icon" href="/favicons/android-icon-192x192.png"/>
         <link sizes="57x57" rel="apple-touch-icon" href="/favicons/apple-touch-icon-57x57.png"/>
         <link sizes="60x60" rel="apple-touch-icon" href="/favicons/apple-touch-icon-60x60.png"/>
@@ -459,6 +461,7 @@ export default function ProductIndex({data_products}) {
 
       <link type="image/png" sizes="96x96" rel="icon" href="/favicons/favicon-96x96.png"/>
       <link type="image/png" sizes="120x120" rel="icon" href="/favicons/favicon-120x120.png"/>
+      <link type="image/x-icon" sizes="120x120" rel="icon" href="/favicons/favicon-120x120.ico"/>
       <link type="image/png" sizes="192x192" rel="icon" href="/favicons/android-icon-192x192.png"/>
       <link sizes="57x57" rel="apple-touch-icon" href="/favicons/apple-touch-icon-57x57.png"/>
       <link sizes="60x60" rel="apple-touch-icon" href="/favicons/apple-touch-icon-60x60.png"/>

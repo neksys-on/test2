@@ -3,5 +3,10 @@ Disallow: /privateOffice
 Disallow: /basket
 Disallow: /test
 Disallow: /privacyPolicy
+Disallow: /api/auth
+Disallow: /api/data
+Disallow: /api/example
+Disallow: /api/styling
+Disallow: /api/sendWhatsapp
 
-Sitemap: https://www.bestjap.ru/robots.txt
+Sitemap: https://www.bestjap.ru/api/my-sitemap
