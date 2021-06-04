@@ -99,11 +99,13 @@ export default function Page () {
                   <div className={styles.div_item}>Энергия</div>
                   <div className={styles.div_item}>Энергия</div>
                   <div className={styles.div_item}>Почта России</div>
+                  <div className={styles.div_item}>СДЭК без курьера</div>
                   <div className={styles.div_item}>СДЭК с курьером до адреса</div>
                 </div>
                 <div className={styles.div_region}>
                   <div className={styles.div_item}>Регион</div>
                   <div className={styles.div_item}>ДВ регион</div>
+                  <div className={styles.div_item}>Все регионы России</div>
                   <div className={styles.div_item}>Все регионы России</div>
                   <div className={styles.div_item}>Все регионы России</div>
                   <div className={styles.div_item}>Все регионы России</div>
@@ -114,12 +116,14 @@ export default function Page () {
                   <div className={styles.div_item_timing}>8-21</div>
                   <div className={styles.div_item_timing}>8-21</div>
                   <div className={styles.div_item_timing}>8-21</div>
+                  <div className={styles.div_item_timing}>8-21</div>
                 </div>
                 <div className={styles.div_price}>
                   <div className={styles.div_item_price}>Стоимость</div>
                   <div className={styles.div_item_price}>350 ₽</div>
                   <div className={styles.div_item_price}>800 ₽</div>
                   <div className={styles.div_item_price}>550 ₽</div>
+                  <div className={styles.div_item_price}>500 ₽</div>
                   <div className={styles.div_item_price}>1200 ₽</div>
                 </div>
               </div>
