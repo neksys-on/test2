@@ -12,6 +12,7 @@ export default function Footer () {
           <ul className={styles.navItems}>
             <li className={styles.navItem}><Link href="/contacts"><a>Контакты</a></Link></li>
             <li className={styles.navItem} itemProp="unnamedSourcesPolicy"><Link href="/privacyPolicy"><a>Политика конфиденциальности</a></Link></li>
+            <li className={styles.navItem} itemProp="unnamedSourcesPolicy"><a href="https://my-web-site-azure.vercel.app/" target={"_blank"}>Разработчик сайта</a></li>
           </ul>
         </div>
         <div className={styles.wrapper__containerNameShop}>
