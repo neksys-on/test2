@@ -164,20 +164,7 @@ try {
           })
         }
 
-        function sendEmail( send_to , send_title , send_text ) {
-          const email_API_URL = process.env.EMAIL_API_URL
-          fetch(email_API_URL, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              to: send_to,
-              title: send_title,
-              text: send_text,
-             }),
-          })
-        }
+
 
         let list_products = ''
         pushData.products.map((prod)=>{
@@ -192,7 +179,20 @@ try {
         const text_offer = ' ФИО: '+pushData.surname+' '+pushData.name+' '+pushData.patronymic+', тел.: '+pushData.telephone+', Населенный пункт: '+pushData.city+', адрес: '+pushData.address+', индекс: '+pushData.index+', Содержание: '+list_products
         const text = '№ заказа: '+pushData.id+' , Cумма заказа: '+pushData.totalPrice+' р. '+text_offer
         // msgsend('send', text, '+79673055577', '+79147730000')
-        sendEmail( 'nikxabarovsk0000@gmail.com' , 'Новый заказ на BestJap' , text)
+
+        const email_API_URL = process.env.EMAIL_API_URL
+        fetch(email_API_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            to: 'nikxabarovsk0000@gmail.com',
+            title: 'Новый заказ на BestJap',
+            text: text,
+           }),
+        })
+      
         msgsend('send', text, '+79673055577', ['+79147730000','+79144061391'])
       }
 
