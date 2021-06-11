@@ -7,11 +7,13 @@ const fs = require('fs');
 
 export default async function (req, res) {
 
+  const  {db} = await connect()
+
   const pushData = req.body.data
   const typeData = 'orders'
 
   const allData = await db.collection(`${typeData}`).findOne()
-  needData = await allData[typeData]
+  const needData = await allData[typeData]
   let id = '1'
   if (needData.length > 0) {
    id = String(Number(needData[needData.length-1].id) + 1)
