@@ -1,5 +1,5 @@
 import nextConnect from 'next-connect';
-import { connect } from '../../../middleware/databaseM.js';
+import { connect } from '../../middleware/databaseM.js';
 import { NextApiRequest, NextApiResponse } from 'next';
 import {objectId} from 'mongodb';
 const fs = require('fs');
