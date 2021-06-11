@@ -48,7 +48,7 @@ async function pushInData(infoPush) {
   return id_off
 }
 
-function sendEmail( send_to , send_title , send_text ) {
+function sendEmail( send_to , send_title ,  data) {
   fetch('/api/sendEmail', {
     method: 'POST',
     headers: {
@@ -57,7 +57,7 @@ function sendEmail( send_to , send_title , send_text ) {
     body: JSON.stringify({
       to: send_to,
       title: send_title,
-      text: send_text,
+      data: data,
      }),
   })
 }
@@ -219,7 +219,7 @@ export default function Popup({title, content, typePopup}) {
       const text_offer = ' ФИО: '+pushData.surname+' '+pushData.name+' '+pushData.patronymic+', тел.: '+pushData.telephone+', Населенный пункт: '+pushData.city+', адрес: '+pushData.address+', индекс: '+pushData.index+', Содержание: '+list_products
       const text = '№ заказа: '+pushData.id+' , Cумма заказа: '+pushData.totalPrice+' р. '+text_offer
 
-      sendEmail('nikxabarovsk0000@gmail.com' , 'Новый заказ на BestJap' , text)
+      sendEmail('nikxabarovsk0000@gmail.com' , 'Новый заказ на BestJap' , text, addData)
 
       pushInData(addData).then(setTimeout(Router.push, 700, "/privateOffice"))
 
