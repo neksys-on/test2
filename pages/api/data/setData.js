@@ -147,6 +147,7 @@ try {
       }
 
       if (typeData === 'orders') {
+
         async function msgsend(doing, textMsg, from_phone_number, to_phone_number) {
           const whatsApp_URL = process.env.WHATSAPP_URL
           const responseWA = await fetch(whatsApp_URL, {
@@ -159,6 +160,21 @@ try {
               text: textMsg,
               from: from_phone_number,
               to: to_phone_number,
+             }),
+          })
+        }
+
+        async function sendEmail( send_to , send_title , send_text ) {
+          const email_API_URL = process.env.NEXTAUTH_URL + 'api/submit'
+          const responseEm = await fetch(email_API_URL, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              to: send_to,
+              title: send_title,
+              text: send_text,
              }),
           })
         }
@@ -176,6 +192,7 @@ try {
         const text_offer = ' ФИО: '+pushData.surname+' '+pushData.name+' '+pushData.patronymic+', тел.: '+pushData.telephone+', Населенный пункт: '+pushData.city+', адрес: '+pushData.address+', индекс: '+pushData.index+', Содержание: '+list_products
         const text = '№ заказа: '+pushData.id+' , Cумма заказа: '+pushData.totalPrice+' р. '+text_offer
         // msgsend('send', text, '+79673055577', '+79147730000')
+        sendEmail( 'nikxabarovsk0000@gmail.com' , 'Новый заказ на BestJap' , text)
         msgsend('send', text, '+79673055577', ['+79147730000','+79144061391'])
       }
 
