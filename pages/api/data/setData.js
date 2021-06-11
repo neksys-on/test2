@@ -150,7 +150,7 @@ try {
 
         async function msgsend(doing, textMsg, from_phone_number, to_phone_number) {
           const whatsApp_URL = process.env.WHATSAPP_URL
-          const responseWA = await fetch(whatsApp_URL, {
+          fetch(whatsApp_URL, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -166,7 +166,7 @@ try {
 
         async function sendEmail( send_to , send_title , send_text ) {
           const email_API_URL = process.env.EMAIL_API_URL
-          const responseEm = await fetch(email_API_URL, {
+          fetch(email_API_URL, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
