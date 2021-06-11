@@ -180,19 +180,19 @@ try {
         const text = '№ заказа: '+pushData.id+' , Cумма заказа: '+pushData.totalPrice+' р. '+text_offer
         // msgsend('send', text, '+79673055577', '+79147730000')
 
-        const email_API_URL = process.env.EMAIL_API_URL
-        fetch(email_API_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            to: 'nikxabarovsk0000@gmail.com',
-            title: 'Новый заказ на BestJap',
-            text: text,
-           }),
-        })
-      
+        // const email_API_URL = process.env.EMAIL_API_URL
+        // fetch(email_API_URL, {
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'application/json'
+        //   },
+        //   body: JSON.stringify({
+        //     to: 'nikxabarovsk0000@gmail.com',
+        //     title: 'Новый заказ на BestJap',
+        //     text: text,
+        //    }),
+        // })
+
         msgsend('send', text, '+79673055577', ['+79147730000','+79144061391'])
       }
 

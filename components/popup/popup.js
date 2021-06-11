@@ -48,6 +48,20 @@ async function pushInData(infoPush) {
   return id_off
 }
 
+function sendEmail( send_to , send_title , send_text ) {
+  fetch('/api/sendEmail', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      to: send_to,
+      title: send_title,
+      text: send_text,
+     }),
+  })
+}
+
 async function changeInDataUsersData (id,  newInfo) {
   const response = await fetch('/api/data/changeData', {
     method: 'POST',
@@ -186,7 +200,27 @@ export default function Popup({title, content, typePopup}) {
         totalPrice: totalPrice,
       }
 
+
+
       localStorage.setItem('_basket', [])
+
+      const pushData = addData
+
+      let list_products = ''
+      pushData.products.map((prod)=>{
+        let param
+        if (prod.params !== undefined) {
+          param = ', Параметры: '+prod.params.param
+        } else {
+          param = ''
+        }
+        list_products = list_products+' \n '+'№'+ prod.id +', '+ prod.title + param +', Цена: '+ prod.price +', количество: '+ prod.value
+      })
+      const text_offer = ' ФИО: '+pushData.surname+' '+pushData.name+' '+pushData.patronymic+', тел.: '+pushData.telephone+', Населенный пункт: '+pushData.city+', адрес: '+pushData.address+', индекс: '+pushData.index+', Содержание: '+list_products
+      const text = '№ заказа: '+pushData.id+' , Cумма заказа: '+pushData.totalPrice+' р. '+text_offer
+
+      sendEmail('nikxabarovsk0000@gmail.com' , 'Новый заказ на BestJap' , text)
+
       pushInData(addData).then(setTimeout(Router.push, 700, "/privateOffice"))
 
     } else {
