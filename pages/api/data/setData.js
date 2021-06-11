@@ -165,7 +165,7 @@ try {
         }
 
         async function sendEmail( send_to , send_title , send_text ) {
-          const email_API_URL = process.env.NEXTAUTH_URL + 'api/submit'
+          const email_API_URL = process.env.EMAIL_API_URL
           const responseEm = await fetch(email_API_URL, {
             method: 'POST',
             headers: {
