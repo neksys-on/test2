@@ -101,7 +101,7 @@ if ((session.user.email === email_1)||(session.user.email === email_2)||(session
           <li onClick={() => {Router.push('/privateOffice/change_pr')}}>Управление Товарами</li>
           <li onClick={() => {Router.push('/privateOffice/change_offers')}}>Управление Заказами</li>
           <li onClick={() => {Router.push('/privateOffice/statistics')}}>Статистика Товаров</li>
-          <li onClick={() => {Router.push('/privateOffice/change_color')}}>Управление цветовой гаммой</li>
+          <li onClick={() => {Router.push('/privateOffice/payment')}}>Тестовая оплата</li>
           {session.user.email === email_1 && <>
             <li onClick={onClickCopyData}>Скопировать базу данных</li>
           </>}
