@@ -2,6 +2,8 @@ import styles from './officeContent.module.scss'
 import { useState, useEffect, useCallback } from 'react'
 import { useSession } from 'next-auth/client'
 import Popup from '../popup/popup.js'
+import Router from "next/router"
+import Link from 'next/link'
 
 export default function PrivateOfficeContent({selected_tab, users_email}) {
   const [ ordersData , setOrdersData ] = useState([{
@@ -22,7 +24,7 @@ export default function PrivateOfficeContent({selected_tab, users_email}) {
     city:'',
     address:'',
     index:''
-})
+  })
 
   useEffect(()=>{
 
@@ -103,7 +105,7 @@ export default function PrivateOfficeContent({selected_tab, users_email}) {
             <div className={styles.div_id}>Общая стоимость: {order.totalPrice}</div>
           </div>
           <div className={styles.div_block}>
-            <div className={styles.div_id}>Оплата: {order.state.payment}</div>
+            <div className={styles.div_block_pay}><div className={styles.div_id}>Оплата: {order.state.payment}</div><Link href={`/privateOffice/` /*/privateOffice/offer/${order.id}*/}><a>Оплатить</a></Link></div>
             <div className={styles.div_id}>Состояние заказа: {order.state.shipment}</div>
           </div>
           <div className={styles.div_block}>

@@ -31,6 +31,17 @@
   width:20px;
 }
 
+.div_block_pay {
+  display: flex;
+  a {
+    margin-left: 15px;
+    border: 1px solid $color3;
+    padding: 0 9px;
+    border-radius: 15px;
+    text-decoration: none;
+  }
+}
+
 .div_prod {
   margin-left: 6px;
   display: flex;

@@ -229,10 +229,10 @@ export default function Page () {
                   Обработка заказов осуществляется по МСК:
                 </div>
                 <div className={styles.text} style={{textAlign: 'center'}}>
-                  Пн-Пт с 17 до 03 ч.
+                  Пн-Пт с 03 до 13 ч.
                 </div>
                 <div className={styles.text} style={{textAlign: 'center'}}>
-                  Сб-Вс с 18 до 02 ч.
+                  Сб-Вс с 04 до 12 ч.
                 </div>
               </div>
             </div>
