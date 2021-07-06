@@ -23,13 +23,14 @@ export default async (req, res) => {
 
       order.state.payment = 'Оплачено'
       if (order.state.summ_payment) {
-        order.state.summ_payment += req.body.withdraw_amount // order.state.summ_payment += req.body.withdraw_amount
+        order.state.summ_payment = Number(order.state.summ_payment)+Number(req.body.withdraw_amount) // order.state.summ_payment += req.body.withdraw_amount
       } else {
-        order.state.summ_payment = req.body.withdraw_amount // order.state.summ_payment = req.body.withdraw_amount
+        order.state.summ_payment = Number(req.body.withdraw_amount) // order.state.summ_payment = req.body.withdraw_amount
       }
-      if (order.totalPrice !== req.body.withdraw_amount) {
+      if (order.totalPrice !== Number(req.body.withdraw_amount)) {
         // Если сумма необходимая к оплате и сумма списанная со счета отправителя не равны, так же сумма всех платежей по оплате заказа записывается в summ_payment
         // console.log(order.totalPrice + ' !== ' + req.body.withdraw_amount)
+        console.log('сумма оплаты '+ Number(req.body.withdraw_amount))
         console.log('Сумма оплаты не соответствует сумме заказа')
       }
 
