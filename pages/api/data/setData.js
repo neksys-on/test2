@@ -17,7 +17,7 @@ try {
     let needData_Statistics
     let version_total_Statistics
     let needData4
-
+    let id = 0
 
     const allData = await db.collection(`${typeData}`).findOne()
     let dataDB_version = allData.version
@@ -37,7 +37,7 @@ try {
       }
 
       if (!duplicate) {
-        let id
+
         if (typeData === 'products') {
           id = String(Number(allData.next_id))
         }
@@ -178,26 +178,13 @@ try {
         })
         const text_offer = ' ФИО: '+pushData.surname+' '+pushData.name+' '+pushData.patronymic+', тел.: '+pushData.telephone+', Населенный пункт: '+pushData.city+', адрес: '+pushData.address+', индекс: '+pushData.index+', Содержание: '+list_products
         const text = '№ заказа: '+pushData.id+' , Cумма заказа: '+pushData.totalPrice+' р. '+text_offer
-        // msgsend('send', text, '+79673055577', '+79147730000')
 
-        // const email_API_URL = process.env.EMAIL_API_URL
-        // fetch(email_API_URL, {
-        //   method: 'POST',
-        //   headers: {
-        //     'Content-Type': 'application/json'
-        //   },
-        //   body: JSON.stringify({
-        //     to: 'nikxabarovsk0000@gmail.com',
-        //     title: 'Новый заказ на BestJap',
-        //     text: text,
-        //    }),
-        // })
 
         msgsend('send', text, '+79673055577', ['+79147730000','+79144061391'])
       }
 
       res.status(201)
-      res.json({status: 'Complete'})
+      res.json({status: 'Complete', id: id })
 
     } catch(e) {
       res.status(501)

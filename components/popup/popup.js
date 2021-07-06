@@ -43,9 +43,8 @@ async function pushInData(infoPush) {
       type: 'orders'
      }),
   })
-  const id_of = await response.json()
-  const id_off = id_of.id_offer
-  return id_off
+  const jsonRes = await response.json()
+  return jsonRes
 }
 
 function sendEmail( send_to , send_title ,  data) {
@@ -206,7 +205,12 @@ export default function Popup({title, content, typePopup}) {
 
       sendEmail('nikxabarovsk0000@gmail.com' , 'Новый заказ на BestJap' , addData)
 
-      pushInData(addData).then(setTimeout(Router.push, 700, "/privateOffice"))
+      const pushDateAndGoToPay = async () => {
+        const resPushData = await pushInData(addData)
+        Router.push(`/privateOffice/offer/${resPushData.id}`)
+      }
+      pushDateAndGoToPay()
+
 
     } else {
       marksText.style.display = 'block'
