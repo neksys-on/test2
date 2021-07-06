@@ -37,7 +37,7 @@ export default function Page() {
           <input type="hidden" name="receiver" value={wallet}/>
           <input type="hidden" name="formcomment" value="Описани formcomment"/>
           <input type="hidden" name="short-dest" value={`Заказ №${offer}`}/>
-          <input type="hidden" name="label" value={`label ${offer}`}/>
+          <input type="hidden" name="label" value={offer}/>
           <input type="hidden" name="quickpay-form" value="donate"/>
           <input type="hidden" name="targets" value={`Оплата заказа №${offer}`}/> {/*Это название перевода для клиента*/}
           <input type="hidden" name="sum" value={summa} data-type="number"/>
