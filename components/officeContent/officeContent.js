@@ -105,7 +105,7 @@ export default function PrivateOfficeContent({selected_tab, users_email}) {
             <div className={styles.div_id}>Общая стоимость: {order.totalPrice}</div>
           </div>
           <div className={styles.div_block}>
-            <div className={styles.div_block_pay}><div className={styles.div_id}>Оплата: {order.state.payment}</div><Link href={`/privateOffice/` /*/privateOffice/offer/${order.id}*/}><a>Оплатить</a></Link></div>
+            <div className={styles.div_block_pay}><div className={styles.div_id}>Оплата: {order.state.payment}</div><Link href={`/privateOffice/offer/${order.id}` /*/privateOffice/offer/${order.id}*/}><a>Оплатить</a></Link></div>
             <div className={styles.div_id}>Состояние заказа: {order.state.shipment}</div>
           </div>
           <div className={styles.div_block}>

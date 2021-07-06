@@ -7,6 +7,21 @@ import styles from './[id].module.scss'
 import { useSession } from 'next-auth/client'
 
 
+async function changeDelivMetod(id, metod) {
+  const response = await fetch('/api/data/changeDelivMetod', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      id: id,
+      metod: metod,
+     }),
+  })
+  const data = await response.json()
+  return data.doPush
+}
+
 
 export default function ProductIndex(context) {
   const router = useRouter()
@@ -112,6 +127,15 @@ export default function ProductIndex(context) {
               summa = summa+(item.value*item.price)
             })
             setPriceAllItem(summa)
+
+            if (personOrders[0].state.delivery) {
+              const choiceNew = document.querySelector(`#choice${personOrders[0].state.delivery}`)
+              if (choiceNew) {
+                choiceNew.style.opacity = '1'
+                console.log('ssss')
+              }
+              setChoice(personOrders[0].state.delivery)
+            }
           }
           setLoadOffer(true)
         }
@@ -135,28 +159,56 @@ export default function ProductIndex(context) {
   },[session])
 
   const choiceMetod = (e)=>{
-    if (choice !== e.target.title) {
-      const choicePast = document.querySelector(`#choice${choice}`)
-      const choiceNew = document.querySelector(`#choice${e.target.title}`)
-      if (choicePast) {
-        choicePast.style.opacity = '0'
-      }
-      if (choiceNew) {
-        choiceNew.style.opacity = '1'
-        setChoice(e.target.title)
-      }
-    }
+    setChoice(e.target.title)
   }
+
+  const onClickButtonChangeDelivMetod = React.useCallback((e) => {
+    changeDelivMetod( router.query.id , '6' ).then(setTimeout(router.reload, 1200))
+  }, [router]);
 
 
   function Forma({wallet, offer, summa}) {
+    if (choice === '0') {
+      return (
+        <>
+          <form className={styles.form_payment} method="POST" action="https://yoomoney.ru/quickpay/confirm.xml" disabled>
+            <input type="hidden" name="receiver" value={wallet}/>
+            <input type="hidden" name="formcomment" value="Интернет магазин BestJap.ru"/>
+            <input type="hidden" name="short-dest" value={`Заказ №${offer}`}/>
+            <input type="hidden" name="label" value={offer}/>
+            <input type="hidden" name="quickpay-form" value="donate"/>
+            <input type="hidden" name="targets" value={`Оплата заказа №${offer}`}/> {/*Это название перевода для клиента*/}
+            <input type="hidden" name="sum" value={summa} data-type="number"/>
+            <input type="hidden" name="comment" value={`Оплата заказа №${offer} на сайте BestJap.ru`}/> {/*Это идет в описании перевода для клиента*/}
+            <input type="hidden" name="need-fio" value="false"/>
+            <input type="hidden" name="need-email" value="false"/>
+            <input type="hidden" name="need-phone" value="false"/>
+            <input type="hidden" name="need-address" value="false"/>
+
+            <div>Выберите способ доставки</div>
+          </form>
+        </>
+      )
+    }
+    if (choice === '6') {
+      return (
+        <>
+          <div className={styles.payment_nallSDEK}>
+            <div style={{margin: '30px 0'}}>Оплата будет производится по факту получения посылки в СДЭК</div>
+            <div className={styles.payment_butt_div} >
+              <input className={styles.button_for_payment} type="submit" value="Подтвердить" onClick={onClickButtonChangeDelivMetod}/>
+            </div>
+          </div>
+        </>
+      )
+    }
     return (
       <>
         <form className={styles.form_payment} method="POST" action="https://yoomoney.ru/quickpay/confirm.xml">
           <input type="hidden" name="receiver" value={wallet}/>
-          <input type="hidden" name="formcomment" value="Описани formcomment"/>
+          <input type="hidden" name="formcomment" value="Интернет магазин BestJap.ru"/>
           <input type="hidden" name="short-dest" value={`Заказ №${offer}`}/>
-          <input type="hidden" name="label" value="$order_id"/>
+          <input type="hidden" name="label" value={offer}/>
           <input type="hidden" name="quickpay-form" value="donate"/>
           <input type="hidden" name="targets" value={`Оплата заказа №${offer}`}/> {/*Это название перевода для клиента*/}
           <input type="hidden" name="sum" value={summa} data-type="number"/>
@@ -169,7 +221,7 @@ export default function ProductIndex(context) {
           <label className={styles.container_lab} style={{margin:'0 15px'}}><input type="radio" name="paymentType" value="PC"/><span className={styles.radio_class}></span>ЮMoney</label>
           <label className={styles.container_lab} style={{margin:'0 15px'}}><input type="radio" name="paymentType" value="AC"/><span className={styles.radio_class}></span>Банковской картой</label>
           </div>
-          <div className={styles.payment_butt_div}>
+          <div className={styles.payment_butt_div} >
             <input className={styles.button_for_payment} type="submit" value="Оплатить"/>
           </div>
         </form>
@@ -218,7 +270,12 @@ export default function ProductIndex(context) {
                   </div>
                 ))}
                 <div className={styles.priceAllItem}><div style={{width: '170px'}}>Сумма товаров: </div><div style={{width: '70px'}}>{priceAllItem} ₽</div></div>
-                <div>Выберите способ доставки:</div>
+                {!ordersData[0].state.delivery && <>
+                  <div>Выберите способ доставки:</div>
+                </>}
+                {ordersData[0].state.delivery && <>
+                  <div>Выбранный способ доставки:</div>
+                </>}
                 <div className={styles.delivery}>
                   <div className={styles.line2}>
                     <div className={styles.delivery__choice}></div>
@@ -227,58 +284,148 @@ export default function ProductIndex(context) {
                     <div className={styles.delivery__period}>Срок доставки (дни)</div>
                     <div className={styles.delivery__price}>Стоимость</div>
                   </div>
-                  <div className={styles.line} title={'1'} onClick={choiceMetod}>
-                      <div className={styles.delivery__choice} title={'1'}><div className={styles.chois_external} title={'1'}><div id={'choice1'} className={styles.chois_interior} title={'1'}></div></div></div>
-                      <div className={styles.delivery__company} title={'1'}>{deliv[1].company}</div>
-                      <div className={styles.delivery__region} title={'1'}>{deliv[1].region}</div>
-                      <div className={styles.delivery__period} title={'1'}>{deliv[1].period}</div>
-                      <div className={styles.delivery__price} title={'1'}>{deliv[1].price} ₽</div>
-                  </div>
-                  <div className={styles.hr}></div>
-                  <div className={styles.line} title={'2'} onClick={choiceMetod}>
-                    <div className={styles.delivery__choice} title={'2'}><div className={styles.chois_external} title={'2'}><div id={'choice2'} className={styles.chois_interior} title={'2'}></div></div></div>
-                    <div className={styles.delivery__company} title={'2'}>{deliv[2].company}</div>
-                    <div className={styles.delivery__region} title={'2'}>{deliv[2].region}</div>
-                    <div className={styles.delivery__period} title={'2'}>{deliv[2].period}</div>
-                    <div className={styles.delivery__price} title={'2'}>{deliv[2].price} ₽</div>
-                  </div>
-                  <div className={styles.hr}></div>
-                  <div className={styles.line} title={'3'} onClick={choiceMetod}>
-                    <div className={styles.delivery__choice} title={'3'}><div className={styles.chois_external} title={'3'}><div id={'choice3'} className={styles.chois_interior} title={'3'}></div></div></div>
-                    <div className={styles.delivery__company} title={'3'}>{deliv[3].company}</div>
-                    <div className={styles.delivery__region} title={'3'}>{deliv[3].region}</div>
-                    <div className={styles.delivery__period} title={'3'}>{deliv[3].period}</div>
-                    <div className={styles.delivery__price} title={'3'}>{deliv[3].price} ₽</div>
-                  </div>
-                  <div className={styles.hr}></div>
-                  <div className={styles.line} title={'4'} onClick={choiceMetod}>
-                    <div className={styles.delivery__choice} title={'4'}><div className={styles.chois_external} title={'4'}><div id={'choice4'} className={styles.chois_interior} title={'4'}></div></div></div>
-                    <div className={styles.delivery__company} title={'4'}>{deliv[4].company}</div>
-                    <div className={styles.delivery__region} title={'4'}>{deliv[4].region}</div>
-                    <div className={styles.delivery__period} title={'4'}>{deliv[4].period}</div>
-                    <div className={styles.delivery__price} title={'4'}>{deliv[4].price} ₽</div>
-                  </div>
-                  <div className={styles.hr}></div>
-                  <div className={styles.line} title={'5'} onClick={choiceMetod}>
-                    <div className={styles.delivery__choice} title={'5'}><div className={styles.chois_external} title={'5'}><div id={'choice5'} className={styles.chois_interior} title={'5'}></div></div></div>
-                    <div className={styles.delivery__company} title={'5'}>{deliv[5].company}</div>
-                    <div className={styles.delivery__region} title={'5'}>{deliv[5].region}</div>
-                    <div className={styles.delivery__period} title={'5'}>{deliv[5].period}</div>
-                    <div className={styles.delivery__price} title={'5'}>{deliv[5].price} ₽</div>
-                  </div>
-                  <div className={styles.hr}></div>
-                  <div className={styles.line} title={'6'} onClick={choiceMetod}>
-                    <div className={styles.delivery__choice} title={'6'}><div className={styles.chois_external} title={'6'}><div id={'choice6'} className={styles.chois_interior} title={'6'}></div></div></div>
-                    <div className={styles.delivery__company} title={'6'}>{deliv[6].company}</div>
-                    <div className={styles.delivery__region} title={'6'}>{deliv[6].region}</div>
-                    <div className={styles.delivery__period} title={'6'}>{deliv[6].period}</div>
-                    <div className={styles.delivery__price} title={'6'}>Определяется СДЭК</div>
-                  </div>
-                  <div className={styles.hr}></div>
+                  {!ordersData[0].state.delivery && <>
+                    <div className={styles.line} title={'1'} onClick={choiceMetod}>
+                        <div className={styles.delivery__choice} title={'1'}><div className={styles.chois_external} title={'1'}><div id={'choice1'} className={styles.chois_interior} title={'1'} style={choice==='1' ? {opacity: '1'} : {opacity: '0'}}></div></div></div>
+                        <div className={styles.delivery__company} title={'1'}>{deliv[1].company}</div>
+                        <div className={styles.delivery__region} title={'1'}>{deliv[1].region}</div>
+                        <div className={styles.delivery__period} title={'1'}>{deliv[1].period}</div>
+                        <div className={styles.delivery__price} title={'1'}>{deliv[1].price} ₽</div>
+                    </div>
+                    <div className={styles.hr}></div>
+                  </>}
+                  {ordersData[0].state.delivery==='1' && <>
+                    <div className={styles.line} title={'1'} onClick={choiceMetod}>
+                        <div className={styles.delivery__choice} title={'1'}><div className={styles.chois_external} title={'1'}><div id={'choice1'} className={styles.chois_interior} title={'1'} style={choice==='1' ? {opacity: '1'} : {opacity: '0'}}></div></div></div>
+                        <div className={styles.delivery__company} title={'1'}>{deliv[1].company}</div>
+                        <div className={styles.delivery__region} title={'1'}>{deliv[1].region}</div>
+                        <div className={styles.delivery__period} title={'1'}>{deliv[1].period}</div>
+                        <div className={styles.delivery__price} title={'1'}>{deliv[1].price} ₽</div>
+                    </div>
+                    <div className={styles.hr}></div>
+                  </>}
+
+                  {!ordersData[0].state.delivery && <>
+                    <div className={styles.line} title={'2'} onClick={choiceMetod}>
+                      <div className={styles.delivery__choice} title={'2'}><div className={styles.chois_external} title={'2'}><div id={'choice2'} className={styles.chois_interior} title={'2'} style={choice==='2' ? {opacity: '1'} : {opacity: '0'}}></div></div></div>
+                      <div className={styles.delivery__company} title={'2'}>{deliv[2].company}</div>
+                      <div className={styles.delivery__region} title={'2'}>{deliv[2].region}</div>
+                      <div className={styles.delivery__period} title={'2'}>{deliv[2].period}</div>
+                      <div className={styles.delivery__price} title={'2'}>{deliv[2].price} ₽</div>
+                    </div>
+                    <div className={styles.hr}></div>
+                  </>}
+                  {ordersData[0].state.delivery==='2' && <>
+                    <div className={styles.line} title={'2'} onClick={choiceMetod}>
+                      <div className={styles.delivery__choice} title={'2'}><div className={styles.chois_external} title={'2'}><div id={'choice2'} className={styles.chois_interior} title={'2'} style={choice==='2' ? {opacity: '1'} : {opacity: '0'}}></div></div></div>
+                      <div className={styles.delivery__company} title={'2'}>{deliv[2].company}</div>
+                      <div className={styles.delivery__region} title={'2'}>{deliv[2].region}</div>
+                      <div className={styles.delivery__period} title={'2'}>{deliv[2].period}</div>
+                      <div className={styles.delivery__price} title={'2'}>{deliv[2].price} ₽</div>
+                    </div>
+                    <div className={styles.hr}></div>
+                  </>}
+
+                  {!ordersData[0].state.delivery && <>
+                    <div className={styles.line} title={'3'} onClick={choiceMetod}>
+                      <div className={styles.delivery__choice} title={'3'}><div className={styles.chois_external} title={'3'}><div id={'choice3'} className={styles.chois_interior} title={'3'} style={choice==='3' ? {opacity: '1'} : {opacity: '0'}}></div></div></div>
+                      <div className={styles.delivery__company} title={'3'}>{deliv[3].company}</div>
+                      <div className={styles.delivery__region} title={'3'}>{deliv[3].region}</div>
+                      <div className={styles.delivery__period} title={'3'}>{deliv[3].period}</div>
+                      <div className={styles.delivery__price} title={'3'}>{deliv[3].price} ₽</div>
+                    </div>
+                    <div className={styles.hr}></div>
+                  </>}
+                  {ordersData[0].state.delivery==='3' && <>
+                    <div className={styles.line} title={'3'} onClick={choiceMetod}>
+                      <div className={styles.delivery__choice} title={'3'}><div className={styles.chois_external} title={'3'}><div id={'choice3'} className={styles.chois_interior} title={'3'} style={choice==='3' ? {opacity: '1'} : {opacity: '0'}}></div></div></div>
+                      <div className={styles.delivery__company} title={'3'}>{deliv[3].company}</div>
+                      <div className={styles.delivery__region} title={'3'}>{deliv[3].region}</div>
+                      <div className={styles.delivery__period} title={'3'}>{deliv[3].period}</div>
+                      <div className={styles.delivery__price} title={'3'}>{deliv[3].price} ₽</div>
+                    </div>
+                    <div className={styles.hr}></div>
+                  </>}
+
+                  {!ordersData[0].state.delivery && <>
+                    <div className={styles.line} title={'4'} onClick={choiceMetod}>
+                      <div className={styles.delivery__choice} title={'4'}><div className={styles.chois_external} title={'4'}><div id={'choice4'} className={styles.chois_interior} title={'4'} style={choice==='4' ? {opacity: '1'} : {opacity: '0'}}></div></div></div>
+                      <div className={styles.delivery__company} title={'4'}>{deliv[4].company}</div>
+                      <div className={styles.delivery__region} title={'4'}>{deliv[4].region}</div>
+                      <div className={styles.delivery__period} title={'4'}>{deliv[4].period}</div>
+                      <div className={styles.delivery__price} title={'4'}>{deliv[4].price} ₽</div>
+                    </div>
+                    <div className={styles.hr}></div>
+                  </>}
+                  {ordersData[0].state.delivery==='4' && <>
+                    <div className={styles.line} title={'4'} onClick={choiceMetod}>
+                      <div className={styles.delivery__choice} title={'4'}><div className={styles.chois_external} title={'4'}><div id={'choice4'} className={styles.chois_interior} title={'4'} style={choice==='4' ? {opacity: '1'} : {opacity: '0'}}></div></div></div>
+                      <div className={styles.delivery__company} title={'4'}>{deliv[4].company}</div>
+                      <div className={styles.delivery__region} title={'4'}>{deliv[4].region}</div>
+                      <div className={styles.delivery__period} title={'4'}>{deliv[4].period}</div>
+                      <div className={styles.delivery__price} title={'4'}>{deliv[4].price} ₽</div>
+                    </div>
+                    <div className={styles.hr}></div>
+                  </>}
+
+                  {!ordersData[0].state.delivery && <>
+                    <div className={styles.line} title={'5'} onClick={choiceMetod}>
+                      <div className={styles.delivery__choice} title={'5'}><div className={styles.chois_external} title={'5'}><div id={'choice5'} className={styles.chois_interior} title={'5'} style={choice==='5' ? {opacity: '1'} : {opacity: '0'}}></div></div></div>
+                      <div className={styles.delivery__company} title={'5'}>{deliv[5].company}</div>
+                      <div className={styles.delivery__region} title={'5'}>{deliv[5].region}</div>
+                      <div className={styles.delivery__period} title={'5'}>{deliv[5].period}</div>
+                      <div className={styles.delivery__price} title={'5'}>{deliv[5].price} ₽</div>
+                    </div>
+                    <div className={styles.hr}></div>
+                  </>}
+                  {ordersData[0].state.delivery==='5' && <>
+                    <div className={styles.line} title={'5'} onClick={choiceMetod}>
+                      <div className={styles.delivery__choice} title={'5'}><div className={styles.chois_external} title={'5'}><div id={'choice5'} className={styles.chois_interior} title={'5'} style={choice==='5' ? {opacity: '1'} : {opacity: '0'}}></div></div></div>
+                      <div className={styles.delivery__company} title={'5'}>{deliv[5].company}</div>
+                      <div className={styles.delivery__region} title={'5'}>{deliv[5].region}</div>
+                      <div className={styles.delivery__period} title={'5'}>{deliv[5].period}</div>
+                      <div className={styles.delivery__price} title={'5'}>{deliv[5].price} ₽</div>
+                    </div>
+                    <div className={styles.hr}></div>
+                  </>}
+
+                  {!ordersData[0].state.delivery && <>
+                    <div className={styles.line} title={'6'} onClick={choiceMetod}>
+                      <div className={styles.delivery__choice} title={'6'}><div className={styles.chois_external} title={'6'}><div id={'choice6'} className={styles.chois_interior} title={'6'} style={choice==='6' ? {opacity: '1'} : {opacity: '0'}}></div></div></div>
+                      <div className={styles.delivery__company} title={'6'}>{deliv[6].company}</div>
+                      <div className={styles.delivery__region} title={'6'}>{deliv[6].region}</div>
+                      <div className={styles.delivery__period} title={'6'}>{deliv[6].period}</div>
+                      <div className={styles.delivery__price} title={'6'}>Определяется СДЭК</div>
+                    </div>
+                    <div className={styles.hr}></div>
+                  </>}
+                  {ordersData[0].state.delivery==='6' && <>
+                    <div className={styles.line} title={'6'} onClick={choiceMetod}>
+                      <div className={styles.delivery__choice} title={'6'}><div className={styles.chois_external} title={'6'}><div id={'choice6'} className={styles.chois_interior} title={'6'} style={choice==='6' ? {opacity: '1'} : {opacity: '0'}}></div></div></div>
+                      <div className={styles.delivery__company} title={'6'}>{deliv[6].company}</div>
+                      <div className={styles.delivery__region} title={'6'}>{deliv[6].region}</div>
+                      <div className={styles.delivery__period} title={'6'}>{deliv[6].period}</div>
+                      <div className={styles.delivery__price} title={'6'}>Определяется СДЭК</div>
+                    </div>
+                    <div className={styles.hr}></div>
+                  </>}
+
 
                   <div className={styles.priceAllItem}><div style={{width: '170px'}}>Сумма итого: </div><div style={{width: '70px'}}>{choice!=='0' ? priceAllItem+deliv[choice].price : priceAllItem} ₽</div></div>
-                  <div>Выберите способ оплаты:</div>
-                  <Forma wallet={'410018886939843'} offer={router.query.id} summa={choice!=='0' ? priceAllItem+deliv[choice].price : priceAllItem}/>
+                  {ordersData[0].state.summ_payment && <>
+                    <div className={styles.priceAllItem}><div style={{width: '170px'}}>Оплачено: </div><div style={{width: '70px'}}>{ordersData[0].state.summ_payment} ₽</div></div>
+                  </>}
+                  <div className={styles.priceAllItem}><div style={{width: '170px'}}>Состояние оплаты: </div><div className={styles.pay_state} style={ordersData[0].state.payment==='Оплачено' ? {backgroundImage: 'url("/pay_1.webp")'} : {backgroundImage: 'url("/pay_2.webp")'}}></div></div>
+                  {ordersData[0].state.payment!=='Оплачено' && <>
+                    {ordersData[0].state.delivery==='6' && <>
+                      <div style={{display:'flex', width:'100%', justifyContent:'center'}}>Выбранный способ СДЭК наложенным платежом зафиксирован</div>
+                    </>}
+                    {ordersData[0].state.delivery!=='6' && <>
+                      <div>Выберите способ оплаты:</div>
+                      <Forma wallet={'4100116919669449'} offer={router.query.id} summa={ordersData[0].state.summ_payment ? priceAllItem+deliv[choice].price-ordersData[0].state.summ_payment : priceAllItem+deliv[choice].price}/>
+                    </>}
+                  </>}
+
                 </div>
               </div>
             </div>
