@@ -60,7 +60,7 @@ export default function Page() {
     <>
       <div className={css.wrapper} >
         <div className={css.container}>
-          <Forma wallet={'410011094111112'} offer={'45'} summa={2}/>
+          <Forma wallet={'410011094111112'} offer={'224'} summa={2}/>
           <hr style={{width:'100%', height:'4px', backgroundColor:'#000', margin:'20px 0'}}/>
           <a style={{marginBottom:'80px'}} href={'https://yoomoney.ru/quickpay/shop-widget?account=410011094111112&quickpay=shop&payment-type-choice=on&mobile-payment-type-choice=on&writer=seller&targets=Оплата%20заказа%20№15&default-sum=10&button-text=01&successURL=%3B'}>ссылка для оплаты</a>
           <img style={{width:'150px', height:'150px'}} src="https://sbqr.ru/qr/api_png_QR_text.php?qrtext=https%3A%2F%2Fmoney.yandex.ru%2Fquickpay%2Fshop-widget%3Faccount%3D410011094111112%26quickpay%3Dshop%26payment-type-choice%3Don%26mobile-payment-type-choice%3Don%26writer%3Dseller%26targets%3DOrder_15%26default-sum%3D10%26button-text%3D01%26successURL%3D%3B&id_form=10" />
