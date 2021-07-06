@@ -8,7 +8,8 @@ export default async (req, res) => {
   console.log(req.body)
   let needData
 
-  if ( req.body.notification_type === 'card-incoming' || req.body.notification_type === 'p2p-incoming') { // оплата расчитанна на юмани
+// if (req.body.notification_type === 'card-incoming' || req.body.notification_type === 'p2p-incoming')
+  if ( req.body.notification_type ) { // оплата расчитанна на юмани
 
     const idOffer = req.body.label // const idOffer = req.body.label
 
