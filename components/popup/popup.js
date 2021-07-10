@@ -114,7 +114,7 @@ export default function Popup({title, content, typePopup}) {
       setPhone_value(content.telephone)
     }
 
-  })
+  }, [session, content])
 
   const onClickButtonAddData = React.useCallback((e) => {
 
@@ -189,7 +189,8 @@ export default function Popup({title, content, typePopup}) {
         surname: document.querySelector(`#input_surname`).value,
         name: document.querySelector(`#input_name`).value,
         patronymic: document.querySelector(`#input_patronymic`).value,
-        email: document.querySelector(`#input_email`).value,
+        email: session.user.email ? session.user.email : document.querySelector(`#input_email`).value,
+        email2: document.querySelector(`#input_email`).value,
         telephone: document.querySelector(`#input_telephone`).value,
         city: document.querySelector(`#input_city`).value,
         address: document.querySelector(`#input_address`).value,
@@ -250,7 +251,7 @@ export default function Popup({title, content, typePopup}) {
 
 
 
-  }, []);
+  }, [session]);
 
   const onClickButtonAddDataUserData = React.useCallback((e) => {
     let change = false

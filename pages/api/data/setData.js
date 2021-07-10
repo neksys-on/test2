@@ -147,40 +147,44 @@ try {
       }
 
       if (typeData === 'orders') {
+        try{
+          function msgsend(doing, textMsg, from_phone_number, to_phone_number) {
+            const whatsApp_URL = process.env.WHATSAPP_URL
+            fetch(whatsApp_URL, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                do: doing,
+                text: textMsg,
+                from: from_phone_number,
+                to: to_phone_number,
+               }),
+            })
+          }
 
-        function msgsend(doing, textMsg, from_phone_number, to_phone_number) {
-          const whatsApp_URL = process.env.WHATSAPP_URL
-          fetch(whatsApp_URL, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              do: doing,
-              text: textMsg,
-              from: from_phone_number,
-              to: to_phone_number,
-             }),
+
+
+          let list_products = ''
+          pushData.products.map((prod)=>{
+            let param
+            if (prod.params !== undefined) {
+              param = ', Параметры: '+prod.params.param
+            } else {
+              param = ''
+            }
+            list_products = list_products+' \n '+'№'+ prod.id +', '+ prod.title + param +', Цена: '+ prod.price +', количество: '+ prod.value
           })
+          const text_offer = ' ФИО: '+pushData.surname+' '+pushData.name+' '+pushData.patronymic+', тел.: '+pushData.telephone+', Населенный пункт: '+pushData.city+', адрес: '+pushData.address+', индекс: '+pushData.index+', Содержание: '+list_products
+          const text = '№ заказа: '+pushData.id+' , Cумма заказа: '+pushData.totalPrice+' р. '+text_offer
+
+
+          msgsend('send', text, '+79673055577', ['+79147730000','+79144061391'])
+        } catch(e){
+          console.log(e)
         }
 
-
-
-        let list_products = ''
-        pushData.products.map((prod)=>{
-          let param
-          if (prod.params !== undefined) {
-            param = ', Параметры: '+prod.params.param
-          } else {
-            param = ''
-          }
-          list_products = list_products+' \n '+'№'+ prod.id +', '+ prod.title + param +', Цена: '+ prod.price +', количество: '+ prod.value
-        })
-        const text_offer = ' ФИО: '+pushData.surname+' '+pushData.name+' '+pushData.patronymic+', тел.: '+pushData.telephone+', Населенный пункт: '+pushData.city+', адрес: '+pushData.address+', индекс: '+pushData.index+', Содержание: '+list_products
-        const text = '№ заказа: '+pushData.id+' , Cумма заказа: '+pushData.totalPrice+' р. '+text_offer
-
-
-        msgsend('send', text, '+79673055577', ['+79147730000','+79144061391'])
       }
 
       res.status(201)
