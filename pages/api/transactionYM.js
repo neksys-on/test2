@@ -84,23 +84,21 @@ export default async (req, res) => {
     const text = 'Поступила оплата по заказу №' + idOffer + ' . ' + message_discription
 
     try{
-      function msgsend(doing, textMsg, from_phone_number, to_phone_number) {
-        const whatsApp_URL = process.env.WHATSAPP_URL
-        fetch(whatsApp_URL, {
+      function telegram_send(text) {
+        const siteURL = process.env.NEXTAUTH_URL || 'http://localhost:3000/'
+        const telegramAPI_URL = `${siteURL}api/telegram` //  `${process.env.NEXTAUTH_URL}api/telegram`
+        fetch(telegramAPI_URL, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            do: doing,
-            text: textMsg,
-            from: from_phone_number,
-            to: to_phone_number,
+            text: text,
            }),
         })
       }
 
-      msgsend('send', text, '+79673055577', ['+79147730000','+79144061391'])
+      telegram_send(text)
     } catch(e){
       console.log(e)
     }
