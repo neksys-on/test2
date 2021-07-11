@@ -104,8 +104,8 @@ export default async (req, res) => {
 
 
     try{
-      function sendEmail( send_to , send_title ,  data) {
-        const telegramAPI_URL = `${process.env.NEXTAUTH_URL}api/sendEmail`
+      function sendEmail( send_to , send_title ,  send_text) {
+        const telegramAPI_URL = `${process.env.NEXTAUTH_URL}api/sendEmail_directly`
         fetch(telegramAPI_URL, {
           method: 'POST',
           headers: {
@@ -114,7 +114,7 @@ export default async (req, res) => {
           body: JSON.stringify({
             to: send_to,
             title: send_title,
-            data: data,
+            text: send_text,
            }),
         })
       }

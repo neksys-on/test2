@@ -18,8 +18,36 @@ async function changeDelivMetod(id, metod) {
       metod: metod,
      }),
   })
-  const data = await response.json()
-  
+  const res = await response.json()
+  return res
+}
+
+async function telegram_send(text) {
+  const response2 = await fetch('/api/telegram', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      text: text,
+     }),
+  })
+  const resTelegram = await response2.json()
+  return resTelegram
+}
+
+async function sendEmail( send_to , send_title ,  send_text) {
+  const responseEm = await fetch('/api/sendEmail_directly', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      to: send_to,
+      title: send_title,
+      text: send_text,
+     }),
+  })
 }
 
 
@@ -162,8 +190,10 @@ export default function ProductIndex(context) {
     setChoice(e.target.title)
   }
 
-  const onClickButtonChangeDelivMetod = React.useCallback((e) => {
-    changeDelivMetod( router.query.id , '6' ).then(setTimeout(router.reload, 1200))
+  const onClickButtonChangeDelivMetod = React.useCallback(async (e) => {
+    const res = await changeDelivMetod( router.query.id , '6' )
+    const res2 = await telegram_send(res.text)
+    await sendEmail('nikxabarovsk0000@gmail.com' , 'Заказ наложенным платежом' , res.text).then(setTimeout(router.reload, 1200))
   }, [router]);
 
 

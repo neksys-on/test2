@@ -50,48 +50,6 @@ export default async (req, res) => {
     //   console.log(e)
     // }
 
-    try{
-      function telegram_send(text) {
-        const telegramAPI_URL = `${process.env.NEXTAUTH_URL}api/telegram` //  `${process.env.NEXTAUTH_URL}api/telegram`
-        fetch(telegramAPI_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            text: text,
-           }),
-        })
-      }
-
-      telegram_send(text)
-    } catch(e){
-      console.log(e)
-    }
-
-
-
-    try{
-      function sendEmail( send_to , send_title ,  data) {
-        const emailAPI_URL = `${process.env.NEXTAUTH_URL}api/sendEmail` //  `${process.env.NEXTAUTH_URL}api/telegram`
-        fetch(emailAPI_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            to: send_to,
-            title: send_title,
-            data: data,
-           }),
-        })
-      }
-
-      sendEmail('nikxabarovsk0000@gmail.com' , 'Заказ наложенным платежом' , text)
-    } catch(e){
-      console.log(e)
-    }
-
 
     await db.collection(`orders`).updateOne(
       { _id: ordersData._id },
@@ -102,6 +60,6 @@ export default async (req, res) => {
     )
 
 
-  res.status(200).json({status: 'Complete'})
+  res.status(200).json({status: 'Complete', text: text})
   // res.status(200).json({ name: 'John Doe' })
 }
