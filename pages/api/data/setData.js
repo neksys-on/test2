@@ -149,7 +149,6 @@ try {
       if (typeData === 'orders') {
         try{
           function telegram_send(text) {
-            const siteURL = process.env.NEXTAUTH_URL || 'http://localhost:3000/'
             const telegramAPI_URL = `${process.env.NEXTAUTH_URL}api/telegram` //  `${process.env.NEXTAUTH_URL}api/telegram`
             fetch(telegramAPI_URL, {
               method: 'POST',

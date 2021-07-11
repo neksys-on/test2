@@ -85,7 +85,6 @@ export default async (req, res) => {
 
     try{
       function telegram_send(text) {
-        const siteURL = process.env.NEXTAUTH_URL || 'http://localhost:3000/'
         const telegramAPI_URL = `${process.env.NEXTAUTH_URL}api/telegram` //  `${process.env.NEXTAUTH_URL}api/telegram`
         fetch(telegramAPI_URL, {
           method: 'POST',
@@ -106,7 +105,8 @@ export default async (req, res) => {
 
     try{
       function sendEmail( send_to , send_title ,  data) {
-        fetch('/api/sendEmail', {
+        const telegramAPI_URL = `${process.env.NEXTAUTH_URL}api/sendEmail`
+        fetch(telegramAPI_URL, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

@@ -19,7 +19,7 @@ async function changeDelivMetod(id, metod) {
      }),
   })
   const data = await response.json()
-  return data.doPush
+  
 }
 
 

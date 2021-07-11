@@ -52,7 +52,6 @@ export default async (req, res) => {
 
     try{
       function telegram_send(text) {
-        const siteURL = process.env.NEXTAUTH_URL || 'http://localhost:3000/'
         const telegramAPI_URL = `${process.env.NEXTAUTH_URL}api/telegram` //  `${process.env.NEXTAUTH_URL}api/telegram`
         fetch(telegramAPI_URL, {
           method: 'POST',
@@ -74,7 +73,8 @@ export default async (req, res) => {
 
     try{
       function sendEmail( send_to , send_title ,  data) {
-        fetch('/api/sendEmail', {
+        const emailAPI_URL = `${process.env.NEXTAUTH_URL}api/sendEmail` //  `${process.env.NEXTAUTH_URL}api/telegram`
+        fetch(emailAPI_URL, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -102,6 +102,6 @@ export default async (req, res) => {
     )
 
 
-  res.status(200).json({})
+  res.status(200).json({status: 'Complete'})
   // res.status(200).json({ name: 'John Doe' })
 }
