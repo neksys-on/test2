@@ -38,7 +38,7 @@ export default function AccessDenied () {
           <div>Последние заказы с этого устройства:</div>
           {ordersId && <>
             {ordersId.map(item => (
-              <div><a href={`${'http://localhost:3000/'}privateOffice/offer/${item}`} >Заказа №{item}</a></div>
+              <div><a href={`${'https://www.bestjap.ru/'}privateOffice/offer/${item}`} >Заказа №{item}</a></div>
             ))}
           </>}
         </div>
