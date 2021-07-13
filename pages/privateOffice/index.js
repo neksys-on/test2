@@ -9,10 +9,12 @@ import OfficeContent from '../../components/officeContent/officeContent.js'
 import Head from 'next/head'
 
 
+
 export async function getServerSideProps(context) {
   const email_1 = process.env.ADMIN_EMAIL_1
   const email_2 = process.env.ADMIN_EMAIL_2
   const email_3 = process.env.ADMIN_EMAIL_3
+
   return {
     props: {
       email_1: email_1,

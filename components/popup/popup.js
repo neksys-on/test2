@@ -47,7 +47,7 @@ async function pushInData(infoPush) {
   return jsonRes
 }
 
-function sendEmail( send_to , send_title ,  data) {
+function sendEmail( send_to , send_title ,  data, id) {
   fetch('/api/sendEmail', {
     method: 'POST',
     headers: {
@@ -57,6 +57,7 @@ function sendEmail( send_to , send_title ,  data) {
       to: send_to,
       title: send_title,
       data: data,
+      id: id
      }),
   })
 }
@@ -102,6 +103,7 @@ export default function Popup({title, content, typePopup}) {
   const [phone_value, setPhone_value] = useState('+7')
   const [phone_value_length, setPhone_value_length] = useState(3)
   const [phone_max_length, setPhone_max_length] = useState(16)
+  let lSOrdersJson
 
 
 
@@ -205,11 +207,31 @@ export default function Popup({title, content, typePopup}) {
 
       localStorage.setItem('_basket', [])
 
-      sendEmail('nikxabarovsk0000@gmail.com' , 'Новый заказ на BestJap' , addData)
-
       const pushDateAndGoToPay = async () => {
         const resPushData = await pushInData(addData)
-        Router.push(`/privateOffice/offer/${resPushData.id}`)
+
+        const lSOrders = await localStorage.getItem('_orders')
+        if (lSOrders) {
+          lSOrdersJson = JSON.parse(lSOrders)
+          let pushArray = []
+          if (typeof(lSOrdersJson) === 'number') {
+            pushArray.push(lSOrdersJson)
+          } else {
+            pushArray = lSOrdersJson
+          }
+          pushArray.push(resPushData.id)
+          let pushArrayStr = JSON.stringify(pushArray)
+
+          await localStorage.setItem('_orders', pushArrayStr)
+        }
+        else {
+          let pushArray = []
+          pushArray.push(resPushData.id)
+          let pushArrayStr = JSON.stringify(pushArray)
+          await localStorage.setItem('_orders', pushArrayStr)
+        }
+        await sendEmail('nikxabarovsk0000@gmail.com' , `Новый заказ №${resPushData.id} на BestJap` , addData, resPushData.id)
+        await Router.push(`/privateOffice/offer/${resPushData.id}`)
       }
       pushDateAndGoToPay()
 

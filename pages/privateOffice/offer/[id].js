@@ -80,6 +80,7 @@ export default function ProductIndex(context) {
   })
   const [priceAllItem, setPriceAllItem] = useState(0)
   const [choice, setChoice] = useState('0')
+  const [ordersId, setOrdersId] = useState(null)
 
   const deliv = [
     {},
@@ -136,10 +137,32 @@ export default function ProductIndex(context) {
            }),
         })
         const json = await res.json()
+
+        let check = false
+        const lSOrders = await localStorage.getItem('_orders')
+        if (lSOrders) {
+          const lSOrdersJson = await JSON.parse(lSOrders)
+          lSOrdersJson.map(item => {
+            if (item === router.query.id) { check = true }
+          })
+        }
+
+
+
         if (json.orders) {
           let personOrders = undefined
           json.orders.map((order)=>{
-            if ((order.email === session.user.email)&&(order.id === router.query.id)) {
+            const check2 = () => {
+              if (session) {
+                if (order.email === session.user.email) {
+                  console.log(order.email)
+                  return true
+                }
+              }
+              return false
+            }
+
+            if ((check || check2 === true) && (order.id === router.query.id)) {
               if (personOrders === undefined) {
                 personOrders = [order]
               }
@@ -160,19 +183,19 @@ export default function ProductIndex(context) {
               const choiceNew = document.querySelector(`#choice${personOrders[0].state.delivery}`)
               if (choiceNew) {
                 choiceNew.style.opacity = '1'
-                console.log('ssss')
               }
               setChoice(personOrders[0].state.delivery)
             }
           }
-          setLoadOffer(true)
+
         }
+        setLoadOffer(true)
       }
     }
 
-    if (session) {
-      fetchData()
-    }
+
+    fetchData()
+
 
     const localStor = localStorage.getItem('_basket')
     if (localStor) {
@@ -485,7 +508,7 @@ export default function ProductIndex(context) {
         }}>
           <div className={styles.wrapperNotFoundInfo}>
             <div className={styles.containerNotFoundInfo}>
-              <div>Заказа с таким номером нет в базе данных.</div>
+              <div>Либо заказа с таким номером нет в базе данных, либо вы пытаетесь посмотреть чужой заказ.</div>
               <div>Обратитесь в поддержку.</div>
               <ul className={styles.navItems}>
                 <li className={styles.navItem}><Link href="/contacts"><a>{linkTitle}</a></Link></li>

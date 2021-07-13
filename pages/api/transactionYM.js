@@ -85,7 +85,7 @@ export default async (req, res) => {
 
     try{
       function telegram_send(text) {
-        const telegramAPI_URL = `${process.env.NEXTAUTH_URL}api/telegram` //  `${process.env.NEXTAUTH_URL}api/telegram`
+        const telegramAPI_URL = 'https://bestjap.ru/api/telegram' //  `${process.env.NEXTAUTH_URL}api/telegram`
         fetch(telegramAPI_URL, {
           method: 'POST',
           headers: {
@@ -105,7 +105,7 @@ export default async (req, res) => {
 
     try{
       function sendEmail( send_to , send_title ,  send_text) {
-        const emailAPI_URL = `${process.env.NEXTAUTH_URL}api/sendEmail_directly`
+        const emailAPI_URL = 'https://bestjap.ru/api/sendEmail_directly'
         fetch(emailAPI_URL, {
           method: 'POST',
           headers: {

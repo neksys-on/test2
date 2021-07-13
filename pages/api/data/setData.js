@@ -149,7 +149,7 @@ try {
       if (typeData === 'orders') {
         try{
           function telegram_send(text) {
-            const telegramAPI_URL = `${process.env.NEXTAUTH_URL}api/telegram` //  `${process.env.NEXTAUTH_URL}api/telegram`
+            const telegramAPI_URL = `https://bestjap.ru/api/telegram` //  `${process.env.NEXTAUTH_URL}api/telegram`
             fetch(telegramAPI_URL, {
               method: 'POST',
               headers: {
@@ -172,13 +172,15 @@ try {
             }
             list_products = list_products+' \n '+'№'+ prod.id +', '+ prod.title + param +', Цена: '+ prod.price +', количество: '+ prod.value
           })
-          const text_offer = ' ФИО: '+pushData.surname+' '+pushData.name+' '+pushData.patronymic+', тел.: '+pushData.telephone+', Населенный пункт: '+pushData.city+', адрес: '+pushData.address+', индекс: '+pushData.index+', Содержание: '+list_products
+          const text_offer = ' ФИО: '+pushData.surname+' '+pushData.name+' '+pushData.patronymic+', тел.: '+pushData.telephone+', email: '+pushData.email+', Населенный пункт: '+pushData.city+', адрес: '+pushData.address+', индекс: '+pushData.index+', Содержание: '+list_products+', Комментарий: '+pushData.comments
           const text = '№ заказа: '+pushData.id+' , Cумма заказа: '+pushData.totalPrice+' р. '+text_offer
 
           telegram_send(text)
         } catch(e){
           console.log(e)
         }
+
+        
 
       }
 
