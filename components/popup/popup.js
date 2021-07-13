@@ -106,11 +106,11 @@ export default function Popup({title, content, typePopup}) {
 
 
   useEffect(()=>{
-    if ((index_value === '')&(content.index !== '')) {
+    if ((index_value === '')&&(content.index !== '')) {
       setIndex_value(content.index)
     }
 
-    if ((phone_value === '+7')&(content.telephone !== '')) {
+    if ((phone_value === '+7')&&(content.telephone !== '')) {
       setPhone_value(content.telephone)
     }
 
@@ -154,8 +154,8 @@ export default function Popup({title, content, typePopup}) {
         let notFound = true
         if (productsWeHave) {
           productsWeHave.map((prod) => {
-            if ((product.params !== undefined)&(prod.params !== undefined)) {
-              if ((prod.id === product.id)&(prod.params.param === product.params.param)) {
+            if ((product.params !== undefined)&&(prod.params !== undefined)) {
+              if ((prod.id === product.id)&&(prod.params.param === product.params.param)) {
                 prod.value += 1
                 notFound = false
               }
@@ -382,14 +382,14 @@ if (typePopup === 'order') {
                   const val = e.target.value
                   let newVal = val
                   let n = 0
-                  if ((e.target.value[0] !== '8')&(e.target.value[0] !== '7')&(e.target.value[0] !== '+')) {
+                  if ((e.target.value[0] !== '8')&&(e.target.value[0] !== '7')&&(e.target.value[0] !== '+')) {
                     n = 3
                   }
                   else {
                     if (e.target.value[0] !== '+') {
                       n = 1
                     }
-                    if ((e.target.value.length > 2-n)&(e.target.value[2-n] !== ' ')&(e.target.value.length > phone_value_length)) {
+                    if ((e.target.value.length > 2-n)&&(e.target.value[2-n] !== ' ')&&(e.target.value.length > phone_value_length)) {
                       newVal = ''
                       for (let i = 0; i < e.target.value.length; i++) {
                         if (i === 2-n) {
@@ -399,11 +399,11 @@ if (typePopup === 'order') {
                       }
                     }
                   }
-                  if (((e.target.value.length === 6-n)||(e.target.value.length === 10-n)||(e.target.value.length === 13-n))&(e.target.value.length > phone_value_length)) {
+                  if (((e.target.value.length === 6-n)||(e.target.value.length === 10-n)||(e.target.value.length === 13-n))&&(e.target.value.length > phone_value_length)) {
                     newVal = val+' '
                   }
 
-                  if ((e.target.value.length > 6-n)&(e.target.value[6-n] !== ' ')&(e.target.value.length > phone_value_length)) {
+                  if ((e.target.value.length > 6-n)&&(e.target.value[6-n] !== ' ')&&(e.target.value.length > phone_value_length)) {
                     newVal = ''
                     for (let i = 0; i < e.target.value.length; i++) {
                       if (i === 6-n) {
@@ -413,7 +413,7 @@ if (typePopup === 'order') {
                     }
                   }
 
-                  if ((e.target.value.length > 10-n)&(e.target.value[10-n] !== ' ')&(e.target.value.length > phone_value_length)) {
+                  if ((e.target.value.length > 10-n)&&(e.target.value[10-n] !== ' ')&&(e.target.value.length > phone_value_length)) {
                     newVal = ''
                     for (let i = 0; i < e.target.value.length; i++) {
                       if (i === 10-n) {
@@ -422,7 +422,7 @@ if (typePopup === 'order') {
                       newVal = newVal+e.target.value[i]
                     }
                   }
-                  if ((e.target.value.length > 13-n)&(e.target.value[13-n] !== ' ')&(e.target.value.length > phone_value_length)) {
+                  if ((e.target.value.length > 13-n)&&(e.target.value[13-n] !== ' ')&&(e.target.value.length > phone_value_length)) {
                     newVal = ''
                     for (let i = 0; i < e.target.value.length; i++) {
                       if (i === 13-n) {
@@ -602,14 +602,14 @@ if (typePopup === 'userData') {
                   const val = e.target.value
                   let newVal = val
                   let n = 0
-                  if ((e.target.value[0] !== '8')&(e.target.value[0] !== '7')&(e.target.value[0] !== '+')) {
+                  if ((e.target.value[0] !== '8')&&(e.target.value[0] !== '7')&&(e.target.value[0] !== '+')) {
                     n = 3
                   }
                   else {
                     if (e.target.value[0] !== '+') {
                       n = 1
                     }
-                    if ((e.target.value.length > 2-n)&(e.target.value[2-n] !== ' ')&(e.target.value.length > phone_value_length)) {
+                    if ((e.target.value.length > 2-n)&&(e.target.value[2-n] !== ' ')&&(e.target.value.length > phone_value_length)) {
                       newVal = ''
                       for (let i = 0; i < e.target.value.length; i++) {
                         if (i === 2-n) {
@@ -619,11 +619,11 @@ if (typePopup === 'userData') {
                       }
                     }
                   }
-                  if (((e.target.value.length === 6-n)||(e.target.value.length === 10-n)||(e.target.value.length === 13-n))&(e.target.value.length > phone_value_length)) {
+                  if (((e.target.value.length === 6-n)||(e.target.value.length === 10-n)||(e.target.value.length === 13-n))&&(e.target.value.length > phone_value_length)) {
                     newVal = val+' '
                   }
 
-                  if ((e.target.value.length > 6-n)&(e.target.value[6-n] !== ' ')&(e.target.value.length > phone_value_length)) {
+                  if ((e.target.value.length > 6-n)&&(e.target.value[6-n] !== ' ')&&(e.target.value.length > phone_value_length)) {
                     newVal = ''
                     for (let i = 0; i < e.target.value.length; i++) {
                       if (i === 6-n) {
@@ -633,7 +633,7 @@ if (typePopup === 'userData') {
                     }
                   }
 
-                  if ((e.target.value.length > 10-n)&(e.target.value[10-n] !== ' ')&(e.target.value.length > phone_value_length)) {
+                  if ((e.target.value.length > 10-n)&&(e.target.value[10-n] !== ' ')&&(e.target.value.length > phone_value_length)) {
                     newVal = ''
                     for (let i = 0; i < e.target.value.length; i++) {
                       if (i === 10-n) {
@@ -642,7 +642,7 @@ if (typePopup === 'userData') {
                       newVal = newVal+e.target.value[i]
                     }
                   }
-                  if ((e.target.value.length > 13-n)&(e.target.value[13-n] !== ' ')&(e.target.value.length > phone_value_length)) {
+                  if ((e.target.value.length > 13-n)&&(e.target.value[13-n] !== ' ')&&(e.target.value.length > phone_value_length)) {
                     newVal = ''
                     for (let i = 0; i < e.target.value.length; i++) {
                       if (i === 13-n) {
