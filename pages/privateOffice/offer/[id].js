@@ -152,17 +152,15 @@ export default function ProductIndex(context) {
         if (json.orders) {
           let personOrders = undefined
           json.orders.map((order)=>{
-            const check2 = () => {
-              if (session) {
-                if (order.email === session.user.email) {
-                  console.log(order.email)
-                  return true
-                }
+
+            let check2 = false
+            if (session) {
+              if (order.email === session.user.email) {
+                check2 = true
               }
-              return false
             }
 
-            if ((check || check2 === true) && (order.id === router.query.id)) {
+            if ((check || check2) && (order.id === router.query.id)) {
               if (personOrders === undefined) {
                 personOrders = [order]
               }
