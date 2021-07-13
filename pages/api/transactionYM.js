@@ -105,8 +105,8 @@ export default async (req, res) => {
 
     try{
       function sendEmail( send_to , send_title ,  send_text) {
-        const telegramAPI_URL = `${process.env.NEXTAUTH_URL}api/sendEmail_directly`
-        fetch(telegramAPI_URL, {
+        const emailAPI_URL = `${process.env.NEXTAUTH_URL}api/sendEmail_directly`
+        fetch(emailAPI_URL, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
