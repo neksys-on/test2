@@ -62,6 +62,18 @@ function sendEmail( send_to , send_title ,  data, id) {
   })
 }
 
+function telegram_send( text) {
+  fetch('/api/telegram', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      text: text,
+     }),
+  })
+}
+
 async function changeInDataUsersData (id,  newInfo) {
   const response = await fetch('/api/data/changeData', {
     method: 'POST',
@@ -235,6 +247,7 @@ export default function Popup({title, content, typePopup}) {
           let pushArrayStr = JSON.stringify(pushArray)
           await localStorage.setItem('_orders', pushArrayStr)
         }
+        await telegram_send(resPushData.text)
         await sendEmail('nikxabarovsk0000@gmail.com' , `Новый заказ №${resPushData.id} на BestJap` , addData, resPushData.id)
         await Router.push(`/privateOffice/offer/${resPushData.id}`)
       }

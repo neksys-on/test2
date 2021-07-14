@@ -146,46 +146,27 @@ try {
 
       }
 
+      let text = ''
+
       if (typeData === 'orders') {
-        try{
-          const telegram_send = async (text) => {
-            const telegramAPI_URL = `https://bestjap.ru/api/telegram` //  `${process.env.NEXTAUTH_URL}api/telegram`
-            fetch(telegramAPI_URL, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                text: text,
-               }),
-            })
+
+        let list_products = ''
+        pushData.products.map((prod)=>{
+          let param
+          if (prod.params !== undefined) {
+            param = ', Параметры: '+prod.params.param
+          } else {
+            param = ''
           }
-
-
-          let list_products = ''
-          pushData.products.map((prod)=>{
-            let param
-            if (prod.params !== undefined) {
-              param = ', Параметры: '+prod.params.param
-            } else {
-              param = ''
-            }
-            list_products = list_products+' \n '+'№'+ prod.id +', '+ prod.title + param +', Цена: '+ prod.price +', количество: '+ prod.value
-          })
-          const text_offer = ' ФИО: '+pushData.surname+' '+pushData.name+' '+pushData.patronymic+', тел.: '+pushData.telephone+', email: '+pushData.email+', Населенный пункт: '+pushData.city+', адрес: '+pushData.address+', индекс: '+pushData.index+', Содержание: '+list_products+', Комментарий: '+pushData.comments
-          const text = '№ заказа: '+pushData.id+' , Cумма заказа: '+pushData.totalPrice+' р. '+text_offer
-
-          const resTelegram = await telegram_send(text)
-        } catch(e){
-          console.log(e)
-        }
-
-
+          list_products = list_products+' \n '+'№'+ prod.id +', '+ prod.title + param +', Цена: '+ prod.price +', количество: '+ prod.value
+        })
+        const text_offer = ' ФИО: '+pushData.surname+' '+pushData.name+' '+pushData.patronymic+', тел.: '+pushData.telephone+', email: '+pushData.email+', Населенный пункт: '+pushData.city+', адрес: '+pushData.address+', индекс: '+pushData.index+', Содержание: '+list_products+', Комментарий: '+pushData.comments
+        text = '№ заказа: '+pushData.id+' , Cумма заказа: '+pushData.totalPrice+' р. '+text_offer
 
       }
 
       res.status(201)
-      res.json({status: 'Complete', id: id })
+      res.json({status: 'Complete', id: id, text: text })
 
     } catch(e) {
       res.status(501)
