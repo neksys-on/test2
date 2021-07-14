@@ -47,8 +47,8 @@ const pushInData = async (infoPush) => {
   return jsonRes
 }
 
-function sendEmail( send_to , send_title ,  data, id) {
-  fetch('/api/sendEmail', {
+await function sendEmail( send_to , send_title ,  data, id) {
+  const response3 = await fetch('/api/sendEmail', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -60,10 +60,12 @@ function sendEmail( send_to , send_title ,  data, id) {
       id: id
      }),
   })
+  const resEmail = await response3.json()
+  return resEmail
 }
 
-function telegram_send( text) {
-  fetch('/api/telegram', {
+async function telegram_send(text) {
+  const response2 = await fetch('/api/telegram', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -72,6 +74,8 @@ function telegram_send( text) {
       text: text,
      }),
   })
+  const resTelegram = await response2.json()
+  return resTelegram
 }
 
 async function changeInDataUsersData (id,  newInfo) {
@@ -247,8 +251,8 @@ export default function Popup({title, content, typePopup}) {
           let pushArrayStr = JSON.stringify(pushArray)
           await localStorage.setItem('_orders', pushArrayStr)
         }
-        await telegram_send(resPushData.text)
-        await sendEmail('nikxabarovsk0000@gmail.com' , `Новый заказ №${resPushData.id} на BestJap` , addData, resPushData.id)
+        const res2 = await telegram_send(resPushData.text)
+        const res3 = await sendEmail('nikxabarovsk0000@gmail.com' , `Новый заказ №${resPushData.id} на BestJap` , addData, resPushData.id)
         await Router.push(`/privateOffice/offer/${resPushData.id}`)
       }
       pushDateAndGoToPay()
