@@ -32,9 +32,24 @@ export default async (req, res) => {
   // });
   const text = req.body.text
 
-  bot.sendMessage(1009392108, text);
-  bot.sendMessage(929818176, text);
-  bot.sendMessage(1841398902, text);
+  try {
+    bot.sendMessage(1009392108, text);
+  } catch(e){
+    console.log(e)
+  }
+  try {
+    bot.sendMessage(929818176, text);
+  } catch(e){
+    console.log(e)
+  }
+  try {
+    bot.sendMessage(1841398902, text);
+  } catch(e){
+    console.log(e)
+  }
+  // bot.sendMessage(1009392108, text);
+  // bot.sendMessage(929818176, text);
+  // bot.sendMessage(1841398902, text);
 
 
 
