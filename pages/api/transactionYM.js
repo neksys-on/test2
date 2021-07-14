@@ -84,9 +84,9 @@ export default async (req, res) => {
     const text = 'Поступила оплата по заказу №' + idOffer + ' . ' + message_discription
 
     try{
-      function telegram_send(text) {
+      async function telegram_send(text) {
         const telegramAPI_URL = 'https://bestjap.ru/api/telegram' //  `${process.env.NEXTAUTH_URL}api/telegram`
-        fetch(telegramAPI_URL, {
+        const responseTelegram = await fetch(telegramAPI_URL, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -95,18 +95,20 @@ export default async (req, res) => {
             text: text,
            }),
         })
+        const resTelegram = await responseTelegram.json()
+        return resTelegram
       }
 
-      telegram_send(text)
+      const res2 = await telegram_send(text)
     } catch(e){
       console.log(e)
     }
 
 
     try{
-      function sendEmail( send_to , send_title ,  send_text) {
+      async function sendEmail( send_to , send_title ,  send_text) {
         const emailAPI_URL = 'https://bestjap.ru/api/sendEmail_directly'
-        fetch(emailAPI_URL, {
+        const responseEmail = await fetch(emailAPI_URL, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -117,9 +119,11 @@ export default async (req, res) => {
             text: send_text,
            }),
         })
+        const resEmail = await responseEmail.json()
+        return resEmail
       }
 
-      sendEmail('nikxabarovsk0000@gmail.com' , `Оплата по заказу №${idOffer}` , text)
+      const res3 = await sendEmail('nikxabarovsk0000@gmail.com' , `Оплата по заказу №${idOffer}` , text)
     } catch(e){
       console.log(e)
     }
