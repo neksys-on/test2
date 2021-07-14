@@ -141,7 +141,6 @@ export default function ProductIndex(context) {
         const lSOrders = localStorage.getItem('_orders')
         if (lSOrders) {
           const lSOrdersJson = JSON.parse(lSOrders)
-          console.log(router.query.id)
           lSOrdersJson.map(item => {
             if (item === router.query.id) { check = true }
           })
