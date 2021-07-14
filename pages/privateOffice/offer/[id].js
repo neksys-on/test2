@@ -125,7 +125,7 @@ export default function ProductIndex(context) {
 
   useEffect(()=>{
     const fetchData = async () => {
-      if (!loadOffer && router.query.id) {
+      if (!loadOffer && router.query.id !== undefined && router.query.id !== '[id]') {
         const res = await fetch('/api/data/getData', {
           method: 'POST',
           headers: {
@@ -141,7 +141,7 @@ export default function ProductIndex(context) {
         const lSOrders = localStorage.getItem('_orders')
         if (lSOrders) {
           const lSOrdersJson = JSON.parse(lSOrders)
-          console.log(typeof(Number(router.query.id)))
+          console.log(router.query.id)
           lSOrdersJson.map(item => {
             if (item === router.query.id) { check = true }
           })
