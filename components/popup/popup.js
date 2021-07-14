@@ -32,7 +32,7 @@ function stop_highlighting(type) {
 }
 
 
-const pushInData = async (infoPush) => {
+async function pushInData(infoPush) {
   const response = await fetch('/api/data/setData', {
     method: 'POST',
     headers: {
@@ -47,7 +47,7 @@ const pushInData = async (infoPush) => {
   return jsonRes
 }
 
-await function sendEmail( send_to , send_title ,  data, id) {
+async function sendEmail( send_to , send_title ,  data, id) {
   const response3 = await fetch('/api/sendEmail', {
     method: 'POST',
     headers: {
@@ -79,7 +79,7 @@ async function telegram_send(text) {
 }
 
 async function changeInDataUsersData (id,  newInfo) {
-  const response = await fetch('/api/data/changeData', {
+  const response4 = await fetch('/api/data/changeData', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -91,24 +91,8 @@ async function changeInDataUsersData (id,  newInfo) {
       type: 'usersData'
      }),
   })
-  const data = await response.json()
+  const data = await response4.json()
   return data
-}
-
-
-async function msgsend(doing, text) {
-  const response = await fetch('/api/sendWhatsapp', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      do: doing,
-      text: text,
-     }),
-  })
-  const data = await response.json()
-  return data.doPush
 }
 
 
