@@ -124,9 +124,8 @@ export default function ProductIndex(context) {
 
 
   useEffect(()=>{
-
     const fetchData = async () => {
-      if (!loadOffer) {
+      if (!loadOffer && router.query.id) {
         const res = await fetch('/api/data/getData', {
           method: 'POST',
           headers: {
@@ -139,15 +138,13 @@ export default function ProductIndex(context) {
         const json = await res.json()
 
         let check = false
-        const lSOrders = await localStorage.getItem('_orders')
+        const lSOrders = localStorage.getItem('_orders')
         if (lSOrders) {
-          const lSOrdersJson = await JSON.parse(lSOrders)
+          const lSOrdersJson = JSON.parse(lSOrders)
           lSOrdersJson.map(item => {
             if (item === router.query.id) { check = true }
           })
         }
-
-
 
         if (json.orders) {
           let personOrders = undefined
@@ -155,9 +152,7 @@ export default function ProductIndex(context) {
 
             let check2 = false
             if (session) {
-              if (order.email === session.user.email) {
-                check2 = true
-              }
+              if (order.email === session.user.email) { check2 = true }
             }
 
             if ((check || check2) && (order.id === router.query.id)) {
