@@ -13,6 +13,8 @@ export default function Page () {
   const [open1, setOpen1] = useState('▼')
   const [open2, setOpen2] = useState('▼')
   const [open3, setOpen3] = useState('▼')
+  const [open4, setOpen4] = useState('▼')
+  const [open5, setOpen5] = useState('▼')
   let [sumItem, setSumItem] = useState('0')
   useEffect(()=>{
     const localStor = localStorage.getItem('_basket')
@@ -101,10 +103,13 @@ export default function Page () {
                   <div className={styles.div_item}>Почта России</div>
                   <div className={styles.div_item}>СДЭК без курьера</div>
                   <div className={styles.div_item}>СДЭК с курьером до адреса</div>
+                  <div className={styles.div_item}>СДЭК наложенным платежом</div>
+                  <div className={styles.div_item_price}>* Определяется СДЭК при формировании посылки</div>
                 </div>
                 <div className={styles.div_region}>
                   <div className={styles.div_item}>Регион</div>
                   <div className={styles.div_item}>ДВ регион</div>
+                  <div className={styles.div_item}>Все регионы России</div>
                   <div className={styles.div_item}>Все регионы России</div>
                   <div className={styles.div_item}>Все регионы России</div>
                   <div className={styles.div_item}>Все регионы России</div>
@@ -117,6 +122,7 @@ export default function Page () {
                   <div className={styles.div_item_timing}>8-21</div>
                   <div className={styles.div_item_timing}>8-21</div>
                   <div className={styles.div_item_timing}>8-21</div>
+                  <div className={styles.div_item_timing}>8-21</div>
                 </div>
                 <div className={styles.div_price}>
                   <div className={styles.div_item_price}>Стоимость</div>
@@ -125,6 +131,7 @@ export default function Page () {
                   <div className={styles.div_item_price}>550 ₽</div>
                   <div className={styles.div_item_price}>500 ₽</div>
                   <div className={styles.div_item_price}>1200 ₽</div>
+                  <div className={styles.div_item_price}>* ₽</div>
                 </div>
               </div>
             </div>
@@ -202,12 +209,62 @@ export default function Page () {
                 comp.style.marginTop = '-20px'
                 comp.style.marginBottom = '-20px'
               }
-            }}><div>СДЭК с курьером до адреса</div><div>{open3}</div></div>
+            }}><div>СДЭК без курьера</div><div>{open3}</div></div>
 
               <div id={`company3`} className={styles.div_companys_info}>
                 <div>Все регионы России</div>
                 <div>Доставка 8-21 (дни)</div>
+                <div>Стоимость 500 ₽</div>
+              </div>
+
+            <div className={styles.div_companys} onClick={(e)=>{
+              const comp = document.querySelector(`#company4`)
+              if (open4 === '▼') {
+                setOpen4('▲')
+                comp.style.visibility = 'visible'
+                comp.style.opacity = '1'
+                comp.style.height = '78px'
+                comp.style.marginTop = '10px'
+                comp.style.marginBottom = '10px'
+              } else {
+                setOpen4('▼')
+                comp.style.visibility = 'hidden'
+                comp.style.opacity = '0'
+                comp.style.height = '40px'
+                comp.style.marginTop = '-20px'
+                comp.style.marginBottom = '-20px'
+              }
+            }}><div>СДЭК с курьером до адреса</div><div>{open4}</div></div>
+
+              <div id={`company4`} className={styles.div_companys_info}>
+                <div>Все регионы России</div>
+                <div>Доставка 8-21 (дни)</div>
                 <div>Стоимость 1200 ₽</div>
+              </div>
+
+            <div className={styles.div_companys} onClick={(e)=>{
+              const comp = document.querySelector(`#company5`)
+              if (open5 === '▼') {
+                setOpen5('▲')
+                comp.style.visibility = 'visible'
+                comp.style.opacity = '1'
+                comp.style.height = '78px'
+                comp.style.marginTop = '10px'
+                comp.style.marginBottom = '10px'
+              } else {
+                setOpen5('▼')
+                comp.style.visibility = 'hidden'
+                comp.style.opacity = '0'
+                comp.style.height = '40px'
+                comp.style.marginTop = '-20px'
+                comp.style.marginBottom = '-20px'
+              }
+            }}><div>СДЭК наложенным платежом</div><div>{open5}</div></div>
+
+              <div id={`company5`} className={styles.div_companys_info}>
+                <div>Все регионы России</div>
+                <div>Доставка 8-21 (дни)</div>
+                <div>Стоимость определяется СДЭК в момент формирования посылки.</div>
               </div>
 
           </>}
