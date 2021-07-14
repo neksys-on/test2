@@ -32,7 +32,7 @@ function stop_highlighting(type) {
 }
 
 
-async function pushInData(infoPush) {
+const pushInData = async (infoPush) => {
   const response = await fetch('/api/data/setData', {
     method: 'POST',
     headers: {
@@ -202,8 +202,13 @@ export default function Popup({title, content, typePopup}) {
         totalPrice: totalPrice,
       }
 
-      console.log(addData)
+      const button_send = document.querySelector(`#button_send1`)
+      button_send.style.display = 'none'
+      const loading = document.querySelector(`#loading1`)
+      loading.style.display = 'flex'
 
+      const error = document.querySelector(`#error1`)
+      error.style.display = 'none'
 
       localStorage.setItem('_basket', [])
 
@@ -315,7 +320,16 @@ export default function Popup({title, content, typePopup}) {
         address: document.querySelector(`#input_address`).value,
         index: document.querySelector(`#input_index`).value
       }
-      changeInDataUsersData(content.id, addData).then(setTimeout(Router.reload, 700))
+
+      const button_send = document.querySelector(`#button_send2`)
+      button_send.style.display = 'none'
+      const loading = document.querySelector(`#loading2`)
+      loading.style.display = 'flex'
+
+      const error = document.querySelector(`#error2`)
+      error.style.display = 'none'
+
+      changeInDataUsersData(content.id, addData).then(setTimeout(Router.reload, 900))
     }
 
 
@@ -533,7 +547,35 @@ if (typePopup === 'order') {
           <div className={styles.popup_footer}>
 
 
-            <div className={styles.btn} onClick={onClickButtonAddData}><span className={styles.noselect}>Подтвердить</span><div className={styles.circle}></div></div>
+            <div id={'button_send1'} className={styles.btn} onClick={onClickButtonAddData}><span className={styles.noselect}>Подтвердить</span><div className={styles.circle}></div></div>
+
+            <div id={'error1'} className={styles.error}>Отправка не удалась, попробуйте снова.</div>
+            <div id={'loading1'} className={styles.loading}>
+              <div style={{margin:'0 30px 0 0'}}>Отправка</div>
+              <div className={styles.loading_blocks}>
+                <Blocks i={1} />
+                <Blocks i={2} />
+                <Blocks i={3} />
+                <Blocks i={4} />
+                <Blocks i={5} />
+                <Blocks i={6} />
+                <Blocks i={7} />
+                <Blocks i={8} />
+                <Blocks i={9} />
+                <Blocks i={10} />
+                <Blocks i={11} />
+                <Blocks i={12} />
+                <Blocks i={13} />
+                <Blocks i={14} />
+                <Blocks i={15} />
+                <Blocks i={16} />
+                <Blocks i={17} />
+                <Blocks i={18} />
+                <Blocks i={19} />
+                <Blocks i={20} />
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -734,10 +776,71 @@ if (typePopup === 'userData') {
           <div className={styles.popup_footer}>
 
 
-            <div className={styles.btn} onClick={onClickButtonAddDataUserData}><span className={styles.noselect}>Подтвердить</span><div className={styles.circle}></div></div>
+            <div id={'button_send2'} className={styles.btn} onClick={onClickButtonAddDataUserData}><span className={styles.noselect}>Подтвердить</span><div className={styles.circle}></div></div>
+
+            <div id={'error2'} className={styles.error}>Отправка не удалась, попробуйте снова.</div>
+            <div id={'loading2'} className={styles.loading}>
+              <div style={{margin:'0 30px 0 0'}}>Отправка</div>
+              <div className={styles.loading_blocks}>
+                <Blocks i={1} />
+                <Blocks i={2} />
+                <Blocks i={3} />
+                <Blocks i={4} />
+                <Blocks i={5} />
+                <Blocks i={6} />
+                <Blocks i={7} />
+                <Blocks i={8} />
+                <Blocks i={9} />
+                <Blocks i={10} />
+                <Blocks i={11} />
+                <Blocks i={12} />
+                <Blocks i={13} />
+                <Blocks i={14} />
+                <Blocks i={15} />
+                <Blocks i={16} />
+                <Blocks i={17} />
+                <Blocks i={18} />
+                <Blocks i={19} />
+                <Blocks i={20} />
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
     )
   }
+}
+
+function Blocks({i}) {
+  return (
+    <div className='blocks'> <style jsx>{`
+      .blocks {
+
+          position: absolute;
+          width: 2px;
+          height: 8px;
+          background-color: #050c09;
+
+          transform: rotate(calc(18deg * ${i}));
+          left: 50%;
+          transform-origin: 0 25px;
+          animation: animate 1.9s ease-in-out infinite;
+          animation-delay: calc( 0.05s * ${i})
+      }
+      @keyframes animate {
+        0%,50%
+        {
+          background: #050c09;
+          box-shadow: none;
+        }
+        50.1%,100%
+        {
+          background: #EA2845;
+          box-shadow: 0 0 5px #EA2845, 0 0 15px #EA2845, 0 0 30px #EA2845, 0 0 60px #EA2845, 0 0 90px #EA2845;
+        }
+      }
+    `}</style>
+    </div>
+  )
 }

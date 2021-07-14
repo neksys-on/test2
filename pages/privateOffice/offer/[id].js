@@ -212,6 +212,12 @@ export default function ProductIndex(context) {
   }
 
   const onClickButtonChangeDelivMetod = React.useCallback(async (e) => {
+    const button_send = document.querySelector(`#button_send1`)
+    button_send.style.display = 'none'
+    const loading = document.querySelector(`#loading1`)
+    loading.style.display = 'flex'
+    const error = document.querySelector(`#error1`)
+    error.style.display = 'none'
     const res = await changeDelivMetod( router.query.id , '6' )
     const res2 = await telegram_send(res.text)
     await sendEmail('nikxabarovsk0000@gmail.com' , 'Заказ наложенным платежом' , res.text).then(setTimeout(router.reload, 1200))
@@ -247,7 +253,35 @@ export default function ProductIndex(context) {
           <div className={styles.payment_nallSDEK}>
             <div style={{margin: '30px 0'}}>Оплата будет производится по факту получения посылки в СДЭК</div>
             <div className={styles.payment_butt_div} >
-              <input className={styles.button_for_payment} type="submit" value="Подтвердить" onClick={onClickButtonChangeDelivMetod}/>
+              <input id={'button_send1'} className={styles.button_for_payment} type="submit" value="Подтвердить" onClick={onClickButtonChangeDelivMetod}/>
+
+              <div id={'error1'} className={styles.error}>Отправка не удалась, попробуйте снова.</div>
+              <div id={'loading1'} className={styles.loading}>
+                <div style={{margin:'0 30px 0 0'}}>Отправка</div>
+                <div className={styles.loading_blocks}>
+                  <Blocks i={1} />
+                  <Blocks i={2} />
+                  <Blocks i={3} />
+                  <Blocks i={4} />
+                  <Blocks i={5} />
+                  <Blocks i={6} />
+                  <Blocks i={7} />
+                  <Blocks i={8} />
+                  <Blocks i={9} />
+                  <Blocks i={10} />
+                  <Blocks i={11} />
+                  <Blocks i={12} />
+                  <Blocks i={13} />
+                  <Blocks i={14} />
+                  <Blocks i={15} />
+                  <Blocks i={16} />
+                  <Blocks i={17} />
+                  <Blocks i={18} />
+                  <Blocks i={19} />
+                  <Blocks i={20} />
+                </div>
+              </div>
+
             </div>
           </div>
         </>
@@ -540,5 +574,38 @@ export default function ProductIndex(context) {
         </div>
       </div>
     </Layout>
+  )
+}
+
+function Blocks({i}) {
+  return (
+    <div className='blocks'> <style jsx>{`
+      .blocks {
+
+          position: absolute;
+          width: 2px;
+          height: 8px;
+          background-color: #050c09;
+
+          transform: rotate(calc(18deg * ${i}));
+          left: 50%;
+          transform-origin: 0 25px;
+          animation: animate 1.9s ease-in-out infinite;
+          animation-delay: calc( 0.05s * ${i})
+      }
+      @keyframes animate {
+        0%,50%
+        {
+          background: #050c09;
+          box-shadow: none;
+        }
+        50.1%,100%
+        {
+          background: #EA2845;
+          box-shadow: 0 0 5px #EA2845, 0 0 15px #EA2845, 0 0 30px #EA2845, 0 0 60px #EA2845, 0 0 90px #EA2845;
+        }
+      }
+    `}</style>
+    </div>
   )
 }

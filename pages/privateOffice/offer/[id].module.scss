@@ -710,3 +710,30 @@ div.butt a:hover span.text:after {
     justify-content: center;
   }
 }
+
+.loading {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  color: #EA2845;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: .07rem;
+  margin: 0 0 0 0;
+}
+.loading_blocks {
+  display: block;
+  position: relative;
+  width: 50px;
+  height: 50px;
+}
+
+.error {
+  display: none;
+  margin-top: 20px;
+  text-align: center;
+  color: red;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: .07rem;
+}
