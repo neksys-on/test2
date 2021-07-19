@@ -5,11 +5,40 @@ import {objectId} from 'mongodb';
 const fs = require('fs');
 
 export default async (req, res) => {
-  console.log(req.body)
   let needData
 
 // if (req.body.notification_type === 'card-incoming' || req.body.notification_type === 'p2p-incoming')
   if ( req.body.notification_type ) { // оплата расчитанна на юмани
+
+// ============================================== Запись в БД оплаты >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    const paymentData = await db.collection(`payment`).findOne()
+    let needPaymentData = await paymentData.payment
+
+    let pay_id = '1'
+    if (needPaymentData.length > 0) {
+     pay_id = String(Number(needPaymentData[needPaymentData.length-1].id) + 1)
+    }
+
+    let date= new Date()
+
+    const newPay = {
+      id: pay_id,
+      label: req.body.label,
+      withdraw_amount: req.body.withdraw_amount,
+      sender: req.body.sender,
+      sendingToEmail: sendingToEmail,
+      sendingToTelegram: sendingToTelegram,
+      date: date
+    }
+    needPaymentData.push(newPay)
+
+    await db.collection(`payment`).updateOne(
+      { _id: paymentData._id },
+      {$set:{
+        "payment": needPaymentData
+      }}
+    )
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Запись в БД оплаты ==========================================
 
     const idOffer = req.body.label // const idOffer = req.body.label
 
@@ -141,36 +170,8 @@ export default async (req, res) => {
       }}
     )
 
-
-    const paymentData = await db.collection(`payment`).findOne()
-    needPaymentData = await paymentData.payment
-
-    let pay_id = '1'
-    if (needPaymentData.length > 0) {
-     pay_id = String(Number(needPaymentData[needPaymentData.length-1].id) + 1)
-    }
-
-    let date= new Date()
-
-    const newPay = {
-      id: pay_id,
-      label: req.body.label,
-      withdraw_amount: req.body.withdraw_amount,
-      sender: req.body.sender,
-      sendingToEmail: sendingToEmail,
-      sendingToTelegram: sendingToTelegram,
-      date: date
-    }
-    needPaymentData.push(newPay)
-
-    await db.collection(`payment`).updateOne(
-      { _id: paymentData._id },
-      {$set:{
-        "payment": needPaymentData
-      }}
-    )
   }
 
-  res.status(200).json({status:'Complete'})
+  res.status(200).json({ status:'Complete' })
   // res.status(200).json({ name: 'John Doe' })
 }
