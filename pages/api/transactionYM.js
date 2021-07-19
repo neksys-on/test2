@@ -5,10 +5,9 @@ import {objectId} from 'mongodb';
 const fs = require('fs');
 
 export default async (req, res) => {
-  let needData
-
 // if (req.body.notification_type === 'card-incoming' || req.body.notification_type === 'p2p-incoming')
   if ( req.body.notification_type ) { // оплата расчитанна на юмани
+    let needData
 
     const idOffer = req.body.label // const idOffer = req.body.label
 
@@ -32,8 +31,8 @@ export default async (req, res) => {
         if (order.totalPrice !== Number(req.body.withdraw_amount)) {
           // Если сумма необходимая к оплате и сумма списанная со счета отправителя не равны, так же сумма всех платежей по оплате заказа записывается в summ_payment
           // console.log(order.totalPrice + ' !== ' + req.body.withdraw_amount)
-          console.log('сумма оплаты '+ Number(req.body.withdraw_amount))
-          console.log('Сумма оплаты не соответствует сумме заказа')
+          // console.log('сумма оплаты '+ Number(req.body.withdraw_amount))
+          // console.log('Сумма оплаты не соответствует сумме заказа')
           const over = Number(req.body.withdraw_amount) - Number(order.totalPrice)
           if (over > 0) {
             console.log('Оплата выше суммы заказа')
@@ -75,7 +74,7 @@ export default async (req, res) => {
           order.state.sender = [req.body.sender] // order.state.sender = [req.body.sender]
         }
 
-        console.log(order.state)
+        // console.log(order.state)
 
       }
     })
@@ -140,39 +139,39 @@ export default async (req, res) => {
       }}
     )
 
-    // ============================================== Запись в БД оплаты >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-        const paymentData = await db.collection(`payment`).findOne()
-        let needPaymentData = await paymentData.payment
+// ============================================== Запись в БД оплаты >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    const paymentData = await db.collection(`payment`).findOne()
+    let needPaymentData = await paymentData.payment
 
-        let pay_id = '1'
-        if (needPaymentData.length > 0) {
-         pay_id = String(Number(needPaymentData[needPaymentData.length-1].id) + 1)
-        }
+    let pay_id = '1'
+    if (needPaymentData.length > 0) {
+     pay_id = String(Number(needPaymentData[needPaymentData.length-1].id) + 1)
+    }
 
-        let date= new Date()
+    let date= new Date()
 
-        const newPay = {
-          id: pay_id,
-          label: req.body.label,
-          withdraw_amount: req.body.withdraw_amount,
-          sender: req.body.sender,
-          sendingToEmail: sendingToEmail,
-          sendingToTelegram: sendingToTelegram,
-          date: date,
-          delivery: message_discription
-        }
-        needPaymentData.push(newPay)
+    const newPay = {
+      id: pay_id,
+      label: req.body.label,
+      withdraw_amount: req.body.withdraw_amount,
+      sender: req.body.sender,
+      sendingToEmail: sendingToEmail,
+      sendingToTelegram: sendingToTelegram,
+      date: date,
+      delivery: message_discription
+    }
+    needPaymentData.push(newPay)
 
-        await db.collection(`payment`).updateOne(
-          { _id: paymentData._id },
-          {$set:{
-            "payment": needPaymentData
-          }}
-        )
-    // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Запись в БД оплаты ==========================================
-
+    await db.collection(`payment`).updateOne(
+      { _id: paymentData._id },
+      {$set:{
+        "payment": needPaymentData
+      }}
+    )
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Запись в БД оплаты ==========================================
+    res.status(200).json({ status:'Complete' })
   }
 
-  res.status(200).json({ status:'Complete' })
+  res.status(200).json({ status:'NOT_Complete' })
   // res.status(200).json({ name: 'John Doe' })
 }
