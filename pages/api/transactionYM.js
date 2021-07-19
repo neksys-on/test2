@@ -150,13 +150,16 @@ export default async (req, res) => {
      pay_id = String(Number(needPaymentData[needPaymentData.length-1].id) + 1)
     }
 
+    let date= new Date()
+
     const newPay = {
       id: pay_id,
       label: req.body.label,
       withdraw_amount: req.body.withdraw_amount,
       sender: req.body.sender,
-      sendingToEmail,
-      sendingToTelegram,
+      sendingToEmail: sendingToEmail,
+      sendingToTelegram: sendingToTelegram,
+      date: date
     }
     needPaymentData.push(newPay)
 
@@ -168,6 +171,6 @@ export default async (req, res) => {
     )
   }
 
-  res.status(200).json({})
+  res.status(200).json({status:'Complete'})
   // res.status(200).json({ name: 'John Doe' })
 }
