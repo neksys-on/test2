@@ -10,6 +10,10 @@ export default async (req, res) => {
 // if (req.body.notification_type === 'card-incoming' || req.body.notification_type === 'p2p-incoming')
   if ( req.body.notification_type ) { // оплата расчитанна на юмани
 
+    const idOffer = req.body.label // const idOffer = req.body.label
+
+    const  {db} = await connect()
+
 // ============================================== Запись в БД оплаты >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     const paymentData = await db.collection(`payment`).findOne()
     let needPaymentData = await paymentData.payment
@@ -39,10 +43,6 @@ export default async (req, res) => {
       }}
     )
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Запись в БД оплаты ==========================================
-
-    const idOffer = req.body.label // const idOffer = req.body.label
-
-    const  {db} = await connect()
 
     const ordersData = await db.collection(`orders`).findOne()
     let dataDB_version = ordersData.version
