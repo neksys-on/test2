@@ -8,5 +8,9 @@ Disallow: /api/data
 Disallow: /api/example
 Disallow: /api/styling
 Disallow: /api/sendWhatsapp
+Disallow: /api/sendEmail_directly
+Disallow: /api/sendEmail
+Disallow: /api/telegram
+Disallow: /api/transactionYM
 
 Sitemap: https://www.bestjap.ru/api/my-sitemap
