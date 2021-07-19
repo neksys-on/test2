@@ -81,7 +81,7 @@ export default async (req, res) => {
     })
 
     let dopInfo = ''
-    if (req.body.codepro === false) {
+    if (req.body.codepro === 'false') {
       dopInfo = 'Данный перевод средств защищен кодом протекции, для принятия перевода необходимо ввести код протекции'
     }
 
