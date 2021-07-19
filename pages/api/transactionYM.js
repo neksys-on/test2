@@ -5,6 +5,7 @@ import {objectId} from 'mongodb';
 const fs = require('fs');
 
 export default async (req, res) => {
+  let resStatus = 'NOT_Complete'
 // if (req.body.notification_type === 'card-incoming' || req.body.notification_type === 'p2p-incoming')
   if ( req.body.notification_type ) { // оплата расчитанна на юмани
     let needData
@@ -35,11 +36,11 @@ export default async (req, res) => {
           // console.log('Сумма оплаты не соответствует сумме заказа')
           const over = Number(req.body.withdraw_amount) - Number(order.totalPrice)
           if (over > 0) {
-            console.log('Оплата выше суммы заказа')
+            // console.log('Оплата выше суммы заказа')
             message_discription = 'Пришедшая сумма оплаты ВЫШЕ суммы заказа! Сумма заказа:' + order.totalPrice + '. Поступившая сумма оплаты:' + req.body.withdraw_amount + '. Сумма всех оплат за этот заказ составляет:' + order.state.summ_payment + '. Способ доставки не определен.'
           }
           if (over < 0) {
-            console.log('Оплата ниже суммы заказа')
+            // console.log('Оплата ниже суммы заказа')
             message_discription = 'Пришедшая сумма оплаты НИЖЕ суммы заказа! Сумма заказа:' + order.totalPrice + '. Поступившая сумма оплаты:' + req.body.withdraw_amount + '. Сумма всех оплат за этот заказ составляет:' + order.state.summ_payment + '. Способ доставки не определен.'
           }
           if (over === 350) {
@@ -102,6 +103,7 @@ export default async (req, res) => {
       sendingToTelegram = true
     } catch(e){
       console.log(e)
+      sendingToTelegram = false
     }
 
 
@@ -128,6 +130,7 @@ export default async (req, res) => {
       sendingToEmail = true
     } catch(e){
       console.log(e)
+      sendingToEmail = false
     }
 
 
@@ -169,9 +172,9 @@ export default async (req, res) => {
       }}
     )
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Запись в БД оплаты ==========================================
-    res.status(200).json({ status:'Complete' })
+    resStatus = 'Complete'
   }
 
-  res.status(200).json({ status:'NOT_Complete' })
+  res.status(200).json({ status: resStatus })
   // res.status(200).json({ name: 'John Doe' })
 }
