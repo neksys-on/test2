@@ -37,7 +37,7 @@ export default async (req, res) => {
           console.log('Сумма оплаты не соответствует сумме заказа')
           const over = Number(req.body.withdraw_amount) - Number(order.totalPrice)
           if (over > 0) {
-            console.log('Оплата ниже суммы заказа')
+            console.log('Оплата выше суммы заказа')
             message_discription = 'Пришедшая сумма оплаты ВЫШЕ суммы заказа! Сумма заказа:' + order.totalPrice + '. Поступившая сумма оплаты:' + req.body.withdraw_amount + '. Сумма всех оплат за этот заказ составляет:' + order.state.summ_payment + '. Способ доставки не определен.'
           }
           if (over < 0) {
@@ -83,6 +83,7 @@ export default async (req, res) => {
 
     const text = 'Поступила оплата по заказу №' + idOffer + ' . ' + message_discription
 
+    let sendingToTelegram = false
     try{
       async function telegram_send(text) {
         const telegramAPI_URL = 'https://bestjap.ru/api/telegram' //  `${process.env.NEXTAUTH_URL}api/telegram`
@@ -100,11 +101,13 @@ export default async (req, res) => {
       }
 
       const res2 = await telegram_send(text)
+      sendingToTelegram = true
     } catch(e){
       console.log(e)
     }
 
 
+    let sendingToEmail = false
     try{
       async function sendEmail( send_to , send_title ,  send_text) {
         const emailAPI_URL = 'https://bestjap.ru/api/sendEmail_directly'
@@ -124,6 +127,7 @@ export default async (req, res) => {
       }
 
       const res3 = await sendEmail('nikxabarovsk0000@gmail.com' , `Оплата по заказу №${idOffer}` , text)
+      sendingToEmail = true
     } catch(e){
       console.log(e)
     }
@@ -134,6 +138,32 @@ export default async (req, res) => {
       {$set:{
         "version": ordersData.version,
         "orders": needData
+      }}
+    )
+
+
+    const paymentData = await db.collection(`payment`).findOne()
+    needPaymentData = await paymentData.payment
+
+    let pay_id = '1'
+    if (needPaymentData.length > 0) {
+     pay_id = String(Number(needPaymentData[needPaymentData.length-1].id) + 1)
+    }
+
+    const newPay = {
+      id: pay_id,
+      label: req.body.label,
+      withdraw_amount: req.body.withdraw_amount,
+      sender: req.body.sender,
+      sendingToEmail,
+      sendingToTelegram,
+    }
+    needPaymentData.push(newPay)
+
+    await db.collection(`payment`).updateOne(
+      { _id: paymentData._id },
+      {$set:{
+        "payment": needPaymentData
       }}
     )
   }
