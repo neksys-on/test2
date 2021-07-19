@@ -127,7 +127,6 @@ export default async (req, res) => {
       }
 
       const res3 = await sendEmail('nikxabarovsk0000@gmail.com' , `Оплата по заказу №${idOffer}` , text)
-      console.log(res3)
       if (res3.status === 'Complete') {
         sendingToEmail = true
       }
