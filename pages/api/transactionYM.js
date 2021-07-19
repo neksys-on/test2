@@ -80,7 +80,12 @@ export default async (req, res) => {
       }
     })
 
-    const text = 'Поступила оплата по заказу №' + idOffer + ' . ' + message_discription
+    let dopInfo = ''
+    if (req.body.codepro === false) {
+      dopInfo = 'Данный перевод средств защищен кодом протекции, для принятия перевода необходимо ввести код протекции'
+    }
+
+    const text = 'Поступила оплата по заказу №' + idOffer + ' . ' + message_discription + ' ' + dopInfo
 
     let sendingToTelegram = false
     try{
