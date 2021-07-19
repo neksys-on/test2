@@ -14,36 +14,6 @@ export default async (req, res) => {
 
     const  {db} = await connect()
 
-// ============================================== Запись в БД оплаты >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-    const paymentData = await db.collection(`payment`).findOne()
-    let needPaymentData = await paymentData.payment
-
-    let pay_id = '1'
-    if (needPaymentData.length > 0) {
-     pay_id = String(Number(needPaymentData[needPaymentData.length-1].id) + 1)
-    }
-
-    let date= new Date()
-
-    const newPay = {
-      id: pay_id,
-      label: req.body.label,
-      withdraw_amount: req.body.withdraw_amount,
-      sender: req.body.sender,
-      sendingToEmail: sendingToEmail,
-      sendingToTelegram: sendingToTelegram,
-      date: date
-    }
-    needPaymentData.push(newPay)
-
-    await db.collection(`payment`).updateOne(
-      { _id: paymentData._id },
-      {$set:{
-        "payment": needPaymentData
-      }}
-    )
-// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Запись в БД оплаты ==========================================
-
     const ordersData = await db.collection(`orders`).findOne()
     let dataDB_version = ordersData.version
     needData = await ordersData.orders
@@ -169,6 +139,37 @@ export default async (req, res) => {
         "orders": needData
       }}
     )
+
+    // ============================================== Запись в БД оплаты >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        const paymentData = await db.collection(`payment`).findOne()
+        let needPaymentData = await paymentData.payment
+
+        let pay_id = '1'
+        if (needPaymentData.length > 0) {
+         pay_id = String(Number(needPaymentData[needPaymentData.length-1].id) + 1)
+        }
+
+        let date= new Date()
+
+        const newPay = {
+          id: pay_id,
+          label: req.body.label,
+          withdraw_amount: req.body.withdraw_amount,
+          sender: req.body.sender,
+          sendingToEmail: sendingToEmail,
+          sendingToTelegram: sendingToTelegram,
+          date: date,
+          delivery: message_discription
+        }
+        needPaymentData.push(newPay)
+
+        await db.collection(`payment`).updateOne(
+          { _id: paymentData._id },
+          {$set:{
+            "payment": needPaymentData
+          }}
+        )
+    // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Запись в БД оплаты ==========================================
 
   }
 
