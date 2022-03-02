@@ -93,7 +93,7 @@ export default function Layout ({children, propsBasket}) {
 
   }
 
-
+/*
 if (show === '1') {
   return (
     <div className={styles.layout}>
@@ -160,7 +160,19 @@ if (show === '2') {
       <Footer/>
     </div>
   )
-}
+} */
+
+
+  return (
+    <div className={styles.layout}>
+    <div style={{width: '100%',height: '100vh', display:'flex', justifyContent: 'center', alignItems: 'center'}}>
+    <div style={{height: '100px' ,color:'black', fontSize:'55px',}}>Сайт в отпуске :)</div>
+    </div>
+
+    </div>
+  )
+
+
 
 
 }

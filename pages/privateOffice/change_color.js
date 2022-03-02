@@ -19,9 +19,9 @@ export async function getServerSideProps(context) {
      colorObj[res[i]+res[i+1]+res[i+2]+res[i+3]+res[i+4]+res[i+5]+res[i+6]] = res[i+9]+res[i+10]+res[i+11]+res[i+12]+res[i+13]+res[i+14]+res[i+15]
    }
   }
-  const email_1 = process.env.ADMIN_EMAIL_1
-  const email_2 = process.env.ADMIN_EMAIL_2
-  const email_3 = process.env.ADMIN_EMAIL_3
+  const email_1 = process.env.ADMIN_EMAIL_1 || null
+  const email_2 = process.env.ADMIN_EMAIL_2 || null
+  const email_3 = process.env.ADMIN_EMAIL_3 || null
 
   return {
     props: {
